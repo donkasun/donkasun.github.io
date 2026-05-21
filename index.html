@@ -131,42 +131,65 @@
     <!-- HERO VISUAL -->
     <div class="hero-visual">
 
-      <!-- Phone back -->
-      <div class="phone phone-back">
-        <div class="phone-inner">
-          <div class="phone-notch"></div>
-          <div class="phone-screen" style="opacity:.7">
-            <div class="phone-app-bar">
-              <span class="app-logo">GOLAZO</span>
-              <div class="app-dots"><div class="app-dot"></div><div class="app-dot"></div><div class="app-dot" style="background:var(--orange)"></div></div>
-            </div>
-            <div class="app-card" style="background:linear-gradient(135deg,rgba(255,140,66,.1),rgba(255,79,154,.06));border-color:rgba(255,140,66,.15)">
-              <div class="app-card-label">Match Score</div>
-              <div class="app-card-val">3-1</div>
-              <div class="app-card-sub">FT · La Liga · Game 22</div>
-            </div>
-          </div>
-        </div>
+      <!-- Profile — primary focal point -->
+      <img
+        src="images/profile.svg"
+        alt="Don Kasun Gallage profile illustration"
+        class="hero-profile"
+        width="500"
+        height="500"
+        loading="eager"
+        decoding="async"
+      >
+
+      <!-- Floating shot — Plan a Wedding -->
+      <div class="hero-px-wrap hero-px-wrap--back" data-hero-px="0.18">
+        <img
+          src="images/plan-a-wedding.png"
+          alt="Plan a Wedding — wedding planning web app"
+          class="hero-float-shot hero-float-back"
+          width="1711"
+          height="997"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+
+      <!-- Floating shot — Lumina (portrait, left) -->
+      <div class="hero-px-wrap hero-px-wrap--lumina" data-hero-px="0.24">
+        <img
+          src="images/lumina.png"
+          alt="Lumina — mobile app screen"
+          class="hero-float-shot hero-float-lumina"
+          width="1419"
+          height="2796"
+          loading="lazy"
+          decoding="async"
+        >
       </div>
 
       <!-- Phone main -->
-      <img src="images/golazo-hero.webp" alt="Golazo AI leaderboard screen" class="phone-photo phone-main">
+      <div class="hero-px-wrap hero-px-wrap--phone" data-hero-px="0.12">
+        <img src="images/golazo-hero.webp" alt="Golazo AI leaderboard screen" class="phone-photo phone-main">
+      </div>
 
-      <!-- Browser mockup -->
-      <div class="browser">
-        <div class="browser-bar">
-          <div class="b-dot"></div><div class="b-dot"></div><div class="b-dot"></div>
-          <div class="browser-url">don-kasun.dev</div>
-        </div>
-        <div class="browser-body">
-          <div class="browser-hero-mock">
-            <div class="b-headline">FULL-STACK</div>
-            <div class="b-sub">React Native · Next.js · Node.js · AI</div>
-            <div class="b-btn">VIEW PROJECTS</div>
+      <!-- Browser mockup — BYOB Sri Lanka -->
+      <div class="hero-px-wrap hero-px-wrap--browser" data-hero-px="0.09">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="b-dot"></div><div class="b-dot"></div><div class="b-dot"></div>
+            <div class="browser-url">byobsl.com</div>
           </div>
-          <div class="browser-grid">
-            <div class="b-card"><div class="b-card-icon" style="width:18px;height:18px;background:rgba(0,229,180,.12);border-radius:4px;margin-bottom:4px"></div><div class="b-card-title">PDF POC</div><div class="b-card-sub">Data Extraction</div></div>
-            <div class="b-card"><div class="b-card-icon" style="width:18px;height:18px;background:rgba(255,140,66,.12);border-radius:4px;margin-bottom:4px"></div><div class="b-card-title">Golazo AI</div><div class="b-card-sub">Football App</div></div>
+          <div class="browser-body browser-body--shot">
+            <img
+              src="images/byobsl.webp"
+              alt="BYOB Sri Lanka — directory of BYOB restaurants in Colombo and across Sri Lanka"
+              class="browser-shot"
+              width="1320"
+              height="743"
+              loading="eager"
+              decoding="async"
+            >
           </div>
         </div>
       </div>
@@ -174,12 +197,12 @@
       <!-- Floating badges -->
       <div class="badge badge1">
         <div class="badge-label">Current Stack</div>
-        <div class="badge-val">React Native + AI</div>
+        <div class="badge-val">Web, Mobile + AI</div>
       </div>
-      <div class="badge badge2">
-        <div class="badge-label">Available</div>
-        <div class="badge-val">🟢 For Hire</div>
-      </div>
+      <a href="#contact" class="badge badge2 badge-link" aria-label="Contact — scroll to contact section">
+        <div class="badge-label">Contact</div>
+        <div class="badge-val">Let's talk</div>
+      </a>
       <div class="badge badge3">
         <div class="badge-label">Base</div>
         <div class="badge-val">Colombo, SL 🇱🇰</div>

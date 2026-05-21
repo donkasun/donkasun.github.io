@@ -156,16 +156,40 @@ function runParallax(){
   });
 }
 
-let pxTicking=false;
-function onParallax(){
-  if(pxTicking) return;
-  pxTicking=true;
-  requestAnimationFrame(()=>{runParallax();pxTicking=false;});
+// ─── HERO FLOAT PARALLAX (4 product floats) ───
+const heroPxWraps = document.querySelectorAll('[data-hero-px]');
+const heroSection = document.getElementById('hero');
+
+function runHeroParallax(){
+  if(!heroSection || !heroPxWraps.length) return;
+  const rect = heroSection.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const range = rect.height * 0.85 + vh * 0.15;
+  // 0 while hero is in view → 1 as hero scrolls past the top
+  const t = Math.max(0, Math.min(1, -rect.top / range));
+
+  heroPxWraps.forEach(el=>{
+    const speed = parseFloat(el.dataset.heroPx) || 0.1;
+    const y = t * vh * speed * 0.32;
+    el.style.setProperty('--hero-scroll-y', `${y}px`);
+  });
+}
+
+let motionTicking = false;
+function onScrollMotion(){
+  if(motionTicking) return;
+  motionTicking = true;
+  requestAnimationFrame(()=>{
+    runParallax();
+    runHeroParallax();
+    motionTicking = false;
+  });
 }
 if(!reduceMotion){
-  window.addEventListener('scroll', onParallax, {passive:true});
-  window.addEventListener('resize', onParallax, {passive:true});
+  window.addEventListener('scroll', onScrollMotion, {passive:true});
+  window.addEventListener('resize', onScrollMotion, {passive:true});
   runParallax();
+  runHeroParallax();
 }
 
 // ─── MOBILE MENU ───
