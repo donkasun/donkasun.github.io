@@ -2,3 +2,6 @@
 **/.DS_Store
 .cursor/
 AGENTS.md
+
+# local-only files (not committed)
+.private/
