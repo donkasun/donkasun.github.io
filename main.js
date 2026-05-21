@@ -134,7 +134,7 @@ document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
 // ─── STAT COUNT-UP + DOT-LIST STAGGER ───
 function animateCount(el){
   const target = +el.dataset.count;
-  const dur = 1100, t0 = performance.now();
+  const dur = 1900, t0 = performance.now();
   (function step(now){
     const p = Math.min((now - t0) / dur, 1);
     el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
@@ -170,7 +170,7 @@ if(reduceMotion){
       if(!e.isIntersecting) return;
       if(e.target.dataset.count !== undefined) animateCount(e.target);
       else { const list = dotLists.find(d=>d.el === e.target);
-        if(list) list.items.forEach((s,i)=>setTimeout(()=>s.classList.add('show'), i * 60)); }
+        if(list) list.items.forEach((s,i)=>setTimeout(()=>s.classList.add('show'), i * 110)); }
       statObs.unobserve(e.target);
     });
   },{threshold:.4});

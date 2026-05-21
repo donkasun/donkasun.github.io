@@ -975,7 +975,7 @@ footer{
 .d4{transition-delay:.2s}.d5{transition-delay:.25s}.d6{transition-delay:.3s}
 
 /* Staggered dot-list items (about stats) */
-.dot-item{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
+.dot-item{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}
 .dot-item.show{opacity:1;transform:none}
 
 /* ─── PARALLAX GRAPHICS ─── */
