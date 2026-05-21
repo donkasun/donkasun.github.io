@@ -131,6 +131,53 @@ const obs = new IntersectionObserver(entries=>{
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
 
+// ─── STAT COUNT-UP + DOT-LIST STAGGER ───
+function animateCount(el){
+  const target = +el.dataset.count;
+  const dur = 1100, t0 = performance.now();
+  (function step(now){
+    const p = Math.min((now - t0) / dur, 1);
+    el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  })(t0);
+}
+
+function splitDotItems(el){
+  const items = [], frag = document.createDocumentFragment();
+  Array.from(el.childNodes).forEach(node=>{
+    if(node.nodeType === Node.TEXT_NODE){
+      node.textContent.split(/( · )/).forEach(part=>{
+        if(part === ' · ' || part === '') frag.appendChild(document.createTextNode(part));
+        else { const s = document.createElement('span'); s.className = 'dot-item'; s.textContent = part; frag.appendChild(s); items.push(s); }
+      });
+    } else frag.appendChild(node.cloneNode(true));
+  });
+  el.textContent = '';
+  el.appendChild(frag);
+  return items;
+}
+
+const dotLists = [...document.querySelectorAll('.sc-list')].map(el=>({el, items: splitDotItems(el)}));
+const counters = document.querySelectorAll('[data-count]');
+
+if(reduceMotion){
+  dotLists.forEach(({items})=>items.forEach(s=>s.classList.add('show')));
+} else {
+  counters.forEach(el=>el.textContent = '0');
+  const statObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      if(e.target.dataset.count !== undefined) animateCount(e.target);
+      else { const list = dotLists.find(d=>d.el === e.target);
+        if(list) list.items.forEach((s,i)=>setTimeout(()=>s.classList.add('show'), i * 60)); }
+      statObs.unobserve(e.target);
+    });
+  },{threshold:.4});
+  counters.forEach(el=>statObs.observe(el));
+  dotLists.forEach(({el})=>statObs.observe(el));
+}
+
 // ─── SCROLL SPY nav ───
 const navAs = document.querySelectorAll('nav .nav-links a');
 const secs = ['about','experience','projects','contact'].map(id=>document.getElementById(id)).filter(Boolean);
