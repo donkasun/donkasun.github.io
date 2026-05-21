@@ -132,11 +132,13 @@ const obs = new IntersectionObserver(entries=>{
 document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
 
 // ─── STAT COUNT-UP + DOT-LIST STAGGER ───
+const STAT_DUR = 1900;   // shared animation envelope (ms)
+const ITEM_FADE = 600;   // must match .dot-item transition duration in CSS
 function animateCount(el){
   const target = +el.dataset.count;
-  const dur = 1900, t0 = performance.now();
+  const t0 = performance.now();
   (function step(now){
-    const p = Math.min((now - t0) / dur, 1);
+    const p = Math.min((now - t0) / STAT_DUR, 1);
     el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
     if(p < 1) requestAnimationFrame(step);
     else el.textContent = target;
@@ -170,7 +172,9 @@ if(reduceMotion){
       if(!e.isIntersecting) return;
       if(e.target.dataset.count !== undefined) animateCount(e.target);
       else { const list = dotLists.find(d=>d.el === e.target);
-        if(list) list.items.forEach((s,i)=>setTimeout(()=>s.classList.add('show'), i * 110)); }
+        if(list){ const n = list.items.length;
+          const step = n > 1 ? (STAT_DUR - ITEM_FADE) / (n - 1) : 0;
+          list.items.forEach((s,i)=>setTimeout(()=>s.classList.add('show'), i * step)); } }
       statObs.unobserve(e.target);
     });
   },{threshold:.4});
