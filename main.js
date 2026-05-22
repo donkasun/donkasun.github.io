@@ -22,8 +22,14 @@ if(!finePointer){
 
 // ─── PROGRESS ───
 const prog = document.getElementById('prog');
+let progTicking = false;
 window.addEventListener('scroll',()=>{
-  prog.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+  if(progTicking) return;
+  progTicking = true;
+  requestAnimationFrame(()=>{
+    prog.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+    progTicking = false;
+  });
 },{passive:true});
 
 // ─── HERO CANVAS: Particle network ───

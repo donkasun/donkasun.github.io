@@ -1162,6 +1162,7 @@ footer{
 /* Section decorative BIG text */
 .deco-text{
   position:absolute;
+  right:-40px;bottom:-20px;opacity:.04;
   font-family:var(--display);font-size:clamp(140px,22vw,380px);
   color:#fff;pointer-events:none;
   line-height:1;z-index:0;user-select:none;
