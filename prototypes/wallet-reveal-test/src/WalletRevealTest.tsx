@@ -20,6 +20,7 @@ const LID_H  = 0.05;  // thickness of lid slab
 
 function LaptopRig({ progressRef, onAngleDeg }: LaptopRigProps) {
   const hingeGroupRef = useRef<THREE.Group>(null);
+  const prevAngleDegRef = useRef(-1);
 
   useFrame(() => {
     const progress = Math.min(1, Math.max(0, progressRef.current));
@@ -31,8 +32,10 @@ function LaptopRig({ progressRef, onAngleDeg }: LaptopRigProps) {
       hingeGroupRef.current.rotation.x = rotX;
     }
 
-    if (onAngleDeg) {
-      onAngleDeg(Math.abs((rotX * 180) / Math.PI));
+    const deg = Math.abs((rotX * 180) / Math.PI);
+    if (onAngleDeg && Math.abs(deg - prevAngleDegRef.current) > 0.01) {
+      prevAngleDegRef.current = deg;
+      onAngleDeg(deg);
     }
   });
 
@@ -120,7 +123,6 @@ export function WalletRevealTest() {
           shadows
           camera={{ position: [0, 0.05, -2.2], fov: 46, near: 0.01, far: 50 }}
           gl={{ antialias: true }}
-          onCreated={({ camera }) => camera.lookAt(0, 0.4, 0)}
         >
           <color attach="background" args={['#060914']} />
 
@@ -142,7 +144,7 @@ export function WalletRevealTest() {
           />
 
           <Environment preset="city" />
-          <OrbitControls enablePan={false} enableDamping makeDefault />
+          <OrbitControls target={[0, 0.4, 0]} enablePan={false} enableDamping makeDefault />
         </Canvas>
       </div>
     </div>
