@@ -132,10 +132,14 @@ if(!reduceMotion){
 }
 
 // ─── SCROLL REVEAL ───
+// Site-wide reveals. Timeline elements are handled by their own observer below
+// (different trigger point), so they're excluded here.
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
+document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>{
+  if(!el.matches('.exp-item,.exp-reveal')) obs.observe(el);
+});
 
 // ─── STAT COUNT-UP + DOT-LIST STAGGER ───
 const STAT_DUR = 1900;   // shared animation envelope (ms)
@@ -247,6 +251,34 @@ if(!reduceMotion){
   window.addEventListener('resize', onScrollMotion, {passive:true});
   runParallax();
   runHeroParallax();
+}
+
+// ─── EXP TIMELINE ───
+// Fly-in: each row's card and text slide in from opposite sides (CSS
+// .on-left/.on-right translateX + .rv opacity). Triggered once the element has
+// risen to at least 15% of the viewport height from the bottom (-15% bottom
+// rootMargin). Adds .in, one-shot — staggers down the timeline, never reverses.
+const flyEls = document.querySelectorAll('.exp-item, .exp-reveal');
+if(flyEls.length){
+  const flyObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); flyObs.unobserve(e.target); }
+    });
+  },{rootMargin:'0px 0px -15% 0px',threshold:0});
+  flyEls.forEach(el=>flyObs.observe(el));
+}
+
+// Card open: a separate observer opens each lid once the card has risen to at
+// least 40% of the viewport height from the bottom (-40% bottom rootMargin).
+// One-shot — opens on scroll-down, never reverses.
+const revealCards = document.querySelectorAll('.exp-reveal');
+if(revealCards.length){
+  const lidObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('lid-open'); lidObs.unobserve(e.target); }
+    });
+  },{rootMargin:'0px 0px -40% 0px',threshold:0});
+  revealCards.forEach(c=>lidObs.observe(c));
 }
 
 // ─── MOBILE MENU ───

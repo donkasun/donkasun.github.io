@@ -45,6 +45,13 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
+## Prototypes (local dev)
+
+This repo is intentionally framework-free, but some isolated experiments live under `prototypes/`.
+
+- `prototypes/card-reveal-test/`: React Three Fiber + Drei + GSAP ScrollTrigger hinge-fold prototype.
+  - Run: `cd prototypes/card-reveal-test && pnpm install && pnpm dev`
+
 ## License
 
 [MIT](LICENSE) © Don Kasun Gallage

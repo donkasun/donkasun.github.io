@@ -693,20 +693,20 @@ a.badge.badge-link:focus-visible{
 }
 .exp-item:hover{background:rgba(255,255,255,.02)}
 
-/* Explicit placement — each item gets its own row */
-.exp-item:nth-child(1){grid-column:2;grid-row:1;padding-left:48px}
-.exp-item:nth-child(2){grid-column:1;grid-row:2;padding-right:48px}
-.exp-item:nth-child(3){grid-column:2;grid-row:3;padding-left:48px}
-.exp-item:nth-child(4){grid-column:1;grid-row:4;padding-right:48px}
-.exp-item:nth-child(5){grid-column:2;grid-row:5;padding-left:48px}
+/* Explicit grid placement — side + row classes (robust to DOM order/count) */
+.row-1{grid-row:1}.row-2{grid-row:2}.row-3{grid-row:3}.row-4{grid-row:4}.row-5{grid-row:5}
+.exp-item.on-right,.exp-reveal.on-right{grid-column:2}
+.exp-item.on-left,.exp-reveal.on-left{grid-column:1}
+.exp-item.on-right{padding-left:48px}
+.exp-item.on-left{padding-right:48px}
 
 /* Connector lines to center */
 .exp-item::before{
   content:'';position:absolute;top:25px;height:1px;
   width:38px;background:rgba(0,229,180,.2);
 }
-.exp-item:nth-child(odd)::before{left:5px}
-.exp-item:nth-child(even)::before{right:5px;left:auto}
+.exp-item.on-right::before{left:5px}
+.exp-item.on-left::before{right:5px;left:auto}
 
 /* Dots on center line */
 .exp-dot{
@@ -715,8 +715,18 @@ a.badge.badge-link:focus-visible{
   border:2px solid var(--faint);background:var(--bg);
   transition:all .3s;
 }
-.exp-item:nth-child(odd) .exp-dot{left:-5px}
-.exp-item:nth-child(even) .exp-dot{right:-5px;left:auto}
+.exp-item.on-right .exp-dot{left:-5px}
+.exp-item.on-left .exp-dot{right:-5px;left:auto}
+
+/* Fly-in on scroll — each timeline element enters from its own side (left
+   column from the left, right column from the right). Pieces use the shared
+   .rv observer for the opacity + trigger; these rules swap the translateY for
+   a side-aware translateX. The .in rules are higher-specificity so they always
+   win and reset the element into place. */
+.exp-item.on-left,.exp-reveal.on-left{transform:translateX(-90px)}
+.exp-item.on-right,.exp-reveal.on-right{transform:translateX(90px)}
+.exp-item.on-left.in,.exp-reveal.on-left.in,
+.exp-item.on-right.in,.exp-reveal.on-right.in{transform:none}
 .exp-item:hover .exp-dot{
   border-color:var(--teal);
   box-shadow:0 0 12px var(--teal);
@@ -751,6 +761,48 @@ a.badge.badge-link:focus-visible{
 }
 .exp-bullets li::before{content:'▹';position:absolute;left:0;color:var(--teal)}
 .exp-bullets strong{color:var(--text);font-weight:500}
+
+/* reveal-card — a lid that opens once (like a laptop) when the card crosses the
+   centre of the screen. The card is viewed from a low, left-of-centre angle so
+   the open lid reads as a 3D panel (matching the card-reveal prototype): the
+   right edge recedes and the viewpoint sits below centre.
+   Per-card image set via the --rc-img custom property on the .exp-reveal cell. */
+.exp-reveal{
+  display:flex;align-items:center;justify-content:center;
+  perspective:1100px;
+  perspective-origin:34% 66%;
+}
+
+.reveal-card{
+  position:relative;
+  width:344px;height:256px;
+  transform-style:preserve-3d;
+  /* constant viewing tilt — the "camera" angle, not animated. Each row gets a
+     slightly different angle (overrides below) so the cards feel hand-placed. */
+  transform:rotateY(20deg);
+}
+.exp-reveal.row-1 .reveal-card{transform:rotateY(24deg)}
+.exp-reveal.row-2 .reveal-card{transform:rotateY(-19deg) rotateX(4deg)}
+.exp-reveal.row-3 .reveal-card{transform:rotateY(15deg) rotateX(-3deg)}
+.exp-reveal.row-4 .reveal-card{transform:rotateY(-27deg)}
+.exp-reveal.row-5 .reveal-card{transform:rotateY(13deg) rotateX(5deg)}
+.rc-lid{
+  position:absolute;bottom:0;left:0;right:0;height:256px;
+  background:var(--rc-img,linear-gradient(155deg,rgba(37,40,64,.95),rgba(18,20,38,.95))) center/cover no-repeat;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:3px;
+  box-shadow:0 20px 45px rgba(0,0,0,.45);
+  transform-origin:bottom center;
+  transform:rotateX(90deg);            /* closed — image folded down flat */
+  transition:transform 1s cubic-bezier(.2,.8,.2,1);
+  will-change:transform;backface-visibility:hidden;
+}
+/* One-shot open: a dedicated observer adds .lid-open when the card rises to 40%
+   from the bottom of the viewport, then unobserves — opens once on scroll-down
+   and never closes on scroll-up. */
+.exp-reveal.lid-open .rc-lid{transform:rotateX(0deg)}
+
+@media(max-width:900px){.exp-reveal{display:none}}
 
 /* ─── PROJECTS ─── */
 #projects{background:var(--bg2);position:relative;overflow:hidden}
@@ -1180,6 +1232,7 @@ footer{
     opacity:1 !important;transform:none !important;
   }
   .rv,.rv-l,.rv-s{opacity:1 !important;transform:none !important}
+  .rc-lid{transform:none !important}
   #cur,#cur2{display:none !important}
   #heroCanvas{display:none !important}
 }

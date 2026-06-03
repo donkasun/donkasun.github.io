@@ -1,0 +1,68 @@
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #ffffff;
+  color: #1a1a2e;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+#root {
+  height: 100%;
+}
+
+.page {
+  min-height: 175vh;
+}
+
+.stickyStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.hud {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(12, 16, 27, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.hud strong {
+  font-weight: 700;
+}
+
+.hint {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 10;
+  max-width: 520px;
+  line-height: 1.35;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(12, 16, 27, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hint code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+}
+
