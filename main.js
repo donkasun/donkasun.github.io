@@ -1,3 +1,33 @@
+// ─── THEME (light default, persisted) ───
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const themeToggleMenu = document.getElementById('themeToggleMenu');
+const themeLabel = document.querySelector('.theme-toggle-label');
+
+function getTheme(){
+  return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function applyTheme(theme){
+  const next = theme === 'dark' ? 'dark' : 'light';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  const toDark = next === 'light';
+  const label = toDark ? 'Switch to dark mode' : 'Switch to light mode';
+  if(themeToggle) themeToggle.setAttribute('aria-label', label);
+  if(themeToggleMenu) themeToggleMenu.setAttribute('aria-label', label);
+  if(themeLabel) themeLabel.textContent = toDark ? 'Dark mode' : 'Light mode';
+  window.dispatchEvent(new Event('themechange'));
+}
+
+function toggleTheme(){
+  applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+}
+
+applyTheme(getTheme());
+themeToggle?.addEventListener('click', toggleTheme);
+themeToggleMenu?.addEventListener('click', toggleTheme);
+
 // ─── CURSOR (pointer:fine only) ───
 const cur = document.getElementById('cur');
 const cur2 = document.getElementById('cur2');
@@ -56,7 +86,8 @@ class Particle{
     this.vy=(Math.random()-.5)*.4;
     this.r=Math.random()*1.5+.5;
     this.a=Math.random()*.6+.1;
-    this.color=Math.random()>.5?'0,229,180':'56,182,255';
+    const rgb = getComputedStyle(root);
+    this.color=Math.random()>.5?rgb.getPropertyValue('--teal-rgb').trim():rgb.getPropertyValue('--blue-rgb').trim();
   }
   update(){
     this.x+=this.vx; this.y+=this.vy;
@@ -75,6 +106,7 @@ function initP(){
   particles=Array.from({length:count},()=>new Particle());
 }
 initP();
+window.addEventListener('themechange',()=>{particles.forEach(p=>p.reset())});
 
 // Mouse influence
 let pmx=W/2,pmy=H/2;
@@ -92,7 +124,8 @@ function drawConnections(){
         ctx.beginPath();
         ctx.moveTo(particles[i].x,particles[i].y);
         ctx.lineTo(particles[j].x,particles[j].y);
-        ctx.strokeStyle=`rgba(0,229,180,${a})`;
+        const tr = getComputedStyle(root).getPropertyValue('--teal-rgb').trim();
+        ctx.strokeStyle=`rgba(${tr},${a})`;
         ctx.lineWidth=.5;
         ctx.stroke();
       }
@@ -103,10 +136,11 @@ function drawConnections(){
     const d=Math.sqrt(dx*dx+dy*dy);
     if(d<200){
       const a=(1-d/200)*.3;
+      const tr = getComputedStyle(root).getPropertyValue('--teal-rgb').trim();
       ctx.beginPath();
       ctx.moveTo(particles[i].x,particles[i].y);
       ctx.lineTo(pmx,pmy);
-      ctx.strokeStyle=`rgba(0,229,180,${a})`;
+      ctx.strokeStyle=`rgba(${tr},${a})`;
       ctx.lineWidth=.8;
       ctx.stroke();
     }
@@ -132,10 +166,14 @@ if(!reduceMotion){
 }
 
 // ─── SCROLL REVEAL ───
+// Site-wide reveals. Timeline elements are handled by their own observer below
+// (different trigger point), so they're excluded here.
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
+document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>{
+  if(!el.matches('.exp-item,.exp-reveal')) obs.observe(el);
+});
 
 // ─── STAT COUNT-UP + DOT-LIST STAGGER ───
 const STAT_DUR = 1900;   // shared animation envelope (ms)
@@ -193,7 +231,7 @@ const navAs = document.querySelectorAll('nav .nav-links a');
 const secs = ['about','experience','projects','contact'].map(id=>document.getElementById(id)).filter(Boolean);
 const navSpy = new IntersectionObserver(entries=>{
   entries.filter(e=>e.isIntersecting).forEach(e=>{
-    navAs.forEach(a=>a.style.color=a.getAttribute('href')==='#'+e.target.id?'var(--teal)':'');
+    navAs.forEach(a=>a.style.color=a.getAttribute('href')==='#'+e.target.id?'var(--teal)':'var(--dim)');
   });
 },{rootMargin:'-30% 0px -55% 0px'});
 secs.forEach(s=>navSpy.observe(s));
@@ -247,6 +285,34 @@ if(!reduceMotion){
   window.addEventListener('resize', onScrollMotion, {passive:true});
   runParallax();
   runHeroParallax();
+}
+
+// ─── EXP TIMELINE ───
+// Fly-in: each row's card and text slide in from opposite sides (CSS
+// .on-left/.on-right translateX + .rv opacity). Triggered once the element has
+// risen to at least 15% of the viewport height from the bottom (-15% bottom
+// rootMargin). Adds .in, one-shot — staggers down the timeline, never reverses.
+const flyEls = document.querySelectorAll('.exp-item, .exp-reveal');
+if(flyEls.length){
+  const flyObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); flyObs.unobserve(e.target); }
+    });
+  },{rootMargin:'0px 0px -15% 0px',threshold:0});
+  flyEls.forEach(el=>flyObs.observe(el));
+}
+
+// Card open: a separate observer opens each lid once the card has risen to at
+// least 40% of the viewport height from the bottom (-40% bottom rootMargin).
+// One-shot — opens on scroll-down, never reverses.
+const revealCards = document.querySelectorAll('.exp-reveal');
+if(revealCards.length){
+  const lidObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('lid-open'); lidObs.unobserve(e.target); }
+    });
+  },{rootMargin:'0px 0px -40% 0px',threshold:0});
+  revealCards.forEach(c=>lidObs.observe(c));
 }
 
 // ─── MOBILE MENU ───

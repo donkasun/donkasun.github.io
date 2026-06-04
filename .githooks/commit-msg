@@ -1,0 +1,7 @@
+#!/bin/sh
+# Remove Co-authored-by trailers (some AI tools add these automatically).
+commit_msg_file="$1"
+[ -f "$commit_msg_file" ] || exit 0
+grep -viE '^co-authored-by:' "$commit_msg_file" > "${commit_msg_file}.tmp" \
+  && mv "${commit_msg_file}.tmp" "$commit_msg_file"
+exit 0

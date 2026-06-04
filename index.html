@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<script>
+(function(){
+  var t=localStorage.getItem('theme');
+  document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');
+})();
+</script>
+<link rel="stylesheet" href="styles.css?v=20260603">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -62,6 +68,10 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
       <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
     </div>
     <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -77,6 +87,11 @@
   <a href="#experience">Experience</a>
   <a href="#contact">Contact</a>
   <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  <button type="button" class="theme-toggle theme-toggle--menu" id="themeToggleMenu" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span class="theme-toggle-label">Dark mode</span>
+  </button>
   <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
 </div>
 
@@ -419,12 +434,18 @@
     <div class="exp-layout">
       <div class="exp-timeline">
 
-        <div class="exp-item rv d1">
+        <div class="exp-reveal on-left row-1 rv d1" aria-hidden="true" style="--rc-img:url(images/emp/self-employed.webp)">
+          <div class="reveal-card"><div class="rc-lid"></div></div>
+        </div>
+
+        <div class="exp-item on-right row-1 rv d1">
           <div class="exp-dot"></div>
           <div class="exp-content">
             <div class="exp-header">
               <div class="exp-role">AI-Native Full Stack Engineer <span class="exp-company">@ Self Employed</span></div>
-              <div class="exp-period">Jan 2025 — Present</div>
+              <div class="exp-logos">
+                <div class="exp-period">Jan 2025 — Present</div>
+              </div>
             </div>
             <div class="exp-loc">Colombo, SL · Remote</div>
             <ul class="exp-bullets">
@@ -436,12 +457,15 @@
           </div>
         </div>
 
-        <div class="exp-item rv d2">
+        <div class="exp-item on-left row-2 rv d2">
           <div class="exp-dot"></div>
           <div class="exp-content">
             <div class="exp-header">
               <div class="exp-role">Full-Stack Engineer <span class="exp-company">@ Speer Technologies</span></div>
-              <div class="exp-period">Jan 2023 — Dec 2024</div>
+              <div class="exp-logos">
+                <img class="exp-logo" src="images/company/speer.webp" alt="Speer Technologies" width="64" height="64" loading="lazy">
+                <div class="exp-period">Jan 2023 — Dec 2024</div>
+              </div>
             </div>
             <div class="exp-loc">Toronto, Canada · Remote</div>
             <ul class="exp-bullets">
@@ -452,12 +476,21 @@
           </div>
         </div>
 
-        <div class="exp-item rv d3">
+        <div class="exp-reveal on-right row-2 rv d2" aria-hidden="true" style="--rc-img:url(images/emp/speer.webp)">
+          <div class="reveal-card"><div class="rc-lid"></div></div>
+        </div>
+
+        <div class="exp-item on-right row-3 rv d3">
           <div class="exp-dot"></div>
           <div class="exp-content">
             <div class="exp-header">
               <div class="exp-role">Software Engineer <span class="exp-company">@ Gapstars · Harver</span></div>
-              <div class="exp-period">Jan 2021 — Aug 2022</div>
+              <div class="exp-logos">
+                <img class="exp-logo" src="images/company/gapstars.webp" alt="Gapstars" width="64" height="64" loading="lazy">
+                <span class="exp-logo-x">×</span>
+                <img class="exp-logo" src="images/company/harver.webp" alt="Harver" width="64" height="64" loading="lazy">
+                <div class="exp-period">Jan 2021 — Aug 2022</div>
+              </div>
             </div>
             <div class="exp-loc">Colombo, SL · In-person & remote</div>
             <ul class="exp-bullets">
@@ -468,12 +501,21 @@
           </div>
         </div>
 
-        <div class="exp-item rv d4">
+        <div class="exp-reveal on-left row-3 rv d3" aria-hidden="true" style="--rc-img:url(images/emp/gapstars.webp)">
+          <div class="reveal-card"><div class="rc-lid"></div></div>
+        </div>
+
+        <div class="exp-item on-left row-4 rv d4">
           <div class="exp-dot"></div>
           <div class="exp-content">
             <div class="exp-header">
               <div class="exp-role">Senior Software Engineer <span class="exp-company">@ Lanka Solutions</span></div>
-              <div class="exp-period">Sep 2020 — Jan 2021</div>
+              <div class="exp-logos">
+                <img class="exp-logo" src="images/company/lanka-solutions.webp" alt="Lanka Solutions" width="64" height="64" loading="lazy">
+                <span class="exp-logo-x">×</span>
+                <img class="exp-logo" src="images/company/adl.webp" alt="Axiata Digital Labs" width="64" height="64" loading="lazy">
+                <div class="exp-period">Sep 2020 — Jan 2021</div>
+              </div>
             </div>
             <div class="exp-loc">Colombo, SL · On-site</div>
             <ul class="exp-bullets">
@@ -483,12 +525,19 @@
           </div>
         </div>
 
-        <div class="exp-item rv d5">
+        <div class="exp-reveal on-right row-4 rv d4" aria-hidden="true" style="--rc-img:url(images/emp/Lanka%20Solutions.webp)">
+          <div class="reveal-card"><div class="rc-lid"></div></div>
+        </div>
+
+        <div class="exp-item on-right row-5 rv d5">
           <div class="exp-dot"></div>
           <div class="exp-content">
             <div class="exp-header">
               <div class="exp-role">Software Engineer → Senior <span class="exp-company">@ Nuclei Technologies</span></div>
-              <div class="exp-period">Sep 2017 — Sep 2020</div>
+              <div class="exp-logos">
+                <img class="exp-logo" src="images/company/nuclei.webp" alt="Nuclei Technologies" width="64" height="64" loading="lazy">
+                <div class="exp-period">Sep 2017 — Sep 2020</div>
+              </div>
             </div>
             <div class="exp-loc">Colombo, SL · On-site</div>
             <ul class="exp-bullets">
@@ -497,6 +546,10 @@
             </ul>
             <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Node.js</span><span class="pill accent">Java</span><span class="pill accent">Go</span></div>
           </div>
+        </div>
+
+        <div class="exp-reveal on-left row-5 rv d5" aria-hidden="true" style="--rc-img:url(images/emp/nuclei.webp)">
+          <div class="reveal-card"><div class="rc-lid"></div></div>
         </div>
 
       </div>
@@ -565,7 +618,7 @@
       <div class="ctx-bar-status">
         <span class="ctx-bar-dot"></span>
         <span class="ctx-bar-k">Status</span>
-        <span class="ctx-bar-v">Open to new work — May 2026 onwards</span>
+        <span class="ctx-bar-v">Open to new work</span>
       </div>
       <div class="ctx-bar-meta">
         <span>Contract</span>
@@ -581,7 +634,7 @@
 <!-- ═══ FOOTER ═══ -->
 <div class="container">
   <footer>
-    <div class="foot-left">© 2026 Don Kasun Gallage · Designed & built from scratch</div>
+    <div class="foot-left">© 2026 Don Kasun Gallage · Designed & built from scratch · <span class="foot-status"><span class="ctx-bar-dot"></span> Open to new work</span></div>
     <div class="foot-right">
       <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -590,6 +643,6 @@
   </footer>
 </div>
 
-<script src="main.js" defer></script>
+<script src="main.js?v=20260603" defer></script>
 </body>
 </html>

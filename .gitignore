@@ -2,6 +2,16 @@
 **/.DS_Store
 .cursor/
 AGENTS.md
+**/node_modules/
+**/dist/
+**/.pnpm-store/
+**/.vite/
+**/.parcel-cache/
+**/.turbo/
+**/.vercel/
 
 # local-only files (not committed)
 .private/
+.superpowers/
+.playwright-mcp/
+screenshots/
