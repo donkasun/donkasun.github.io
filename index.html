@@ -69,15 +69,19 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
       <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
-        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
     </div>
-    <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-end">
+      <div class="nav-controls">
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
+    </div>
   </div>
 </nav>
 
@@ -368,7 +372,10 @@
         </div>
         <div class="proj-body">
           <div class="proj-title">PDF Intelligence POC</div>
-          <p class="proj-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
+          <div class="proj-desc-wrap">
+            <p class="proj-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
+            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
+          </div>
           <div class="proj-pills">
             <span class="proj-pill">Python</span><span class="proj-pill">React</span>
             <span class="proj-pill">Vertex AI</span><span class="proj-pill">AI SDK</span>
@@ -384,7 +391,10 @@
         </div>
         <div class="proj-body">
           <div class="proj-title">Golazo AI</div>
-          <p class="proj-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
+          <div class="proj-desc-wrap">
+            <p class="proj-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
+            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
+          </div>
           <div class="proj-pills">
             <span class="proj-pill">React Native</span><span class="proj-pill">iOS</span>
             <span class="proj-pill">Android</span><span class="proj-pill">npm</span>
@@ -409,7 +419,10 @@
         </div>
         <div class="proj-body">
           <div class="proj-title">BYOB Sri Lanka</div>
-          <p class="proj-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
+          <div class="proj-desc-wrap">
+            <p class="proj-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
+            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
+          </div>
           <div class="proj-pills">
             <span class="proj-pill">Next.js</span><span class="proj-pill">React</span>
           </div>

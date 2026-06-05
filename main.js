@@ -337,6 +337,94 @@ if(revealCards.length){
   revealCards.forEach(c=>lidObs.observe(c));
 }
 
+// ─── PROJECT CARDS (mobile) ───
+const mobileProjMq = window.matchMedia('(max-width: 768px)');
+const projCards = document.querySelectorAll('.proj-card');
+const PROJ_DESC_LINES = 4;
+
+function resetProjDescWrap(wrap){
+  wrap.classList.remove('is-collapsed','is-expanded');
+  const desc = wrap.querySelector('.proj-desc');
+  const btn = wrap.querySelector('.proj-desc-toggle');
+  if(desc) desc.style.maxHeight = '';
+  if(btn){
+    btn.hidden = true;
+    btn.textContent = 'See more';
+    btn.setAttribute('aria-expanded','false');
+  }
+}
+
+function setupProjDescCollapse(){
+  document.querySelectorAll('.proj-desc-wrap').forEach(resetProjDescWrap);
+  if(!mobileProjMq.matches || reduceMotion) return;
+
+  document.querySelectorAll('.proj-desc-wrap').forEach(wrap=>{
+    const desc = wrap.querySelector('.proj-desc');
+    const btn = wrap.querySelector('.proj-desc-toggle');
+    if(!desc || !btn) return;
+
+    desc.style.maxHeight = 'none';
+    const lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 23;
+    const collapsedMax = Math.ceil(lineHeight * PROJ_DESC_LINES);
+    const fullHeight = desc.scrollHeight;
+
+    if(fullHeight <= collapsedMax + 1){
+      btn.hidden = true;
+      return;
+    }
+
+    btn.hidden = false;
+    wrap.classList.add('is-collapsed');
+    desc.style.maxHeight = collapsedMax + 'px';
+
+    if(!btn.dataset.bound){
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', ()=>{
+        const expanded = !wrap.classList.contains('is-expanded');
+        wrap.classList.toggle('is-expanded', expanded);
+        wrap.classList.toggle('is-collapsed', !expanded);
+        desc.style.maxHeight = expanded ? fullHeight + 'px' : collapsedMax + 'px';
+        btn.textContent = expanded ? 'See less' : 'See more';
+        btn.setAttribute('aria-expanded', String(expanded));
+      });
+    }
+  });
+}
+
+function updateCenteredProjCards(){
+  if(!mobileProjMq.matches){
+    projCards.forEach(c=>c.classList.remove('is-centered'));
+    return;
+  }
+  const centerY = window.innerHeight * 0.5;
+  const band = window.innerHeight * 0.22;
+  projCards.forEach(card=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.bottom < 0 || rect.top > window.innerHeight){
+      card.classList.remove('is-centered');
+      return;
+    }
+    const cardCenter = rect.top + rect.height * 0.5;
+    card.classList.toggle('is-centered', Math.abs(cardCenter - centerY) < band);
+  });
+}
+
+setupProjDescCollapse();
+updateCenteredProjCards();
+let projCenterTicking = false;
+window.addEventListener('scroll', ()=>{
+  if(projCenterTicking) return;
+  projCenterTicking = true;
+  requestAnimationFrame(()=>{
+    updateCenteredProjCards();
+    projCenterTicking = false;
+  });
+},{passive:true});
+window.addEventListener('resize', ()=>{
+  setupProjDescCollapse();
+  updateCenteredProjCards();
+},{passive:true});
+
 // ─── MOBILE MENU ───
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
