@@ -925,6 +925,11 @@ a.badge.badge-link:focus-visible{
 .exp-logo-x{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1}
 .exp-loc{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em;margin-bottom:12px}
 .exp-bullets{list-style:none;margin-bottom:14px}
+.exp-bullets--short{display:none}
+@media(max-width:900px){
+  .exp-bullets--full{display:none}
+  .exp-bullets--short{display:block}
+}
 .exp-bullets li{
   position:relative;padding-left:18px;color:var(--dim);
   font-size:14px;line-height:1.6;margin-bottom:6px;
