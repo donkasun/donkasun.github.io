@@ -215,28 +215,37 @@ function splitDotItems(el){
   const items = [], frag = document.createDocumentFragment();
   Array.from(el.childNodes).forEach(node=>{
     if(node.nodeType === Node.TEXT_NODE){
-      node.textContent.split(/( · )/).forEach(part=>{
-        if(part === ' · ' || part === '') frag.appendChild(document.createTextNode(part));
-        else { const s = document.createElement('span'); s.className = 'dot-item'; s.textContent = part; frag.appendChild(s); items.push(s); }
+      const words = node.textContent.split(/( · )/).filter(p => p && p !== ' · ');
+      words.forEach((word, i)=>{
+        const s = document.createElement('span');
+        s.className = 'dot-item';
+        s.textContent = i < words.length - 1 ? word.trim() + ' · ' : word.trim();
+        frag.appendChild(s);
+        items.push(s);
       });
-    } else frag.appendChild(node.cloneNode(true));
+    } else {
+      frag.appendChild(node.cloneNode(true));
+    }
   });
   el.textContent = '';
   el.appendChild(frag);
   return items;
 }
 
-const dotLists = [...document.querySelectorAll('.sc-list')].map(el=>({el, items: splitDotItems(el)}));
+const wrapLists = [...document.querySelectorAll('.sc-list--wrap')];
+const dotLists = [...document.querySelectorAll('.sc-list:not(.sc-list--wrap)')].map(el=>({el, items: splitDotItems(el)}));
 const counters = document.querySelectorAll('[data-count]');
 
 if(reduceMotion){
   dotLists.forEach(({items})=>items.forEach(s=>s.classList.add('show')));
+  wrapLists.forEach(el=>el.classList.add('show'));
 } else {
   counters.forEach(el=>el.textContent = '0');
   const statObs = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(!e.isIntersecting) return;
       if(e.target.dataset.count !== undefined) animateCount(e.target);
+      else if(e.target.classList.contains('sc-list--wrap')) e.target.classList.add('show');
       else { const list = dotLists.find(d=>d.el === e.target);
         if(list){ const n = list.items.length;
           const step = n > 1 ? (STAT_DUR - ITEM_FADE) / (n - 1) : 0;
@@ -246,6 +255,7 @@ if(reduceMotion){
   },{threshold:.4});
   counters.forEach(el=>statObs.observe(el));
   dotLists.forEach(({el})=>statObs.observe(el));
+  wrapLists.forEach(el=>statObs.observe(el));
 }
 
 // ─── SCROLL SPY nav ───

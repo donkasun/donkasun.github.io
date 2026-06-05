@@ -749,6 +749,60 @@ a.badge.badge-link:focus-visible{
   width:var(--w,40%);border-radius:0 0 0 12px;
 }
 
+.stat-card--clients{
+  background:linear-gradient(135deg,rgba(0,229,180,.06),var(--surface));
+  border-color:rgba(0,229,180,.15);
+}
+.stat-card-inner{
+  display:flex;align-items:center;gap:20px;
+  position:relative;z-index:1;
+}
+.stat-card-copy{flex:1;min-width:0}
+.sc-num--clients{
+  font-size:22px;color:var(--teal);line-height:1.4;
+}
+.sc-list--wrap{
+  text-wrap:balance;
+  opacity:0;
+  transition:opacity .6s ease;
+}
+.sc-list--wrap.show{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .sc-list--wrap{opacity:1;transition:none}
+}
+.stat-card--clients .sc-label{margin-top:8px}
+.stat-card-map{
+  flex:0 0 38%;
+  max-width:220px;
+  display:flex;align-items:center;justify-content:flex-end;
+  opacity:.9;
+}
+.stat-map{
+  width:100%;height:auto;display:block;
+  object-fit:contain;pointer-events:none;
+}
+.stat-map--dark{display:none}
+[data-theme="dark"] .stat-map--light{display:none}
+[data-theme="dark"] .stat-map--dark{display:block}
+@media(max-width:768px){
+  .stat-card--clients .stat-card-inner{
+    flex-direction:column;
+    align-items:stretch;
+    gap:16px;
+  }
+  .stat-card--clients .stat-card-map{
+    flex:none;
+    width:100%;
+    max-width:none;
+    justify-content:center;
+    opacity:.85;
+  }
+  .stat-card--clients .stat-map{
+    max-width:min(100%,320px);
+    margin:0 auto;
+  }
+}
+
 /* Stack pills */
 .stack-section{margin-top:32px}
 .stack-title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
@@ -846,8 +900,8 @@ a.badge.badge-link:focus-visible{
   .exp-timeline{display:block}
   .exp-timeline::before{left:16px;transform:none}
   .exp-item{padding-left:36px !important;padding-right:0 !important;margin-bottom:28px}
-  .exp-item::before{left:5px !important;right:auto !important;width:26px}
-  .exp-dot{left:-5px !important;right:auto !important}
+  .exp-item::before{left:16px !important;right:auto !important;width:20px}
+  .exp-dot{left:11px !important;right:auto !important}
 }
 .exp-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
 .exp-role{
@@ -1026,6 +1080,7 @@ a.badge.badge-link:focus-visible{
 @media(prefers-reduced-motion:reduce){
   .proj-desc{transition:none}
   .proj-card{transition:transform .01s,border-color .3s,box-shadow .3s}
+  .sc-list--wrap{opacity:1;transition:none}
 }
 .proj-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;margin-top:auto}
 .proj-pill{
