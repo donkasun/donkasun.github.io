@@ -1,17 +1,29 @@
-// ─── THEME (light default, persisted) ───
+// ─── THEME (system default, user override persisted) ───
 const root = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
 const themeToggleMenu = document.getElementById('themeToggleMenu');
 const themeLabel = document.querySelector('.theme-toggle-label');
+const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-function getTheme(){
-  return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+function getStoredPreference(){
+  return localStorage.getItem('theme');
 }
 
-function applyTheme(theme){
+function getSystemTheme(){
+  return systemThemeQuery.matches ? 'dark' : 'light';
+}
+
+function resolveTheme(preference){
+  return preference === 'light' || preference === 'dark' ? preference : getSystemTheme();
+}
+
+function getResolvedTheme(){
+  return resolveTheme(getStoredPreference());
+}
+
+function applyResolvedTheme(theme){
   const next = theme === 'dark' ? 'dark' : 'light';
   root.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
   const toDark = next === 'light';
   const label = toDark ? 'Switch to dark mode' : 'Switch to light mode';
   if(themeToggle) themeToggle.setAttribute('aria-label', label);
@@ -20,11 +32,21 @@ function applyTheme(theme){
   window.dispatchEvent(new Event('themechange'));
 }
 
-function toggleTheme(){
-  applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+function setPreference(preference){
+  localStorage.setItem('theme', preference);
+  applyResolvedTheme(resolveTheme(preference));
 }
 
-applyTheme(getTheme());
+function toggleTheme(){
+  const resolved = getResolvedTheme();
+  setPreference(resolved === 'dark' ? 'light' : 'dark');
+}
+
+applyResolvedTheme(getResolvedTheme());
+systemThemeQuery.addEventListener('change', () => {
+  const pref = getStoredPreference();
+  if(pref !== 'light' && pref !== 'dark') applyResolvedTheme(getSystemTheme());
+});
 themeToggle?.addEventListener('click', toggleTheme);
 themeToggleMenu?.addEventListener('click', toggleTheme);
 
