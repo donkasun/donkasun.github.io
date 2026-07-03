@@ -193,9 +193,7 @@ if(!reduceMotion){
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>{
-  if(!el.matches('.exp-item,.exp-reveal')) obs.observe(el);
-});
+document.querySelectorAll('.rv,.rv-l,.rv-s').forEach(el=>obs.observe(el));
 
 // ─── STAT COUNT-UP + DOT-LIST STAGGER ───
 const STAT_DUR = 1900;   // shared animation envelope (ms)
@@ -268,21 +266,6 @@ const navSpy = new IntersectionObserver(entries=>{
 },{rootMargin:'-30% 0px -55% 0px'});
 secs.forEach(s=>navSpy.observe(s));
 
-// ─── PARALLAX ───
-const pxEls = document.querySelectorAll('[data-px]');
-
-function runParallax(){
-  const sy = window.scrollY;
-  pxEls.forEach(el=>{
-    const speed = parseFloat(el.dataset.px);
-    // Use element's section offset so effect is relative to scroll into view
-    const parent = el.closest('section') || el.parentElement;
-    const rect = parent.getBoundingClientRect();
-    const centerOffset = rect.top + rect.height / 2;
-    el.style.transform = `translate3d(0,${centerOffset * speed * -1}px,0)`;
-  });
-}
-
 // ─── HERO FLOAT PARALLAX (4 product floats) ───
 const heroPxWraps = document.querySelectorAll('[data-hero-px]');
 const heroSection = document.getElementById('hero');
@@ -307,7 +290,6 @@ function onScrollMotion(){
   if(motionTicking) return;
   motionTicking = true;
   requestAnimationFrame(()=>{
-    runParallax();
     runHeroParallax();
     motionTicking = false;
   });
@@ -315,36 +297,107 @@ function onScrollMotion(){
 if(!reduceMotion){
   window.addEventListener('scroll', onScrollMotion, {passive:true});
   window.addEventListener('resize', onScrollMotion, {passive:true});
-  runParallax();
   runHeroParallax();
 }
 
-// ─── EXP TIMELINE ───
-// Fly-in: each row's card and text slide in from opposite sides (CSS
-// .on-left/.on-right translateX + .rv opacity). Triggered once the element has
-// risen to at least 15% of the viewport height from the bottom (-15% bottom
-// rootMargin). Adds .in, one-shot — staggers down the timeline, never reverses.
-const flyEls = document.querySelectorAll('.exp-item, .exp-reveal');
-if(flyEls.length){
-  const flyObs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); flyObs.unobserve(e.target); }
-    });
-  },{rootMargin:'0px 0px -15% 0px',threshold:0});
-  flyEls.forEach(el=>flyObs.observe(el));
-}
+// ─── EXPERIENCE: sticky horizontal arc timeline ───
+// Markers slide along an oval arc as the tall .xt-track scrolls under the
+// sticky viewport; the centered entry fold-opens its card. Enhanced mode only
+// runs on wide screens without reduced motion — otherwise the CSS fallback
+// shows the cards as a plain stack.
+const xtSection = document.getElementById('experience');
+const xtTrack = document.getElementById('xtTrack');
+if(xtTrack){
+  const xtArc = document.getElementById('xtArc');
+  const xtSvg = document.getElementById('xtArcSvg');
+  const xtPath = document.getElementById('xtArcPath');
+  const xtNowLogos = document.getElementById('xtNowLogos');
+  const xtNowName = document.getElementById('xtNowName');
+  const xtCards = [...document.querySelectorAll('.xt-card')];
+  const XT_N = xtCards.length;
+  const XT_SPREAD = 0.5;           // radians between adjacent markers
+  const XT_ARC_SPAN = 1.15;        // arc endpoints; rx derived so path spans full width
+  const xtWide = window.matchMedia('(min-width:901px)');
+  let xtMarks = [], xtActive = -1, xtOn = false, xtTicking = false;
 
-// Card open: a separate observer opens each lid once the card has risen to at
-// least 40% of the viewport height from the bottom (-40% bottom rootMargin).
-// One-shot — opens on scroll-down, never reverses.
-const revealCards = document.querySelectorAll('.exp-reveal');
-if(revealCards.length){
-  const lidObs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('lid-open'); lidObs.unobserve(e.target); }
+  xtCards.forEach(c=>{
+    const m = document.createElement('div');
+    m.className = 'xt-mark';
+    m.innerHTML = `<div class="xt-mark-label">${c.dataset.period}</div><div class="xt-mark-dot"></div>`;
+    xtArc.appendChild(m);
+    xtMarks.push(m);
+  });
+
+  function xtGeom(){
+    const w = xtArc.clientWidth, h = xtArc.clientHeight;
+    const rx = (w / 2) / Math.sin(XT_ARC_SPAN);
+    return {w, h, cx: w/2, baseY: h-26, rx, ry: Math.min(h*1.1, 150)};
+  }
+
+  function xtDrawPath(){
+    const g = xtGeom();
+    xtSvg.setAttribute('viewBox', `0 0 ${g.w} ${g.h}`);
+    let d = '';
+    for(let a=-XT_ARC_SPAN; a<=XT_ARC_SPAN+.001; a+=0.05){
+      const x = g.cx + g.rx*Math.sin(a);
+      const y = g.baseY - g.ry*(1-Math.cos(a));
+      d += (d?'L':'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    xtPath.setAttribute('d', d);
+  }
+
+  function xtSetActive(i){
+    if(i === xtActive) return;
+    xtActive = i;
+    xtCards.forEach((c,j)=>c.classList.toggle('is-open', j===i));
+    xtMarks.forEach((m,j)=>m.classList.toggle('is-active', j===i));
+    const c = xtCards[i];
+    xtNowName.textContent = c.dataset.company + ' · ' + c.dataset.loc;
+    xtNowLogos.innerHTML = (c.dataset.logos||'').split(',').filter(Boolean)
+      .map(src=>`<img src="${src}" alt="">`).join('');
+  }
+
+  function xtLayout(){
+    const rect = xtTrack.getBoundingClientRect();
+    const span = rect.height - window.innerHeight;
+    const p = span > 0 ? Math.max(0, Math.min(1, -rect.top/span)) : 0;
+    const pos = p * (XT_N - 1);
+    const g = xtGeom();
+    xtMarks.forEach((m,i)=>{
+      const d = i - pos;
+      const a = d * XT_SPREAD;
+      const x = g.cx + g.rx*Math.sin(a);
+      const y = g.baseY - g.ry*(1-Math.cos(a));
+      const t = Math.min(Math.abs(d), 2.4);
+      m.style.transform = `translate(-50%,-92%) translate(${x}px,${y}px) scale(${1 - t*0.18})`;
+      m.style.opacity = String(Math.max(0, 1 - t*0.34));
     });
-  },{rootMargin:'0px 0px -40% 0px',threshold:0});
-  revealCards.forEach(c=>lidObs.observe(c));
+    xtSetActive(Math.max(0, Math.min(XT_N-1, Math.round(pos))));
+  }
+
+  function xtScroll(){
+    if(!xtOn || xtTicking) return;
+    xtTicking = true;
+    requestAnimationFrame(()=>{ xtLayout(); xtTicking = false; });
+  }
+
+  function xtRefresh(){
+    const want = !reduceMotion && xtWide.matches;
+    if(want && !xtOn){
+      xtOn = true;
+      xtSection.classList.add('xt-on');
+    } else if(!want && xtOn){
+      xtOn = false;
+      xtActive = -1;
+      xtSection.classList.remove('xt-on');
+      xtCards.forEach(c=>c.classList.remove('is-open'));
+    }
+    if(xtOn){ xtDrawPath(); xtLayout(); }
+  }
+
+  window.addEventListener('scroll', xtScroll, {passive:true});
+  window.addEventListener('resize', xtRefresh, {passive:true});
+  xtRefresh();
 }
 
 // ─── PROJECT CARDS (mobile) ───

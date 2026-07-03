@@ -256,6 +256,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   padding-top:80px;
 }
 @media(max-width:900px){.hero-inner{grid-template-columns:1fr;padding-top:100px}}
+.hero-inner>*{min-width:0}
 
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
@@ -263,6 +264,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   color:var(--text);margin-bottom:24px;
   border:1px solid var(--border2);padding:6px 14px;border-radius:2px;
   background:rgba(var(--teal-rgb),.08);
+  max-width:100%;
 }
 [data-theme="dark"] .hero-eyebrow{color:var(--teal)}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
@@ -336,7 +338,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 
 /* HERO STATS */
 .hero-stats{
-  display:flex;gap:32px;margin-top:48px;
+  display:flex;gap:24px 32px;flex-wrap:wrap;margin-top:48px;
   opacity:0;animation:fadeUp .8s .9s forwards;
 }
 .stat{border-left:2px solid var(--teal);padding-left:16px}
@@ -743,11 +745,6 @@ a.badge.badge-link:focus-visible{
 }
 .sc-num span{color:var(--teal)}
 .sc-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:4px}
-.sc-bar{
-  position:absolute;bottom:0;left:0;height:2px;
-  background:linear-gradient(90deg,var(--teal),transparent);
-  width:var(--w,40%);border-radius:0 0 0 12px;
-}
 
 .stat-card--clients{
   background:linear-gradient(135deg,rgba(0,229,180,.06),var(--surface));
@@ -826,167 +823,148 @@ a.badge.badge-link:focus-visible{
 #about .pill.accent{background:var(--teal);color:var(--on-accent);border-color:var(--teal);font-weight:700}
 #about .pill.accent:hover{color:var(--on-accent);border-color:var(--teal);transform:translateY(-2px)}
 
-/* ─── EXPERIENCE ─── */
+/* ─── EXPERIENCE — sticky horizontal arc timeline ───
+   Two modes. Default (no JS / mobile / reduced motion): cards stack as plain
+   articles. Enhanced (.xt-on, set by main.js on wide screens): the section
+   becomes a tall scroll track with a sticky viewport; markers slide along an
+   oval arc and the active card fold-opens like an invitation. */
 #experience{position:relative}
+.xt-section{padding:0}
+.xt-track{position:relative;padding:clamp(80px,12vh,140px) 0}
+.xt-head{position:relative}
+.xt-title em{font-style:italic}
 
-.exp-timeline{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  row-gap:40px;
-  position:relative;
+/* Arc + company meta hidden unless enhanced */
+.xt-arc,.xt-now{display:none}
+
+/* Fallback / mobile card stack */
+.xt-stage{
+  display:flex;flex-direction:column;gap:28px;
+  max-width:1120px;margin:8px auto 0;
+  padding:0 clamp(20px,5vw,80px);
 }
-.exp-timeline::before{
-  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+.xt-card{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;box-shadow:var(--shadow-sm);
+}
+@media(max-width:900px){
+  .xt-card{grid-template-columns:1fr}
+  .xt-panel--img{order:1;min-height:170px}
+  .xt-panel--meta{
+    order:2;
+    border-left:none;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .xt-panel--body{order:3}
+}
+.xt-panel{padding:22px 24px;min-width:0}
+.xt-panel--img{
+  padding:0;
+  background-image:var(--xt-img);
+  background-size:cover;background-position:center;
+  min-height:220px;
+}
+.xt-panel--meta{
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;
+  align-items:center;justify-content:center;text-align:center;
+}
+.xt-panel--meta .pill-row{justify-content:center}
+.xt-meta-logos{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.xt-meta-logos img{
+  width:44px;height:44px;border-radius:10px;object-fit:cover;
+  border:1px solid var(--border);background:var(--surface);
+}
+.xt-logo-x{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1}
+.xt-meta-role{font-size:15px;font-weight:700;color:var(--text);line-height:1.35}
+.xt-meta-company{font-size:13px;font-weight:500;color:var(--teal)}
+.xt-meta-loc{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--dim)}
+.xt-panel--meta .pill-row{padding-top:12px}
+.xt-bullets{list-style:none}
+.xt-bullets li{
+  font-size:13.5px;color:var(--dim);line-height:1.65;
+  padding-left:18px;position:relative;margin-bottom:10px;
+}
+.xt-bullets li::before{content:'▹';position:absolute;left:0;color:var(--teal-soft)}
+.xt-bullets strong{color:var(--text);font-weight:500}
+
+/* ── Enhanced sticky mode ── */
+.xt-on .xt-track{height:560vh;padding:0}
+.xt-on .xt-sticky{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;
+  padding-top:calc(64px + 3vh);
+}
+.xt-on .xt-head .section-title{margin-bottom:0;font-size:clamp(28px,3.4vw,44px)}
+
+.xt-on .xt-arc{display:block;position:relative;height:calc(120px + 8vh);margin-top:1vh}
+.xt-arc-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#xtArcPath{stroke:rgba(var(--teal-rgb),.35);stroke-width:1.5}
+.xt-mark{
+  position:absolute;left:0;top:0;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  will-change:transform,opacity;pointer-events:none;
+}
+.xt-mark-label{
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  color:var(--dim);white-space:nowrap;transition:color .3s;
+}
+.xt-mark-dot{
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid var(--teal-soft);background:var(--bg);
+  transition:background .3s,box-shadow .3s;
+}
+.xt-mark.is-active .xt-mark-label{color:var(--teal);font-weight:500}
+.xt-mark.is-active .xt-mark-dot{background:var(--teal);box-shadow:0 0 0 5px rgba(var(--teal-rgb),.18)}
+
+.xt-on .xt-now{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  min-height:52px;margin-top:10px;
+}
+.xt-now-logos{display:flex;align-items:center;gap:8px}
+.xt-now-logos img{width:34px;height:34px;border-radius:8px;object-fit:cover;border:1px solid var(--border)}
+.xt-now-name{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--dim)}
+
+.xt-on .xt-stage{
+  flex:1;min-height:0;display:block;position:relative;
+  perspective:1800px;margin:2vh auto 4vh;width:100%;
+}
+.xt-on .xt-card{
+  position:absolute;left:50%;top:0;
+  width:min(1080px,92vw);height:100%;max-height:440px;
   transform:translateX(-50%);
-  background:linear-gradient(to bottom,var(--teal-soft),transparent);
-  opacity:.3;
-}
-
-.exp-item{
-  position:relative;border-radius:10px;
-  transition:background .2s;cursor:default;
-}
-.exp-item:hover{background:var(--chrome-subtle)}
-
-/* Explicit grid placement — side + row classes (robust to DOM order/count) */
-.row-1{grid-row:1}.row-2{grid-row:2}.row-3{grid-row:3}.row-4{grid-row:4}.row-5{grid-row:5}
-.exp-item.on-right,.exp-reveal.on-right{grid-column:2}
-.exp-item.on-left,.exp-reveal.on-left{grid-column:1}
-.exp-item.on-right{padding-left:48px}
-.exp-item.on-left{padding-right:48px}
-
-/* Connector lines to center */
-.exp-item::before{
-  content:'';position:absolute;top:25px;height:1px;
-  width:38px;background:var(--border2);
-}
-.exp-item.on-right::before{left:5px}
-.exp-item.on-left::before{right:5px;left:auto}
-
-/* Dots on center line */
-.exp-dot{
-  position:absolute;top:20px;
-  width:10px;height:10px;border-radius:50%;
-  border:2px solid var(--faint);background:var(--bg);
-  transition:all .3s;
-}
-.exp-item.on-right .exp-dot{left:-5px}
-.exp-item.on-left .exp-dot{right:-5px;left:auto}
-
-/* Light mode: the timeline line, connectors and dots are too faint on the light
-   background — give them a stronger teal so the structure reads clearly. */
-[data-theme="light"] .exp-timeline::before{opacity:.6}
-[data-theme="light"] .exp-item::before{background:var(--teal-soft);opacity:.55}
-[data-theme="light"] .exp-dot{border-color:var(--teal-soft);background:var(--surface)}
-
-/* Fly-in on scroll — each timeline element enters from its own side (left
-   column from the left, right column from the right). Pieces use the shared
-   .rv observer for the opacity + trigger; these rules swap the translateY for
-   a side-aware translateX. The .in rules are higher-specificity so they always
-   win and reset the element into place. */
-.exp-item.on-left,.exp-reveal.on-left{transform:translateX(-90px)}
-.exp-item.on-right,.exp-reveal.on-right{transform:translateX(90px)}
-.exp-item.on-left.in,.exp-reveal.on-left.in,
-.exp-item.on-right.in,.exp-reveal.on-right.in{transform:none}
-.exp-item:hover .exp-dot{
-  border-color:var(--teal);
-  box-shadow:0 0 12px var(--teal);
-  background:var(--teal);
-}
-
-.exp-content{padding:16px 20px}
-
-@media(max-width:900px){
-  .exp-timeline{display:block}
-  .exp-timeline::before{left:16px;transform:none}
-  .exp-item{padding-left:36px !important;padding-right:0 !important;margin-bottom:28px}
-  .exp-item::before{left:16px !important;right:auto !important;width:20px}
-  .exp-dot{left:11px !important;right:auto !important}
-}
-.exp-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
-.exp-role{
-  font-family:var(--display);font-size:22px;letter-spacing:.02em;
-  color:var(--text);flex:1;min-width:0;
-}
-.exp-company{color:var(--teal)}
-.exp-period{
-  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--dim);white-space:nowrap;flex-shrink:0;
-  background:var(--chrome-subtle);padding:4px 10px;border-radius:2px;
-}
-.exp-logos{display:flex;align-items:center;gap:8px;flex-basis:100%;margin-top:8px}
-.exp-logos:has(.exp-logo) .exp-period{margin-left:auto}
-.exp-logo{
-  height:44px;width:auto;max-width:110px;
-  object-fit:contain;border-radius:6px;
-  background:var(--surface);border:1px solid var(--border);
-  padding:5px;
-}
-.exp-logo-x{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1}
-.exp-loc{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em;margin-bottom:12px}
-.exp-bullets{list-style:none;margin-bottom:14px}
-.exp-bullets--short{display:none}
-@media(max-width:900px){
-  .exp-bullets--full{display:none}
-  .exp-bullets--short{display:block}
-}
-.exp-bullets li{
-  position:relative;padding-left:18px;color:var(--dim);
-  font-size:14px;line-height:1.6;margin-bottom:6px;
-}
-.exp-bullets li::before{content:'▹';position:absolute;left:0;color:var(--teal-soft)}
-.exp-bullets strong{color:var(--text);font-weight:500}
-
-/* left-side cards: mirror everything to right-align */
-.exp-item.on-left .exp-role{text-align:right}
-.exp-item.on-left .exp-loc{text-align:right}
-.exp-item.on-left .exp-logos{flex-direction:row-reverse}
-.exp-item.on-left .exp-logos .exp-period{margin-left:0;margin-right:auto}
-.exp-item.on-left .pill-row{justify-content:flex-end}
-.exp-item.on-left .exp-bullets li{text-align:right;padding-left:0;padding-right:18px}
-.exp-item.on-left .exp-bullets li::before{left:auto;right:0}
-
-/* reveal-card — a lid that opens once (like a laptop) when the card crosses the
-   centre of the screen. The card is viewed from a low, left-of-centre angle so
-   the open lid reads as a 3D panel (matching the card-reveal prototype): the
-   right edge recedes and the viewpoint sits below centre.
-   Per-card image set via the --rc-img custom property on the .exp-reveal cell. */
-.exp-reveal{
-  display:flex;align-items:center;justify-content:center;
-  perspective:1100px;
-  perspective-origin:34% 66%;
-}
-
-.reveal-card{
-  position:relative;
-  width:344px;height:256px;
   transform-style:preserve-3d;
-  /* constant viewing tilt — the "camera" angle, not animated. Each row gets a
-     slightly different angle (overrides below) so the cards feel hand-placed. */
-  transform:rotateY(10deg);
+  background:transparent;border:none;border-radius:0;box-shadow:none;overflow:visible;
+  opacity:0;pointer-events:none;
+  /* Closing card stays visible while its folds swing shut, then fades */
+  transition:opacity .3s ease .5s;
 }
-.exp-reveal.row-1 .reveal-card{transform:rotateY(12deg)}
-.exp-reveal.row-2 .reveal-card{transform:rotateY(-10deg) rotateX(4deg)}
-.exp-reveal.row-3 .reveal-card{transform:rotateY(8deg) rotateX(-3deg)}
-.exp-reveal.row-4 .reveal-card{transform:rotateY(-14deg)}
-.exp-reveal.row-5 .reveal-card{transform:rotateY(7deg) rotateX(5deg)}
-.rc-lid{
-  position:absolute;bottom:0;left:0;right:0;height:256px;
-  background:var(--rc-img,linear-gradient(155deg,rgba(37,40,64,.95),rgba(18,20,38,.95))) center/cover no-repeat;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:3px;
-  box-shadow:0 20px 45px rgba(0,0,0,.45);
-  transform-origin:bottom center;
-  transform:rotateX(90deg);            /* closed — image folded down flat */
-  transition:transform 1s cubic-bezier(.2,.8,.2,1);
-  will-change:transform;backface-visibility:hidden;
+.xt-on .xt-card.is-open{opacity:1;pointer-events:auto;z-index:2;transition-delay:0s}
+/* Invitation folds: side panels hinge on the edge they share with the center.
+   The image fold opens first, the meta fold a beat later. */
+.xt-on .xt-panel{
+  background-color:var(--surface);border:1px solid var(--border);
+  will-change:transform,opacity;
+  transition:transform .7s cubic-bezier(.3,.9,.35,1),opacity .4s ease;
+  overflow:hidden;
 }
-/* One-shot open: a dedicated observer adds .lid-open when the card rises to 40%
-   from the bottom of the viewport, then unobserves — opens once on scroll-down
-   and never closes on scroll-up. */
-.exp-reveal.lid-open .rc-lid{transform:rotateX(0deg)}
-
-@media(max-width:900px){.exp-reveal{display:none}}
+/* Folded just short of 90° so the panel eases in from edge-on instead of
+   popping into view at the backface boundary */
+.xt-on .xt-panel--img{border-radius:14px 0 0 14px;transform-origin:right center;transform:rotateY(84deg);opacity:0}
+.xt-on .xt-panel--body{opacity:0;transform:scaleX(.96)}
+.xt-on .xt-panel--meta{border-radius:0 14px 14px 0;transform-origin:left center;transform:rotateY(-84deg);opacity:0}
+.xt-on .xt-card.is-open .xt-panel--img{transform:none;opacity:1;transition-delay:.08s}
+.xt-on .xt-card.is-open .xt-panel--body{transform:none;opacity:1;transition-delay:.18s}
+.xt-on .xt-card.is-open .xt-panel--meta{transform:none;opacity:1;transition-delay:.3s}
+/* Mirror the stagger when folding shut: meta side first, image side a beat later */
+.xt-on .xt-card:not(.is-open) .xt-panel--img{transition-delay:.12s}
+.xt-on .xt-bullets li{font-size:13px}
+@media(max-height:760px){
+  .xt-on .xt-head .section-title{font-size:clamp(22px,2.6vw,30px)}
+  .xt-on .xt-arc{height:calc(96px + 6vh)}
+}
 
 /* ─── PROJECTS ─── */
 #projects{background:var(--bg2);position:relative;overflow:hidden}
@@ -1427,39 +1405,6 @@ footer{
 .dot-item{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}
 .dot-item.show{opacity:1;transform:none}
 
-/* ─── PARALLAX GRAPHICS ─── */
-.px-scene{
-  position:absolute;inset:0;
-  overflow:hidden;pointer-events:none;z-index:1;
-}
-.px-el{
-  position:absolute;will-change:transform;
-}
-/* Placeholder div — replace with <img> later */
-.px-graphic{
-  width:100%;height:100%;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.07);
-  background:linear-gradient(135deg,rgba(0,229,180,.04),rgba(56,182,255,.03));
-  overflow:hidden;position:relative;
-}
-.px-graphic::before{
-  content:'';position:absolute;inset:0;
-  background:
-    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 40px),
-    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 40px);
-}
-.px-graphic::after{
-  content:'';position:absolute;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.1);
-}
-/* Tinted variants */
-.px-graphic.teal{border-color:rgba(0,229,180,.12);background:linear-gradient(135deg,rgba(0,229,180,.06),rgba(0,229,180,.02))}
-.px-graphic.blue{border-color:rgba(56,182,255,.12);background:linear-gradient(135deg,rgba(56,182,255,.06),rgba(56,182,255,.02))}
-.px-graphic.purple{border-color:rgba(168,85,247,.12);background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(168,85,247,.02))}
-
 /* Section decorative BIG text */
 .deco-text{
   position:absolute;
@@ -1481,7 +1426,6 @@ footer{
     opacity:1 !important;transform:none !important;
   }
   .rv,.rv-l,.rv-s{opacity:1 !important;transform:none !important}
-  .rc-lid{transform:none !important}
   #cur,#cur2{display:none !important}
   #heroCanvas{display:none !important}
 }

@@ -21,7 +21,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2304080f'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='15' font-weight='700' fill='%2300e5b4' text-anchor='middle'%3EDK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap" rel="stylesheet">
 <script>
 (function(){
   var t=localStorage.getItem('theme');
@@ -29,7 +31,7 @@
   document.documentElement.setAttribute('data-theme',dark?'dark':'light');
 })();
 </script>
-<link rel="stylesheet" href="styles.css?v=20260603">
+<link rel="stylesheet" href="styles.css?v=20260703">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -107,30 +109,6 @@
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
-
-  <!-- Parallax graphic layer -->
-  <div class="px-scene">
-    <!-- Large portrait card — top left -->
-    <div class="px-el" data-px="0.18" style="top:8%;left:2%;width:200px;height:260px">
-      <div class="px-graphic teal"></div>
-    </div>
-    <!-- Wide landscape — bottom left -->
-    <div class="px-el" data-px="0.28" style="bottom:10%;left:6%;width:240px;height:150px">
-      <div class="px-graphic blue"></div>
-    </div>
-    <!-- Small square — far right, mid -->
-    <div class="px-el" data-px="0.12" style="top:30%;right:2%;width:130px;height:130px">
-      <div class="px-graphic purple"></div>
-    </div>
-    <!-- Tall narrow — right edge, bottom -->
-    <div class="px-el" data-px="0.22" style="bottom:5%;right:8%;width:110px;height:200px">
-      <div class="px-graphic teal"></div>
-    </div>
-    <!-- Medium — top center-right -->
-    <div class="px-el" data-px="0.08" style="top:5%;left:38%;width:160px;height:110px">
-      <div class="px-graphic blue"></div>
-    </div>
-  </div>
 
   <div class="hero-inner">
     <div class="hero-left">
@@ -265,15 +243,6 @@
 
 <!-- ═══ ABOUT ═══ -->
 <section id="about" class="section" style="position:relative;overflow:hidden">
-  <!-- Parallax graphics -->
-  <div class="px-scene" style="z-index:0">
-    <div class="px-el" data-px="-0.06" style="top:-60px;right:-30px;width:180px;height:240px;opacity:.6">
-      <div class="px-graphic purple"></div>
-    </div>
-    <div class="px-el" data-px="-0.10" style="bottom:-40px;left:-20px;width:220px;height:140px;opacity:.5">
-      <div class="px-graphic teal"></div>
-    </div>
-  </div>
   <div class="container">
     <div class="deco-text">ABOUT</div>
     <div class="section-label rv">About Me</div>
@@ -313,17 +282,14 @@
         <div class="stat-card rv d3">
           <div class="sc-num"><span data-count="7">7</span><span>+</span></div>
           <div class="sc-label">Years of shipping</div>
-          <div class="sc-bar" style="--w:60%"></div>
         </div>
         <div class="stat-card rv d4">
           <div class="sc-num"><span data-count="20">20</span><span>+</span></div>
           <div class="sc-label">Apps & sites shipped</div>
-          <div class="sc-bar" style="--w:70%"></div>
         </div>
         <div class="stat-card rv d5">
           <div class="sc-num sc-list" style="font-size:22px;line-height:1.4">Fintech · Health · Sports · Real Estate · HR-Tech · Media · Mobility · Telco · Research · EdTech · Loyalty</div>
           <div class="sc-label" style="margin-top:10px">Industries shipped in</div>
-          <div class="sc-bar" style="--w:55%"></div>
         </div>
         <div class="stat-card stat-card--clients rv d6">
           <div class="stat-card-inner">
@@ -336,7 +302,6 @@
               <img class="stat-map stat-map--dark" src="images/map/map-dark.svg" alt="" loading="lazy" width="2281" height="1253">
             </div>
           </div>
-          <div class="sc-bar" style="--w:50%"></div>
         </div>
       </div>
     </div>
@@ -450,151 +415,138 @@
 </section>
 
 <!-- ═══ EXPERIENCE ═══ -->
-<section id="experience" class="section" style="position:relative;overflow:hidden">
-  <div class="container">
-    <div class="deco-text">HISTORY</div>
-    <div class="section-label rv">Work History</div>
-    <h2 class="section-title rv d1">Where I've<br><em>been building</em></h2>
-    <div class="exp-layout">
-      <div class="exp-timeline">
+<section id="experience" class="section xt-section">
+  <div class="xt-track" id="xtTrack">
+    <div class="xt-sticky">
+      <div class="container xt-head">
+        <div class="deco-text">HISTORY</div>
+        <div class="section-label rv">Work History</div>
+        <h2 class="section-title xt-title rv d1">Where I've <em>been building</em></h2>
+      </div>
 
-        <div class="exp-reveal on-left row-1 rv d1" aria-hidden="true" style="--rc-img:url(images/emp/self-employed.webp)">
-          <div class="reveal-card"><div class="rc-lid"></div></div>
-        </div>
+      <!-- Oval timeline: arc path drawn by JS, markers slide along it -->
+      <div class="xt-arc" id="xtArc" aria-hidden="true">
+        <svg class="xt-arc-svg" id="xtArcSvg" preserveAspectRatio="none"><path id="xtArcPath" fill="none"/></svg>
+        <!-- .xt-mark elements injected by JS, one per card -->
+      </div>
 
-        <div class="exp-item on-right row-1 rv d1">
-          <div class="exp-dot"></div>
-          <div class="exp-content">
-            <div class="exp-header">
-              <div class="exp-role">AI-Native Full Stack Engineer <span class="exp-company">@ Self Employed</span></div>
-              <div class="exp-logos">
-                <div class="exp-period">Jan 2025 — Present</div>
-              </div>
-            </div>
-            <div class="exp-loc">Colombo, SL · Remote</div>
-            <ul class="exp-bullets exp-bullets--full">
-              <li>Built <strong>Golazo AI</strong> from scratch with one other developer. A football training app for young players, live on both stores with thousands of users.</li>
-              <li>Built a proof of concept for a university research team: automated extraction of structured data from PDFs using multiple AI models and a computer vision server.</li>
-              <li>Taking AI-generated prototypes for early-stage founders and turning them into codebases that can actually be maintained and built on.</li>
+      <!-- Company under the centered marker -->
+      <div class="xt-now" id="xtNow" aria-hidden="true">
+        <div class="xt-now-logos" id="xtNowLogos"></div>
+        <div class="xt-now-name" id="xtNowName"></div>
+      </div>
+
+      <!-- Invitation-fold cards -->
+      <div class="xt-stage" id="xtStage">
+
+        <article class="xt-card"
+          data-period="Jan 2025 — Present"
+          data-company="Self Employed"
+          data-loc="Colombo, SL · Remote"
+          data-logos="">
+          <div class="xt-panel xt-panel--img" style="--xt-img:url(images/emp/self-employed.webp)"></div>
+          <div class="xt-panel xt-panel--body">
+            <ul class="xt-bullets">
+              <li>Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.</li>
+              <li>Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.</li>
+              <li>Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.</li>
             </ul>
-            <ul class="exp-bullets exp-bullets--short">
-              <li>Built <strong>Golazo AI</strong> with one other developer. Football training app for young players, live on both stores with thousands of users.</li>
-              <li>Proof of concept for a university research team pulling structured data out of PDFs with AI and computer vision.</li>
-              <li>Helping early-stage founders turn AI-generated prototypes into codebases teams can actually maintain and build on.</li>
-            </ul>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">Next.js</span><span class="pill accent">Python</span><span class="pill accent">Vertex AI</span></div>
           </div>
-        </div>
-
-        <div class="exp-item on-left row-2 rv d2">
-          <div class="exp-dot"></div>
-          <div class="exp-content">
-            <div class="exp-header">
-              <div class="exp-role">Full-Stack Engineer <span class="exp-company">@ Speer Technologies</span></div>
-              <div class="exp-logos">
-                <img class="exp-logo" src="images/company/speer.webp" alt="Speer Technologies" width="64" height="64" loading="lazy">
-                <div class="exp-period">Jan 2023 — Dec 2024</div>
-              </div>
-            </div>
-            <div class="exp-loc">Toronto, Canada · Remote</div>
-            <ul class="exp-bullets exp-bullets--full">
-              <li>Two years at a Toronto product team. Most of my time went into a mental health app and a real estate and resort management platform.</li>
-              <li>React Native for the shared codebase, Swift and Kotlin where platform-specific work was needed. Also picked up a ride-hailing app, a podcast platform, and a handful of marketing sites along the way.</li>
-            </ul>
-            <ul class="exp-bullets exp-bullets--short">
-              <li>Two years with a Toronto product team, mostly on a mental health app and a real estate and resort platform.</li>
-              <li>React Native for the shared codebase, Swift and Kotlin when native work was needed. Also shipped ride-hailing, a podcast app, and a few marketing sites.</li>
-            </ul>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">Swift</span><span class="pill accent">Kotlin</span><span class="pill accent">Node.js</span></div>
+          <div class="xt-panel xt-panel--meta">
+            <div class="xt-meta-role">Full Stack Engineer</div>
+            <div class="xt-meta-company">Freelance</div>
+            <div class="xt-meta-loc">Colombo, SL · Remote</div>
+            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Python</span><span class="pill accent">AI SDK</span></div>
           </div>
-        </div>
+        </article>
 
-        <div class="exp-reveal on-right row-2 rv d2" aria-hidden="true" style="--rc-img:url(images/emp/speer.webp)">
-          <div class="reveal-card"><div class="rc-lid"></div></div>
-        </div>
-
-        <div class="exp-item on-right row-3 rv d3">
-          <div class="exp-dot"></div>
-          <div class="exp-content">
-            <div class="exp-header">
-              <div class="exp-role">Software Engineer <span class="exp-company">@ Gapstars · Harver</span></div>
-              <div class="exp-logos">
-                <img class="exp-logo" src="images/company/gapstars.webp" alt="Gapstars" width="64" height="64" loading="lazy">
-                <span class="exp-logo-x">×</span>
-                <img class="exp-logo" src="images/company/harver.webp" alt="Harver" width="64" height="64" loading="lazy">
-                <div class="exp-period">Jan 2021 — Aug 2022</div>
-              </div>
-            </div>
-            <div class="exp-loc">Colombo, SL · In-person & remote</div>
-            <ul class="exp-bullets exp-bullets--full">
-              <li>Based in Colombo with Gapstars, embedded remotely with <strong>Harver</strong>, an HR-tech company in the Netherlands, on their integrations team. Built serverless connectors between Harver and enterprise ATS systems: Workday, Greenhouse, SAP SuccessFactors.</li>
-              <li>Some I led end to end, others were close collaboration. Always across the full cycle, design through deploy.</li>
+        <article class="xt-card"
+          data-period="Jan 2023 — Dec 2024"
+          data-company="Speer Technologies"
+          data-loc="Toronto, Canada · Remote"
+          data-logos="images/company/speer.webp">
+          <div class="xt-panel xt-panel--img" style="--xt-img:url(images/emp/speer.webp)"></div>
+          <div class="xt-panel xt-panel--body">
+            <ul class="xt-bullets">
+              <li>Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.</li>
+              <li>Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.</li>
+              <li>Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.</li>
             </ul>
-            <ul class="exp-bullets exp-bullets--short">
-              <li>Embedded with Netherlands HR-tech <strong>Harver</strong>, building serverless connectors to Workday, Greenhouse, and SAP SuccessFactors.</li>
-              <li>Some I led end to end, some were close collaboration. Always across the full cycle, design through deploy.</li>
-            </ul>
-            <div class="pill-row"><span class="pill accent">AWS Lambda</span><span class="pill accent">Node.js</span><span class="pill accent">TypeScript</span></div>
           </div>
-        </div>
+          <div class="xt-panel xt-panel--meta">
+            <div class="xt-meta-logos"><img src="images/company/speer.webp" alt="Speer Technologies" width="64" height="64" loading="lazy"></div>
+            <div class="xt-meta-role">Full Stack Engineer — Mobile &amp; Web</div>
+            <div class="xt-meta-company">Speer Technologies</div>
+            <div class="xt-meta-loc">Toronto, Canada · Remote</div>
+            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">Kotlin</span><span class="pill accent">Swift</span><span class="pill accent">Auth0</span></div>
+          </div>
+        </article>
 
-        <div class="exp-reveal on-left row-3 rv d3" aria-hidden="true" style="--rc-img:url(images/emp/gapstars.webp)">
-          <div class="reveal-card"><div class="rc-lid"></div></div>
-        </div>
+        <article class="xt-card"
+          data-period="Jan 2021 — Aug 2022"
+          data-company="Gapstars · Harver"
+          data-loc="Colombo, SL · In-person &amp; remote"
+          data-logos="images/company/gapstars.webp,images/company/harver.webp">
+          <div class="xt-panel xt-panel--img" style="--xt-img:url(images/emp/gapstars.webp)"></div>
+          <div class="xt-panel xt-panel--body">
+            <ul class="xt-bullets">
+              <li>Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.</li>
+              <li>Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client's ATS structure and business requirements.</li>
+              <li>Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.</li>
+            </ul>
+          </div>
+          <div class="xt-panel xt-panel--meta">
+            <div class="xt-meta-logos"><img src="images/company/gapstars.webp" alt="Gapstars" width="64" height="64" loading="lazy"><span class="xt-logo-x">×</span><img src="images/company/harver.webp" alt="Harver" width="64" height="64" loading="lazy"></div>
+            <div class="xt-meta-role">Software Engineer — Node.js</div>
+            <div class="xt-meta-company">Gapstars · Harver</div>
+            <div class="xt-meta-loc">Colombo, SL · Remote (Netherlands)</div>
+            <div class="pill-row"><span class="pill accent">Node.js</span><span class="pill accent">AWS Lambda</span><span class="pill accent">Serverless</span></div>
+          </div>
+        </article>
 
-        <div class="exp-item on-left row-4 rv d4">
-          <div class="exp-dot"></div>
-          <div class="exp-content">
-            <div class="exp-header">
-              <div class="exp-role">Senior Software Engineer <span class="exp-company">@ Lanka Solutions</span></div>
-              <div class="exp-logos">
-                <img class="exp-logo" src="images/company/lanka-solutions.webp" alt="Lanka Solutions" width="64" height="64" loading="lazy">
-                <span class="exp-logo-x">×</span>
-                <img class="exp-logo" src="images/company/adl.webp" alt="Axiata Digital Labs" width="64" height="64" loading="lazy">
-                <div class="exp-period">Sep 2020 — Jan 2021</div>
-              </div>
-            </div>
-            <div class="exp-loc">Colombo, SL · On-site</div>
-            <ul class="exp-bullets exp-bullets--full">
-              <li>Outsourced to <strong>Axiata Digital Labs</strong>, building React Native apps for a telecom provider's internal and sales teams.</li>
+        <article class="xt-card"
+          data-period="Sep 2020 — Jan 2021"
+          data-company="Lanka Solutions"
+          data-loc="Colombo, SL · On-site"
+          data-logos="images/company/lanka-solutions.webp,images/company/adl.webp">
+          <div class="xt-panel xt-panel--img" style="--xt-img:url(images/emp/Lanka%20Solutions.webp)"></div>
+          <div class="xt-panel xt-panel--body">
+            <ul class="xt-bullets">
+              <li>Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.</li>
+              <li>Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.</li>
+              <li>Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.</li>
             </ul>
-            <ul class="exp-bullets exp-bullets--short">
-              <li>Outsourced to <strong>Axiata Digital Labs</strong>, building React Native apps for a telecom provider's internal and sales teams.</li>
-            </ul>
+          </div>
+          <div class="xt-panel xt-panel--meta">
+            <div class="xt-meta-logos"><img src="images/company/lanka-solutions.webp" alt="Lanka Solutions" width="64" height="64" loading="lazy"><span class="xt-logo-x">×</span><img src="images/company/adl.webp" alt="Axiata Digital Labs" width="64" height="64" loading="lazy"></div>
+            <div class="xt-meta-role">Senior Software Engineer — React Native</div>
+            <div class="xt-meta-company">Lanka Solutions</div>
+            <div class="xt-meta-loc">Colombo, SL · On-site</div>
             <div class="pill-row"><span class="pill accent">React Native</span></div>
           </div>
-        </div>
+        </article>
 
-        <div class="exp-reveal on-right row-4 rv d4" aria-hidden="true" style="--rc-img:url(images/emp/Lanka%20Solutions.webp)">
-          <div class="reveal-card"><div class="rc-lid"></div></div>
-        </div>
-
-        <div class="exp-item on-right row-5 rv d5">
-          <div class="exp-dot"></div>
-          <div class="exp-content">
-            <div class="exp-header">
-              <div class="exp-role">Software Engineer → Senior <span class="exp-company">@ Nuclei Technologies</span></div>
-              <div class="exp-logos">
-                <img class="exp-logo" src="images/company/nuclei.webp" alt="Nuclei Technologies" width="64" height="64" loading="lazy">
-                <div class="exp-period">Sep 2017 — Sep 2020</div>
-              </div>
-            </div>
-            <div class="exp-loc">Colombo, SL · On-site</div>
-            <ul class="exp-bullets exp-bullets--full">
-              <li>Started as an intern building mobile apps and an OCR/image-processing tool, then grew into Software Engineer and Senior, leading mobile and web teams.</li>
-              <li>Domains: restaurant management, dating/matrimony, customer loyalty, banking apps and telecom internal tools, plus SAT-exam scoring and OCR for invoicing.</li>
+        <article class="xt-card"
+          data-period="Sep 2017 — Sep 2020"
+          data-company="Nuclei Technologies"
+          data-loc="Colombo, SL · On-site"
+          data-logos="images/company/nuclei.webp">
+          <div class="xt-panel xt-panel--img" style="--xt-img:url(images/emp/nuclei.webp)"></div>
+          <div class="xt-panel xt-panel--body">
+            <ul class="xt-bullets">
+              <li>Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.</li>
+              <li>Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.</li>
+              <li>Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.</li>
             </ul>
-            <ul class="exp-bullets exp-bullets--short">
-              <li>Started as an intern on mobile apps and OCR tooling, then moved up to Senior and led mobile and web teams.</li>
-              <li>Work across restaurants, dating, loyalty, banking, telecom, SAT-exam scoring, and invoice OCR.</li>
-            </ul>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Node.js</span><span class="pill accent">Java</span><span class="pill accent">Go</span></div>
           </div>
-        </div>
-
-        <div class="exp-reveal on-left row-5 rv d5" aria-hidden="true" style="--rc-img:url(images/emp/nuclei.webp)">
-          <div class="reveal-card"><div class="rc-lid"></div></div>
-        </div>
+          <div class="xt-panel xt-panel--meta">
+            <div class="xt-meta-logos"><img src="images/company/nuclei.webp" alt="Nuclei Technologies" width="64" height="64" loading="lazy"></div>
+            <div class="xt-meta-role">Intern → Software Engineer → Senior</div>
+            <div class="xt-meta-company">Nuclei Technologies</div>
+            <div class="xt-meta-loc">Colombo, SL · On-site</div>
+            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Java</span><span class="pill accent">Android</span></div>
+          </div>
+        </article>
 
       </div>
     </div>
@@ -687,6 +639,6 @@
   </footer>
 </div>
 
-<script src="main.js?v=20260603" defer></script>
+<script src="main.js?v=20260703" defer></script>
 </body>
 </html>
