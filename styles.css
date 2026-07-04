@@ -1016,16 +1016,16 @@ a.badge.badge-link:focus-visible{
    cut it instantly rather than let it keep sitting there. */
 .xt-on .xt-card.xt-force-hide{transition:none!important;opacity:0!important;pointer-events:none!important}
 .xt-on .xt-card.xt-force-hide .xt-panel{transition:none!important}
-/* Simple card, choreographed in three beats once a card becomes active
-   (each delay below is measured from that moment, i.e. .7s after the
-   previous card starts retracting — see .xt-card.is-open above):
+/* Card choreography once a card becomes active (delays measured from that
+   moment, i.e. .7s after the previous card starts retracting — see
+   .xt-card.is-open above):
      1. the center (body) card is already sitting there the whole time —
         it never fades, so there's no flicker on the piece that anchors
         the whole animation
-     2. its bullet points cascade in one by one
-     3. the img/meta side cards slide out from behind it
-   Switching to the next entry reverses beat 3 first — the side cards slide
-   back in behind the center card — before the whole thing swaps out. */
+     2. the bullet points cascade in one by one AND the img/meta side
+        cards slide out from behind it, starting together
+   Switching to the next entry reverses the side-card slide first — they
+   slide back in behind the center card — before the whole thing swaps out. */
 .xt-on .xt-panel{
   background-color:var(--surface);border:3px solid var(--color-dark);
   border-radius:0;box-shadow:var(--shadow-md);
@@ -1040,7 +1040,7 @@ a.badge.badge-link:focus-visible{
 .xt-on .xt-panel--body{position:relative;z-index:2}
 .xt-on .xt-panel--meta{position:relative;z-index:1;transform:translateX(-100%) scale(.4)}
 .xt-on .xt-card.is-open .xt-panel--img,
-.xt-on .xt-card.is-open .xt-panel--meta{transform:none;transition-delay:1.45s}
+.xt-on .xt-card.is-open .xt-panel--meta{transform:none;transition-delay:.7s}
 .xt-on .xt-bullets li{font-size:13px}
 .xt-on .xt-bullets li{
   opacity:0;transform:translateY(10px);
