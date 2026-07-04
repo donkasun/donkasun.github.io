@@ -1,54 +1,4 @@
-// ─── THEME (system default, user override persisted) ───
 const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-const themeToggleMenu = document.getElementById('themeToggleMenu');
-const themeLabel = document.querySelector('.theme-toggle-label');
-const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-function getStoredPreference(){
-  return localStorage.getItem('theme');
-}
-
-function getSystemTheme(){
-  return systemThemeQuery.matches ? 'dark' : 'light';
-}
-
-function resolveTheme(preference){
-  return preference === 'light' || preference === 'dark' ? preference : getSystemTheme();
-}
-
-function getResolvedTheme(){
-  return resolveTheme(getStoredPreference());
-}
-
-function applyResolvedTheme(theme){
-  const next = theme === 'dark' ? 'dark' : 'light';
-  root.setAttribute('data-theme', next);
-  const toDark = next === 'light';
-  const label = toDark ? 'Switch to dark mode' : 'Switch to light mode';
-  if(themeToggle) themeToggle.setAttribute('aria-label', label);
-  if(themeToggleMenu) themeToggleMenu.setAttribute('aria-label', label);
-  if(themeLabel) themeLabel.textContent = toDark ? 'Dark mode' : 'Light mode';
-  window.dispatchEvent(new Event('themechange'));
-}
-
-function setPreference(preference){
-  localStorage.setItem('theme', preference);
-  applyResolvedTheme(resolveTheme(preference));
-}
-
-function toggleTheme(){
-  const resolved = getResolvedTheme();
-  setPreference(resolved === 'dark' ? 'light' : 'dark');
-}
-
-applyResolvedTheme(getResolvedTheme());
-systemThemeQuery.addEventListener('change', () => {
-  const pref = getStoredPreference();
-  if(pref !== 'light' && pref !== 'dark') applyResolvedTheme(getSystemTheme());
-});
-themeToggle?.addEventListener('click', toggleTheme);
-themeToggleMenu?.addEventListener('click', toggleTheme);
 
 // ─── CURSOR (pointer:fine only) ───
 const cur = document.getElementById('cur');
@@ -128,7 +78,6 @@ function initP(){
   particles=Array.from({length:count},()=>new Particle());
 }
 initP();
-window.addEventListener('themechange',()=>{particles.forEach(p=>p.reset())});
 
 // Mouse influence
 let pmx=W/2,pmy=H/2;
@@ -318,7 +267,7 @@ if(xtTrack){
   const XT_SPREAD = 0.5;           // radians between adjacent markers
   const XT_ARC_SPAN = 1.15;        // arc endpoints; rx derived so path spans full width
   const xtWide = window.matchMedia('(min-width:901px)');
-  let xtMarks = [], xtActive = -1, xtOn = false, xtTicking = false;
+  let xtMarks = [], xtActive = -1, xtOn = false, xtTicking = false, xtClosingIdx = -1;
 
   xtCards.forEach(c=>{
     const m = document.createElement('div');
@@ -348,7 +297,18 @@ if(xtTrack){
 
   function xtSetActive(i){
     if(i === xtActive) return;
+    const prev = xtActive;
     xtActive = i;
+    // Only the card folding open and the one immediately behind it (still
+    // folding shut) may ever be visible. If scrolling advances again before
+    // that previous card finishes its lingering fold, it's now stale — snap
+    // it out instantly instead of letting it sit there mid-fold.
+    if(xtClosingIdx !== -1 && xtClosingIdx !== prev){
+      const stale = xtCards[xtClosingIdx];
+      stale.classList.add('xt-force-hide');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>stale.classList.remove('xt-force-hide')));
+    }
+    if(prev !== -1) xtClosingIdx = prev;
     xtCards.forEach((c,j)=>c.classList.toggle('is-open', j===i));
     xtMarks.forEach((m,j)=>m.classList.toggle('is-active', j===i));
     const c = xtCards[i];
@@ -389,8 +349,9 @@ if(xtTrack){
     } else if(!want && xtOn){
       xtOn = false;
       xtActive = -1;
+      xtClosingIdx = -1;
       xtSection.classList.remove('xt-on');
-      xtCards.forEach(c=>c.classList.remove('is-open'));
+      xtCards.forEach(c=>c.classList.remove('is-open','xt-force-hide'));
     }
     if(xtOn){ xtDrawPath(); xtLayout(); }
   }
