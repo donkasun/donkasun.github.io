@@ -890,8 +890,13 @@ a.badge.badge-link:focus-visible{
 }
 .xt-card{
   display:grid;grid-template-columns:repeat(3,1fr);
-  background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  overflow:hidden;box-shadow:var(--shadow-sm);
+  background:var(--surface);border:3px solid var(--color-dark);border-radius:0;
+  overflow:hidden;box-shadow:var(--shadow-md);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.xt-card:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-lg);
 }
 @media(max-width:900px){
   .xt-card{grid-template-columns:1fr}
@@ -999,6 +1004,9 @@ a.badge.badge-link:focus-visible{
   transform:translateX(-50%);
   background:transparent;border:none;border-radius:0;box-shadow:none;overflow:visible;
   opacity:0;pointer-events:none;
+  /* Panels now have their own border/shadow/gap (below), so the wrapper
+     itself stays invisible — it's just a positioning box. */
+  column-gap:16px;
   transition:opacity 0s linear .7s;
 }
 /* New card doesn't fade in until the old one has fully retracted (.7s), so
@@ -1019,14 +1027,18 @@ a.badge.badge-link:focus-visible{
    Switching to the next entry reverses beat 3 first — the side cards slide
    back in behind the center card — before the whole thing swaps out. */
 .xt-on .xt-panel{
-  background-color:var(--surface);border:1px solid var(--border);
-  border-radius:0;
+  background-color:var(--surface);border:3px solid var(--color-dark);
+  border-radius:0;box-shadow:var(--shadow-md);
   will-change:transform;
-  transition:transform .7s cubic-bezier(.3,.8,.3,1);
+  transition:transform .7s cubic-bezier(.3,.8,.3,1),box-shadow .2s ease;
 }
+/* No transform-based lift here (img/meta already animate transform for the
+   fold slide) — a shadow bump on hover keeps the effect without fighting
+   that animation. */
+.xt-on .xt-panel:hover{box-shadow:var(--shadow-lg)}
 .xt-on .xt-panel--img{position:relative;z-index:1;transform:translateX(100%) scale(.4)}
 .xt-on .xt-panel--body{position:relative;z-index:2}
-.xt-on .xt-panel--meta{border-left:1px solid var(--border);position:relative;z-index:1;transform:translateX(-100%) scale(.4)}
+.xt-on .xt-panel--meta{position:relative;z-index:1;transform:translateX(-100%) scale(.4)}
 .xt-on .xt-card.is-open .xt-panel--img,
 .xt-on .xt-card.is-open .xt-panel--meta{transform:none;transition-delay:1.45s}
 .xt-on .xt-bullets li{font-size:13px}
