@@ -104,8 +104,9 @@ nav{
 }
 .nav-logo{
   font-family:var(--display);
+  font-weight:900;
   font-size:28px;
-  letter-spacing:.05em;
+  letter-spacing:-.01em;
   color:var(--teal);
   display:flex;align-items:center;gap:8px;
 }
@@ -224,9 +225,10 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 
 .hero-headline{
   font-family:var(--display);
+  font-weight:900;
   font-size:clamp(72px,11vw,140px);
-  line-height:.92;
-  letter-spacing:.01em;
+  line-height:.95;
+  letter-spacing:-.035em;
   color:var(--text);
   margin-bottom:8px;
   overflow:hidden;
@@ -295,8 +297,8 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 }
 .stat{border-left:2px solid var(--teal);padding-left:16px}
 .stat-num{
-  font-family:var(--display);font-size:42px;line-height:1;
-  color:var(--text);letter-spacing:.02em;
+  font-family:var(--display);font-weight:900;font-size:42px;line-height:1;
+  color:var(--text);letter-spacing:-.02em;
 }
 .stat-num span{color:var(--teal)}
 .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px;font-weight:500}
@@ -351,7 +353,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   border-radius:12px;padding:12px;margin-bottom:8px;
 }
 .app-card-label{font-family:var(--mono);font-size:9px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
-.app-card-val{font-family:var(--display);font-size:26px;color:var(--text);line-height:1}
+.app-card-val{font-family:var(--display);font-weight:800;font-size:26px;color:var(--text);line-height:1}
 .app-card-sub{font-size:9px;color:var(--dim);margin-top:2px}
 .app-bars{display:flex;gap:4px;align-items:flex-end;height:36px;margin-top:8px}
 .app-bar{
@@ -564,7 +566,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   background:linear-gradient(135deg,rgba(249,99,40,.08),rgba(15,15,15,.06));
   border:1px solid rgba(249,99,40,.1);border-radius:8px;padding:14px;margin-bottom:10px;
 }
-.b-headline{font-family:var(--display);font-size:18px;color:var(--text);line-height:1;margin-bottom:4px}
+.b-headline{font-family:var(--display);font-weight:800;font-size:18px;color:var(--text);line-height:1;margin-bottom:4px}
 .b-sub{font-size:8px;color:var(--dim);line-height:1.4;margin-bottom:10px}
 .b-btn{
   display:inline-block;padding:4px 10px;background:var(--teal);
@@ -661,8 +663,9 @@ a.badge.badge-link:focus-visible{
 .section-label::before{content:'';display:block;width:32px;height:1px;background:var(--teal-soft)}
 .section-title{
   font-family:var(--display);
+  font-weight:900;text-transform:uppercase;
   font-size:clamp(48px,6vw,80px);
-  line-height:.95;letter-spacing:.02em;
+  line-height:.95;letter-spacing:-.02em;
   color:var(--text);margin-bottom:64px;
 }
 .section-title em{
@@ -750,10 +753,10 @@ a.badge.badge-link:focus-visible{
   font-family:var(--display);
   font-size:clamp(24px,3.2vw,34px);
   line-height:1;
-  letter-spacing:.02em;
+  letter-spacing:-.01em;
   text-transform:uppercase;
   color:var(--text);
-  font-weight:700;
+  font-weight:800;
 }
 .skill-grid{
   display:grid;
@@ -805,8 +808,8 @@ a.badge.badge-link:focus-visible{
   position:relative;
 }
 .sc-num{
-  font-family:var(--display);font-size:64px;line-height:1;
-  letter-spacing:.02em;color:var(--text);
+  font-family:var(--display);font-weight:900;font-size:64px;line-height:1;
+  letter-spacing:-.02em;color:var(--text);
 }
 .sc-num span{color:var(--teal)}
 
@@ -1125,7 +1128,7 @@ a.badge.badge-link:focus-visible{
 
 .proj-body{padding:22px;flex:1;display:flex;flex-direction:column}
 .proj-title{
-  font-family:var(--display);font-size:24px;letter-spacing:.02em;
+  font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:-.01em;
   color:var(--text);margin-bottom:10px;
   transition:color .2s;
 }
@@ -1301,8 +1304,9 @@ a.badge.badge-link:focus-visible{
 .ctx-pitch{display:flex;flex-direction:column;gap:28px}
 .ctx-headline{
   font-family:var(--display);
+  font-weight:900;text-transform:uppercase;
   font-size:clamp(56px,8.5vw,128px);
-  line-height:.92;letter-spacing:.015em;
+  line-height:.92;letter-spacing:-.03em;
   color:var(--text);
   margin:0;
 }
@@ -1484,7 +1488,7 @@ footer{
 .deco-text{
   position:absolute;
   right:-40px;bottom:-20px;opacity:var(--deco-opacity);
-  font-family:var(--display);font-size:clamp(110px,16vw,280px);
+  font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(110px,16vw,280px);
   color:var(--text);pointer-events:none;
   line-height:1;z-index:0;user-select:none;
 }
