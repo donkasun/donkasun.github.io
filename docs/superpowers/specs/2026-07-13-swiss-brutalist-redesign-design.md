@@ -26,7 +26,7 @@ Light (primary) theme:
 | Accent | `#2440e0` | cobalt — buttons, links, selection, badges, cursor, progress bar |
 | Dim text | `#5c5a52` | secondary copy |
 
-Dark theme is derived: near-black background (e.g. `#101012`), bone text, cobalt brightened enough to pass contrast on dark (tune visually, roughly `#5c73ff` range). All existing `--teal`/orange CSS variables are remapped; no orange remains anywhere.
+**Light only.** (Correction 2026-07-13: the live site has no dark mode or theme toggle — earlier drafts assumed one. The redesign ships the light bone theme only; dark mode is a possible follow-up.) All existing `--teal`/orange CSS variables are remapped; no orange remains anywhere. Note: the accent changes from orange (dark text on accent) to cobalt (white text on accent) — `--on-accent` becomes white.
 
 ## Typography
 
@@ -36,7 +36,7 @@ Dark theme is derived: near-black background (e.g. `#101012`), bone text, cobalt
 
 ## Structure
 
-- Numbered Swiss section headers: `01 — WORK`, `02 — ABOUT`, `03 — EXPERIENCE`, `04 — CONTACT` (small mono/bold eyebrow) + oversized Inter Tight section title, strict grid alignment.
+- Numbered Swiss section headers in page order: `01 — ABOUT`, `02 — WORK`, `03 — EXPERIENCE`, `04 — CONTACT` (small mono/bold eyebrow) + oversized Inter Tight section title, strict grid alignment.
 - Nav links pick up the same numbering.
 
 ## Hero (redesigned)
@@ -60,10 +60,10 @@ Full restyle pass in the same language over Projects, About, Experience, Contact
 
 - No new dependencies beyond the Inter Tight font family (same Google Fonts mechanism already in use).
 - Plain HTML/CSS/JS — no build step introduced.
-- Both themes (light/dark toggle) must work; light bone theme is primary.
+- Light theme only (see Palette correction above).
 - Responsive: verify at mobile and desktop widths.
 - Preserve SEO/meta/OG tags; regenerate the OG card image only if trivial, otherwise leave for a follow-up.
 
 ## Verification
 
-Visual: open the site locally, check hero + all four sections in both themes at mobile (~390px) and desktop (~1440px) widths; confirm no orange/Oswald remnants (grep for `Oswald`, `f96328`, `f1e7da`).
+Visual: open the site locally, check hero + all four sections at mobile (~390px) and desktop (~1440px) widths; confirm no orange/Oswald remnants (grep for `Oswald`, `f96328`, `f1e7da`, `249,99,40`).
