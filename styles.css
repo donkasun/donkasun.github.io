@@ -331,10 +331,10 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 .section{padding:clamp(80px,12vh,140px) 0}
 .section-label{
   display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--teal);margin-bottom:20px;
+  font-family:var(--mono);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text);margin-bottom:20px;
 }
-.section-label::before{content:'';display:block;width:32px;height:1px;background:var(--teal-soft)}
+.section-label::before{content:'';display:block;width:32px;height:2px;background:var(--teal)}
 .section-title{
   font-family:var(--display);
   font-weight:900;text-transform:uppercase;
