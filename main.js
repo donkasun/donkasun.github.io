@@ -215,40 +215,6 @@ const navSpy = new IntersectionObserver(entries=>{
 },{rootMargin:'-30% 0px -55% 0px'});
 secs.forEach(s=>navSpy.observe(s));
 
-// ─── HERO FLOAT PARALLAX (4 product floats) ───
-const heroPxWraps = document.querySelectorAll('[data-hero-px]');
-const heroSection = document.getElementById('hero');
-
-function runHeroParallax(){
-  if(!heroSection || !heroPxWraps.length) return;
-  const rect = heroSection.getBoundingClientRect();
-  const vh = window.innerHeight;
-  const range = rect.height * 0.85 + vh * 0.15;
-  // 0 while hero is in view → 1 as hero scrolls past the top
-  const t = Math.max(0, Math.min(1, -rect.top / range));
-
-  heroPxWraps.forEach(el=>{
-    const speed = parseFloat(el.dataset.heroPx) || 0.1;
-    const y = t * vh * speed * 0.32;
-    el.style.setProperty('--hero-scroll-y', `${y}px`);
-  });
-}
-
-let motionTicking = false;
-function onScrollMotion(){
-  if(motionTicking) return;
-  motionTicking = true;
-  requestAnimationFrame(()=>{
-    runHeroParallax();
-    motionTicking = false;
-  });
-}
-if(!reduceMotion){
-  window.addEventListener('scroll', onScrollMotion, {passive:true});
-  window.addEventListener('resize', onScrollMotion, {passive:true});
-  runHeroParallax();
-}
-
 // ─── EXPERIENCE: sticky horizontal arc timeline ───
 // Markers slide along an oval arc as the tall .xt-track scrolls under the
 // sticky viewport; the centered entry fold-opens its card. Enhanced mode only
