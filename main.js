@@ -226,8 +226,6 @@ if(xtTrack){
   const xtArc = document.getElementById('xtArc');
   const xtSvg = document.getElementById('xtArcSvg');
   const xtPath = document.getElementById('xtArcPath');
-  const xtNowLogos = document.getElementById('xtNowLogos');
-  const xtNowName = document.getElementById('xtNowName');
   const xtCards = [...document.querySelectorAll('.xt-card')];
   const XT_N = xtCards.length;
   const XT_SPREAD = 0.5;           // radians between adjacent markers
@@ -277,10 +275,6 @@ if(xtTrack){
     if(prev !== -1) xtClosingIdx = prev;
     xtCards.forEach((c,j)=>c.classList.toggle('is-open', j===i));
     xtMarks.forEach((m,j)=>m.classList.toggle('is-active', j===i));
-    const c = xtCards[i];
-    xtNowName.textContent = c.dataset.company + ' · ' + c.dataset.loc;
-    xtNowLogos.innerHTML = (c.dataset.logos||'').split(',').filter(Boolean)
-      .map(src=>`<img src="${src}" alt="">`).join('');
   }
 
   function xtLayout(){
