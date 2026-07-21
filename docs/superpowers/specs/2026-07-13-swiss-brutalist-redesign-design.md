@@ -69,3 +69,19 @@ Full restyle pass in the same language over Projects, About, Experience, Contact
 ## Verification
 
 Visual: open the site locally, check hero + all four sections at mobile (~390px) and desktop (~1440px) widths; confirm no orange/Oswald remnants (grep for `Oswald`, `f96328`, `f1e7da`, `249,99,40`).
+
+## Status (as of 2026-07-21)
+
+**Done:**
+- Palette fully swapped to bone/ink/cobalt; no orange (`f96328`, `f1e7da`) or `Oswald` remnants remain (verified by grep).
+- Inter Tight (800/900) added via Google Fonts alongside Inter and JetBrains Mono; Oswald dropped.
+- Swiss numbered section headers shipped in page order: `01 — About`, `02 — Selected Work`, `03 — Work History`, `04 — Get In Touch`.
+- Hero rebuilt as a typographic statement: eyebrow, large Inter Tight headline, pitch copy, two CTA buttons — no photo, no floating screenshots.
+- Particle canvas, custom cursor, and scroll progress bar all present and recolored to the cobalt palette.
+- Light-only theme confirmed — no `data-theme`/`prefers-color-scheme` wiring in HTML/CSS/JS.
+- Profile photo was moved to About per the original plan, then later removed from About entirely (see correction above) — site currently ships with no profile photo anywhere. This is a deviation from the original spec, not yet reconciled back into the written plan beyond this note.
+
+**Left / unverified:**
+- No responsive check recorded yet at the spec's target widths (~390px mobile, ~1440px desktop) — visual verification step hasn't been explicitly run/logged.
+- OG/meta image regeneration was left as "follow-up if non-trivial" — not yet revisited.
+- Two undocumented refinements shipped outside this spec's scope: removal of the Experience section's "now working at" company/logo indicator (`xt-now`), and a density pass on the context-row list (smaller type, tighter gaps). Spec doesn't cover either; worth folding in or leaving as acknowledged scope creep.
