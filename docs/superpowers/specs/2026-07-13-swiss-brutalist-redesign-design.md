@@ -46,7 +46,9 @@ Light (primary) theme:
 - Existing one-paragraph pitch (copy unchanged).
 - Two buttons: cobalt solid primary (`VIEW WORK ↗`), outlined secondary (`CONTACT`).
 - Slim stats strip (7+ years, projects count) — replaces current stat blocks.
-- Removed from hero: profile photo, floating browser/app screenshots. Profile photo moves to About; app screenshots appear only within their project cards in Projects.
+- Removed from hero: profile photo, floating browser/app screenshots. App screenshots appear only within their project cards in Projects.
+
+**Correction (2026-07-21):** The profile photo was initially moved to About per the original plan, but was later removed from About too — the site now ships with no profile photo anywhere.
 - Particle canvas + orbs stay, recolored to palette and reduced opacity — background texture, not a feature.
 
 ## Other sections
