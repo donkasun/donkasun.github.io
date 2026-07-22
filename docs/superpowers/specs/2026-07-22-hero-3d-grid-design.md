@@ -24,12 +24,15 @@ lighting, no showreel gloss.
 
 ## Layout
 
-`#hero` becomes a two-column grid above 1100px:
+Above 1100px the visual occupies the right 52% of `#hero`, positioned
+absolutely. This was chosen over converting `#hero` to a two-column grid: it
+produces the same composition while leaving the existing hero layout untouched.
+A left-edge mask fades the grid in over its first 34% so it slides under the
+headline column rather than butting against it.
 
-- content column and visual column share the row, weighted so the headline stays
-  dominant (`1.1fr / .9fr`)
-- below 1100px the grid collapses to the current single column and the 3D canvas
-  is **removed entirely**, not scaled down
+Below 1100px the canvas is **removed entirely** (`display:none`, and the module
+is never imported), not scaled down. Because the visual is absolutely
+positioned, its removal leaves no gap in the layout.
 
 The existing `#heroCanvas` particle field and the three `.orb` elements remain a
 full-bleed background. The 3D canvas is a separate element scoped to the right
@@ -38,9 +41,14 @@ cell, stacked above the particles and below `.hero-inner` (which holds
 
 ## The object
 
-A `PlaneGeometry(w, h, 80, 80)` drawn as a wireframe, oriented **flat like a
-floor**: rotated roughly -55° on X so it recedes into the distance, with a slight
-Z rotation to break the symmetry. The headline sits above it in the composition.
+A 34×26 grid of 52×52 cells, built by hand as `LineSegments` — rows and columns
+only. `WireframeGeometry` was tried first and rejected: it emits each triangle's
+diagonal, which reads as a fishnet rather than a Swiss grid. Every line is
+subdivided into segments so the vertex shader has interior vertices to displace.
+
+The floor orientation comes from the camera rather than mesh rotation: the
+camera sits at `(0,-20,6)` looking at `(0,0,-1)`, so the plane recedes **flat
+like a floor** beneath the headline. A slight Z rotation breaks the symmetry.
 
 A vertex shader displaces each vertex along the plane normal using summed sine
 waves driven by a time uniform. A second uniform carries the normalized cursor
@@ -58,9 +66,10 @@ materials beyond that, no render targets.
 
 ## Loading
 
-`three.module.js` is **vendored into the repo** (`vendor/three.module.js`) so the
-site stays self-contained and offline-capable with no third-party runtime
-dependency.
+three.js r160 is **vendored into the repo** at `vendor/three.module.min.js`
+(655KB raw, ~163KB gzipped) so the site stays self-contained and
+offline-capable with no third-party runtime dependency. The minified ESM build
+is used; the unminified one is 1.2MB and not worth shipping.
 
 The module is dynamically imported after `window.load`, so it never blocks LCP.
 `WebGLRenderer` is created with `antialias: true` and device pixel ratio capped
@@ -86,9 +95,9 @@ at 2, matching the existing `resize()` in `main.js:43`.
 
 | File | Change |
 | --- | --- |
-| `vendor/three.module.js` | new, vendored library |
+| `vendor/three.module.min.js` | new, vendored library |
 | `hero3d.js` | new: scene, shader, lifecycle, cursor handling |
 | `index.html` | one canvas element in the hero, one module script tag |
-| `styles.css` | hero two-column grid, canvas positioning, breakpoint and reduced-motion rules |
+| `styles.css` | hero visual cell, canvas positioning, breakpoint and reduced-motion rules |
 
 `main.js` is left alone; it already carries the rest of the site.
