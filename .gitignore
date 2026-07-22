@@ -15,3 +15,7 @@ AGENTS.md
 .superpowers/
 .playwright-mcp/
 screenshots/
+
+# local QA screenshot dumps
+tmp-qa-shots/
+tmp/
