@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260723c">
+<link rel="stylesheet" href="styles.css?v=20260723d">
 <link rel="preload" as="image" href="images/campus/full_world.webp" type="image/webp">
 <script type="application/ld+json">
 {
@@ -206,7 +206,58 @@
     </div>
   </section>
   <section data-zone="projects" id="projects" class="zone">
-    <div class="card"></div>
+    <div class="projects-stage">
+      <div class="projects-chrome">
+        <div class="section-label">02 — Selected Work</div>
+        <h2 class="section-title">Things I've<br><em>shipped</em></h2>
+        <span id="projectCount" class="project-count" aria-live="polite">1 / 3</span>
+      </div>
+      <div class="projects-cards">
+        <article class="card card--solid project-card is-shown">
+          <div class="project-tag">Research Tool · 2025</div>
+          <h3 class="project-title">PDF Intelligence POC</h3>
+          <p class="project-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
+          <div class="proj-pills">
+            <span class="proj-pill">Python</span><span class="proj-pill">React</span>
+            <span class="proj-pill">Vertex AI</span><span class="proj-pill">AI SDK</span>
+            <span class="proj-pill">PDF Parsing</span>
+          </div>
+        </article>
+        <article class="card card--solid project-card">
+          <img class="project-thumb" src="images/golazo.webp" alt="Golazo AI — football training app on the App Store" loading="lazy" width="640" height="360">
+          <h3 class="project-title">Golazo AI</h3>
+          <p class="project-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
+          <div class="proj-pills">
+            <span class="proj-pill">React Native</span><span class="proj-pill">iOS</span>
+            <span class="proj-pill">Android</span><span class="proj-pill">npm</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://golazo.ai" target="_blank" rel="noopener noreferrer" class="proj-link">
+              <img class="proj-favicon" src="https://golazo.ai/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
+              golazo.ai
+            </a>
+            <a href="https://www.npmjs.com/package/@donkasun/react-native-outlined-text" target="_blank" rel="noopener noreferrer" class="proj-link">
+              <img class="proj-favicon" src="images/npm.svg" alt="" loading="lazy" width="16" height="16">
+              npm: outlined-text
+            </a>
+          </div>
+        </article>
+        <article class="card card--solid project-card">
+          <img class="project-thumb" src="images/byobsl.webp" alt="BYOB Sri Lanka — directory of BYOB restaurants in Colombo and across Sri Lanka" loading="lazy" width="640" height="360">
+          <h3 class="project-title">BYOB Sri Lanka</h3>
+          <p class="project-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
+          <div class="proj-pills">
+            <span class="proj-pill">Next.js</span><span class="proj-pill">React</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://byobsl.com" target="_blank" rel="noopener noreferrer" class="proj-link">
+              <img class="proj-favicon" src="https://www.byobsl.com/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
+              byobsl.com
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
   <section data-zone="history" id="experience" class="zone">
     <div class="card"></div>
@@ -223,6 +274,6 @@
 </main>
 
 <script src="main.js?v=20260723a" defer></script>
-<script src="campus.js?v=20260723b" defer></script>
+<script src="campus.js?v=20260723c" defer></script>
 </body>
 </html>

@@ -95,20 +95,36 @@
     document.body.dataset.zone = id;
   }
 
+  const projectCards = [...document.querySelectorAll('.project-card')];
+  function updateProjects(p) {
+    const kf = KEYFRAMES.find((k) => k.id === 'projects');
+    if (!kf || projectCards.length === 0) return;
+    const local = (p - kf.start) / (kf.end - kf.start);
+    const idx = Math.min(
+      projectCards.length - 1,
+      Math.max(0, Math.floor(local * projectCards.length))
+    );
+    projectCards.forEach((c, i) => c.classList.toggle('is-shown', i === idx));
+    const el = document.getElementById('projectCount');
+    if (el) el.textContent = `${idx + 1} / ${projectCards.length}`;
+  }
+
   let ticking = false;
   function frame() {
     ticking = false;
-    const cam = sampleCamera(progress());
+    const p = progress();
+    const cam = sampleCamera(p);
     // Mobile / reduced-motion: lock framing + no highlight; zones still track scroll.
     if (mobile() || reduceMotion) {
       applyCamera({ scale: 1, x: 0, y: 0 });
       setLayer(null);
       setZone(cam.zone);
-      return;
+    } else {
+      applyCamera(cam);
+      setLayer(cam.layer);
+      setZone(cam.zone);
     }
-    applyCamera(cam);
-    setLayer(cam.layer);
-    setZone(cam.zone);
+    updateProjects(p);
   }
 
   function onScroll() {
