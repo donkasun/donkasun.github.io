@@ -202,10 +202,33 @@
     scrollTo({ top: mid * max, behavior: reduceMotion ? 'auto' : 'smooth' });
   };
 
+  function isScrollable(el) {
+    if (!(el instanceof Element) || el === document.body || el === document.documentElement) return false;
+    const style = getComputedStyle(el);
+    const y = style.overflowY;
+    const x = style.overflowX;
+    const canY = (y === 'auto' || y === 'scroll' || y === 'overlay') && el.scrollHeight > el.clientHeight + 1;
+    const canX = (x === 'auto' || x === 'scroll' || x === 'overlay') && el.scrollWidth > el.clientWidth + 1;
+    return canY || canX;
+  }
+
+  function shouldSkipKeyboardJump(target) {
+    if (!(target instanceof Element)) return false;
+    if (target.isContentEditable || target.closest('[contenteditable="true"]')) return true;
+    if (target.closest('[data-zone] .card, .roles-stack, textarea, input, select')) return true;
+    let el = target;
+    while (el && el !== document.body) {
+      if (isScrollable(el)) return true;
+      el = el.parentElement;
+    }
+    return false;
+  }
+
   const order = ['hero', 'about', 'projects', 'history', 'skills', 'contact', 'outro'];
   addEventListener('keydown', (e) => {
     if (stackMode()) return;
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'PageDown' && e.key !== 'PageUp') return;
+    if (shouldSkipKeyboardJump(e.target)) return;
     const cur = document.body.dataset.zone || 'hero';
     let i = order.indexOf(cur);
     if (i < 0) i = 0;
