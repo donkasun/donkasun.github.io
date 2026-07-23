@@ -1424,6 +1424,47 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .hero-block{
     max-width:min(var(--content-max-wide), calc(100vw - 2.5rem));
   }
+  /* Mobile stack: .zone is display:block so flex gap is lost. Keep hard-shadow
+     room under CTAs and stop glass blur from smearing bone shadows into the
+     stats card top edge. */
+.zone--hero{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    gap:clamp(14px,3.5vw,22px);
+  }
+.hero-block .hero-btns{
+    /* Hard shadow is 4–6px; pad so it stays inside the block, not over the card */
+    padding:0 6px 6px 0;
+  }
+.hero-block .btn-primary,
+.hero-block .btn-secondary{
+    border-radius:0;
+    /* Solid hard shadow only — no blur, no pseudo plate (z-index:-1 paints over bg) */
+    box-shadow:4px 4px 0 0 var(--bone);
+    transition:background-color .2s,color .2s,border-color .2s,transform .2s,box-shadow .2s;
+  }
+.hero-block .btn-primary:hover,
+.hero-block .btn-secondary:hover{
+    box-shadow:6px 6px 0 0 var(--bone);
+  }
+.hero-stats-card{
+    margin-top:0;
+    overflow:hidden;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:var(--surface);
+    border-color:rgba(242,240,234,0.22);
+    border-radius:0;
+  }
+.hero-stats-card .hero-stats{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:clamp(10px,2.8vw,16px);
+    width:100%;
+  }
+.hero-stats-card .stat{min-width:0}
 .contact-foot,
 .outro-foot{
     max-width:min(var(--content-max-band), calc(100vw - 2.5rem));
@@ -2017,6 +2058,34 @@ footer{
 .foot-right{display:flex;gap:clamp(14px,1.4vw,20px)}
 .foot-right a{font-family:var(--mono);font-size:clamp(10px,.2vw + 8.5px,11px);color:var(--dim);transition:color .2s;letter-spacing:.06em}
 .foot-right a:hover{color:var(--teal)}
+
+/* Contact + frosted footer: near-full bleed on mobile stack only.
+   Placed after the max-width:900px content-max rules so it wins on phones. */
+@media (max-width:768px){
+  .zone[data-zone="contact"]{
+    padding-inline:1rem; /* ~16px edge padding */
+  }
+  .contact-stage{
+    max-width:none;
+    width:100%;
+    margin-inline:0;
+    padding-inline:0; /* zone provides the edge gutter */
+  }
+  .zone[data-zone="contact"] .contact-card,
+  .contact-card{
+    max-width:none;
+    width:100%;
+    margin-inline:0;
+  }
+  .zone[data-zone="contact"] .contact-foot,
+  .contact-foot{
+    width:100%;
+    max-width:none;
+    margin-inline:0;
+    transform:none;
+    padding-inline:1rem;
+  }
+}
 
 /* ─── REDUCED MOTION ─── */
 @media (prefers-reduced-motion: reduce){
