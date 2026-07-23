@@ -1,13 +1,11 @@
 /**
  * Campus scroll controller — zones, camera, breathing, crossfade.
  *
- * Camera KEYFRAMES (x/y/scale) — tuned 2026-07-23 on 1440×900 desktop against
- * current campus WebPs (island sits small in frame with void margins, so pans
- * and scales are larger than the brief’s starting estimates). Re-check once
- * Task 5 cards define the empty-card framing target.
- * Final: hero/outro 1@(0,0); about 3.1@(40,5) studio; projects 2.9@(24,34)
- * showcase; history 4.5@(-45,78) tower; skills 5@(-95,42) lab;
- * contact 4@(-55,-48) pavilion.
+ * Camera KEYFRAMES — subtle pans/zooms so 1600px WebPs stay sharp
+ * (earlier 3–5× scales upscaled too hard and looked soft).
+ * With object-fit:contain, scales stay modest so tower tops / rock
+ * edge remain in frame. hero/outro 1@(0,0); about/studio; projects/
+ * showcase; history/tower; skills/lab; contact/pavilion.
  */
 (function () {
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -16,13 +14,13 @@
 
   // Fractions match spec vh table over 800vh total.
   const KEYFRAMES = [
-    { id: 'hero',     scale: 1.0, x: 0,   y: 0,   start: 0,     end: 0.125,  layer: null },
-    { id: 'about',    scale: 3.1, x: 40,  y: 5,   start: 0.125, end: 0.25,   layer: 'studio' },
-    { id: 'projects', scale: 2.9, x: 24,  y: 34,  start: 0.25,  end: 0.5,    layer: 'showcase' },
-    { id: 'history',  scale: 4.5, x: -45, y: 78,  start: 0.5,   end: 0.6875, layer: 'tower' },
-    { id: 'skills',   scale: 5.0, x: -95, y: 42,  start: 0.6875,end: 0.8125, layer: 'lab' },
-    { id: 'contact',  scale: 4.0, x: -55, y: -48, start: 0.8125,end: 0.9375, layer: 'pavilion' },
-    { id: 'outro',    scale: 1.0, x: 0,   y: 0,   start: 0.9375,end: 1,      layer: null },
+    { id: 'hero',     scale: 1.0,  x: 0,   y: 0,   start: 0,     end: 0.125,  layer: null },
+    { id: 'about',    scale: 1.18, x: 10,  y: 2,   start: 0.125, end: 0.25,   layer: 'studio' },
+    { id: 'projects', scale: 1.14, x: 6,   y: 5,   start: 0.25,  end: 0.4375, layer: 'showcase' },
+    { id: 'history',  scale: 1.2,  x: -8,  y: 12,  start: 0.4375,end: 0.625,  layer: 'tower' },
+    { id: 'skills',   scale: 1.16, x: -16, y: 7,   start: 0.625, end: 0.75,   layer: 'lab' },
+    { id: 'contact',  scale: 1.14, x: -10, y: -8,  start: 0.75,  end: 0.875,  layer: 'pavilion' },
+    { id: 'outro',    scale: 1.0,  x: 0,   y: 0,   start: 0.875, end: 1,      layer: null },
   ];
 
   const stack = document.getElementById('campusStack');
@@ -44,7 +42,7 @@
 
   /** Two-phase breathing: zoom out mid-transition then into target */
   function breathLerp(from, to, t) {
-    const midScale = Math.min(from.scale, to.scale) * 0.72;
+    const midScale = Math.min(from.scale, to.scale) * 0.78;
     if (t < 0.45) {
       const u = easeInOut(t / 0.45);
       return {
@@ -96,32 +94,6 @@
     document.body.dataset.zone = id;
   }
 
-  const projectCards = [...document.querySelectorAll('.project-card')];
-  function updateProjects(p) {
-    if (stackMode()) {
-      projectCards.forEach((c) => c.classList.add('is-shown'));
-      const el = document.getElementById('projectCount');
-      if (el) el.textContent = `${projectCards.length} / ${projectCards.length}`;
-      return;
-    }
-    const kf = KEYFRAMES.find((k) => k.id === 'projects');
-    if (!kf || projectCards.length === 0) return;
-    const hold = 0.65; // must match sampleCamera hold
-    const span = kf.end - kf.start;
-    const holdEnd = kf.start + span * hold;
-    let local;
-    if (p <= kf.start) local = 0;
-    else if (p >= holdEnd) local = 0.999; // last card through breath
-    else local = (p - kf.start) / (holdEnd - kf.start);
-    const idx = Math.min(
-      projectCards.length - 1,
-      Math.max(0, Math.floor(local * projectCards.length))
-    );
-    projectCards.forEach((c, i) => c.classList.toggle('is-shown', i === idx));
-    const el = document.getElementById('projectCount');
-    if (el) el.textContent = `${idx + 1} / ${projectCards.length}`;
-  }
-
   /* Stack mode: zone from IntersectionObserver, not 800vh KEYFRAMES. */
   let stackObserver = null;
   function startStackZoneTracking() {
@@ -160,7 +132,6 @@
       applyCamera({ scale: 1, x: 0, y: 0 });
       setLayer(null);
       startStackZoneTracking();
-      updateProjects(0);
       return;
     }
     stopStackZoneTracking();
@@ -169,7 +140,6 @@
     applyCamera(cam);
     setLayer(cam.layer);
     setZone(cam.zone);
-    updateProjects(p);
   }
 
   function onScroll() {
@@ -215,7 +185,7 @@
   function shouldSkipKeyboardJump(target) {
     if (!(target instanceof Element)) return false;
     if (target.isContentEditable || target.closest('[contenteditable="true"]')) return true;
-    if (target.closest('[data-zone] .card, .roles-stack, textarea, input, select')) return true;
+    if (target.closest('[data-zone] .card, .roles-board, .projects-stage, textarea, input, select')) return true;
     let el = target;
     while (el && el !== document.body) {
       if (isScrollable(el)) return true;

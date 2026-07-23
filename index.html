@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260723k">
+<link rel="stylesheet" href="styles.css?v=20260723p">
 <link rel="preload" as="image" href="images/campus/full_world.webp" type="image/webp" media="(min-width:769px)">
 <link rel="preload" as="image" href="images/campus/mobile-hero.jpg" media="(max-width:768px)">
 <script type="application/ld+json">
@@ -55,7 +55,7 @@
 <div id="cur2"></div>
 
 <!-- ═══ NAV ═══ -->
-<nav>
+<nav class="site-nav">
   <div class="nav-inner">
     <div class="nav-logo">DKG <span>// full-stack</span></div>
     <div class="nav-links">
@@ -147,7 +147,7 @@
     <div class="hero-block">
       <p class="hero-eyebrow card card--glass">AI-Native Full-Stack Engineer · Colombo, SL</p>
       <h1 class="hero-headline">
-        <span class="line"><span>DON KASUN /</span></span>
+        <span class="line"><span>DON KASUN</span></span>
         <span class="line"><span>GALLAGE</span></span>
       </h1>
       <p class="hero-desc">
@@ -220,52 +220,55 @@
       <div class="projects-chrome">
         <div class="section-label">02 — Selected Work</div>
         <h2 class="section-title">Things I've<br><em>shipped</em></h2>
-        <span id="projectCount" class="project-count" aria-live="polite">1 / 3</span>
       </div>
-      <div class="projects-cards">
-        <article class="card card--solid project-card is-shown">
-          <div class="project-tag">Research Tool · 2025</div>
-          <h3 class="project-title">PDF Intelligence POC</h3>
-          <p class="project-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
-          <div class="proj-pills">
-            <span class="proj-pill">Python</span><span class="proj-pill">React</span>
-            <span class="proj-pill">Vertex AI</span><span class="proj-pill">AI SDK</span>
-            <span class="proj-pill">PDF Parsing</span>
-          </div>
-        </article>
-        <article class="card card--solid project-card">
-          <img class="project-thumb" src="images/golazo.webp" alt="Golazo AI — football training app on the App Store" loading="lazy" width="640" height="360">
-          <h3 class="project-title">Golazo AI</h3>
-          <p class="project-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span><span class="proj-pill">iOS</span>
-            <span class="proj-pill">Android</span><span class="proj-pill">npm</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://golazo.ai" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="https://golazo.ai/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
-              golazo.ai
-            </a>
-            <a href="https://www.npmjs.com/package/@donkasun/react-native-outlined-text" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="images/npm.svg" alt="" loading="lazy" width="16" height="16">
-              npm: outlined-text
-            </a>
-          </div>
-        </article>
-        <article class="card card--solid project-card">
-          <img class="project-thumb" src="images/byobsl.webp" alt="BYOB Sri Lanka — directory of BYOB restaurants in Colombo and across Sri Lanka" loading="lazy" width="640" height="360">
-          <h3 class="project-title">BYOB Sri Lanka</h3>
-          <p class="project-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
-          <div class="proj-pills">
-            <span class="proj-pill">Next.js</span><span class="proj-pill">React</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://byobsl.com" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="https://www.byobsl.com/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
-              byobsl.com
-            </a>
-          </div>
-        </article>
+      <div class="projects-board">
+        <div class="projects-col projects-col--left">
+          <article class="card card--solid project-card" data-stagger="1">
+            <div class="project-tag">Research Tool · 2025</div>
+            <h3 class="project-title">PDF Intelligence POC</h3>
+            <p class="project-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
+            <div class="proj-pills">
+              <span class="proj-pill">Python</span><span class="proj-pill">React</span>
+              <span class="proj-pill">Vertex AI</span><span class="proj-pill">AI SDK</span>
+              <span class="proj-pill">PDF Parsing</span>
+            </div>
+          </article>
+          <article class="card card--solid project-card" data-stagger="2">
+            <img class="project-thumb" src="images/golazo.webp" alt="Golazo AI — football training app on the App Store" loading="lazy" width="640" height="360">
+            <h3 class="project-title">Golazo AI</h3>
+            <p class="project-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
+            <div class="proj-pills">
+              <span class="proj-pill">React Native</span><span class="proj-pill">iOS</span>
+              <span class="proj-pill">Android</span><span class="proj-pill">npm</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://golazo.ai" target="_blank" rel="noopener noreferrer" class="proj-link">
+                <img class="proj-favicon" src="https://golazo.ai/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
+                golazo.ai
+              </a>
+              <a href="https://www.npmjs.com/package/@donkasun/react-native-outlined-text" target="_blank" rel="noopener noreferrer" class="proj-link">
+                <img class="proj-favicon" src="images/npm.svg" alt="" loading="lazy" width="16" height="16">
+                npm: outlined-text
+              </a>
+            </div>
+          </article>
+        </div>
+        <div class="projects-col projects-col--right">
+          <article class="card card--solid project-card" data-stagger="3">
+            <img class="project-thumb" src="images/byobsl.webp" alt="BYOB Sri Lanka — directory of BYOB restaurants in Colombo and across Sri Lanka" loading="lazy" width="640" height="360">
+            <h3 class="project-title">BYOB Sri Lanka</h3>
+            <p class="project-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
+            <div class="proj-pills">
+              <span class="proj-pill">Next.js</span><span class="proj-pill">React</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://byobsl.com" target="_blank" rel="noopener noreferrer" class="proj-link">
+                <img class="proj-favicon" src="https://www.byobsl.com/apple-touch-icon.png" alt="" loading="lazy" width="16" height="16">
+                byobsl.com
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -275,213 +278,225 @@
         <div class="section-label">03 — Work History</div>
         <h2 class="section-title">Where I've<br><em>been building</em></h2>
       </div>
-      <div class="roles-stack">
-        <article class="card card--solid role-card">
-          <div class="role-period">Jan 2025 — Present</div>
-          <h3 class="role-title">Full Stack Engineer</h3>
-          <div class="role-company">Freelance</div>
-          <div class="role-loc">Colombo, SL · Remote</div>
-          <ul class="role-bullets">
-            <li>Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.</li>
-            <li>Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.</li>
-            <li>Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.</li>
-          </ul>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
-            <span class="proj-pill">Python</span><span class="proj-pill">AI SDK</span>
-          </div>
-        </article>
-        <article class="card card--solid role-card">
-          <div class="role-period">Jan 2023 — Dec 2024</div>
-          <h3 class="role-title">Full Stack Engineer — Mobile &amp; Web</h3>
-          <div class="role-company">Speer Technologies</div>
-          <div class="role-loc">Toronto, Canada · Remote</div>
-          <ul class="role-bullets">
-            <li>Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.</li>
-            <li>Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.</li>
-            <li>Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.</li>
-          </ul>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span><span class="proj-pill">Kotlin</span>
-            <span class="proj-pill">Swift</span><span class="proj-pill">Auth0</span>
-          </div>
-        </article>
-        <article class="card card--solid role-card">
-          <div class="role-period">Jan 2021 — Aug 2022</div>
-          <h3 class="role-title">Software Engineer — Node.js</h3>
-          <div class="role-company">Gapstars · Harver</div>
-          <div class="role-loc">Colombo, SL · Remote (Netherlands)</div>
-          <ul class="role-bullets">
-            <li>Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.</li>
-            <li>Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client's ATS structure and business requirements.</li>
-            <li>Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.</li>
-          </ul>
-          <div class="proj-pills">
-            <span class="proj-pill">Node.js</span><span class="proj-pill">AWS Lambda</span>
-            <span class="proj-pill">Serverless</span>
-          </div>
-        </article>
-        <article class="card card--solid role-card">
-          <div class="role-period">Sep 2020 — Jan 2021</div>
-          <h3 class="role-title">Senior Software Engineer — React Native</h3>
-          <div class="role-company">Lanka Solutions</div>
-          <div class="role-loc">Colombo, SL · On-site</div>
-          <ul class="role-bullets">
-            <li>Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.</li>
-            <li>Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.</li>
-            <li>Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.</li>
-          </ul>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span>
-          </div>
-        </article>
-        <article class="card card--solid role-card">
-          <div class="role-period">Sep 2017 — Sep 2020</div>
-          <h3 class="role-title">Intern → Software Engineer → Senior</h3>
-          <div class="role-company">Nuclei Technologies</div>
-          <div class="role-loc">Colombo, SL · On-site</div>
-          <ul class="role-bullets">
-            <li>Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.</li>
-            <li>Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.</li>
-            <li>Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.</li>
-          </ul>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
-            <span class="proj-pill">Java</span><span class="proj-pill">Android</span>
-          </div>
-        </article>
+      <div class="roles-board">
+        <div class="roles-col roles-col--older" aria-label="Earlier roles">
+          <article class="card card--solid role-card" data-stagger="4">
+            <div class="role-period">Sep 2020 — Jan 2021</div>
+            <h3 class="role-title">Senior Software Engineer — React Native</h3>
+            <div class="role-company">Lanka Solutions</div>
+            <div class="role-loc">Colombo, SL · On-site</div>
+            <ul class="role-bullets">
+              <li>Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.</li>
+              <li>Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.</li>
+              <li>Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.</li>
+            </ul>
+            <div class="proj-pills">
+              <span class="proj-pill">React Native</span>
+            </div>
+          </article>
+          <article class="card card--solid role-card" data-stagger="5">
+            <div class="role-period">Sep 2017 — Sep 2020</div>
+            <h3 class="role-title">Intern → Software Engineer → Senior</h3>
+            <div class="role-company">Nuclei Technologies</div>
+            <div class="role-loc">Colombo, SL · On-site</div>
+            <ul class="role-bullets">
+              <li>Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.</li>
+              <li>Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.</li>
+              <li>Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.</li>
+            </ul>
+            <div class="proj-pills">
+              <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
+              <span class="proj-pill">Java</span><span class="proj-pill">Android</span>
+            </div>
+          </article>
+        </div>
+        <div class="roles-col roles-col--recent" aria-label="Recent roles">
+          <article class="card card--solid role-card" data-stagger="1">
+            <div class="role-period">Jan 2025 — Present</div>
+            <h3 class="role-title">Full Stack Engineer</h3>
+            <div class="role-company">Freelance</div>
+            <div class="role-loc">Colombo, SL · Remote</div>
+            <ul class="role-bullets">
+              <li>Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.</li>
+              <li>Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.</li>
+              <li>Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.</li>
+            </ul>
+            <div class="proj-pills">
+              <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
+              <span class="proj-pill">Python</span><span class="proj-pill">AI SDK</span>
+            </div>
+          </article>
+          <article class="card card--solid role-card" data-stagger="2">
+            <div class="role-period">Jan 2023 — Dec 2024</div>
+            <h3 class="role-title">Full Stack Engineer — Mobile &amp; Web</h3>
+            <div class="role-company">Speer Technologies</div>
+            <div class="role-loc">Toronto, Canada · Remote</div>
+            <ul class="role-bullets">
+              <li>Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.</li>
+              <li>Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.</li>
+              <li>Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.</li>
+            </ul>
+            <div class="proj-pills">
+              <span class="proj-pill">React Native</span><span class="proj-pill">Kotlin</span>
+              <span class="proj-pill">Swift</span><span class="proj-pill">Auth0</span>
+            </div>
+          </article>
+          <article class="card card--solid role-card" data-stagger="3">
+            <div class="role-period">Jan 2021 — Aug 2022</div>
+            <h3 class="role-title">Software Engineer — Node.js</h3>
+            <div class="role-company">Gapstars · Harver</div>
+            <div class="role-loc">Colombo, SL · Remote (Netherlands)</div>
+            <ul class="role-bullets">
+              <li>Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.</li>
+              <li>Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client's ATS structure and business requirements.</li>
+              <li>Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.</li>
+            </ul>
+            <div class="proj-pills">
+              <span class="proj-pill">Node.js</span><span class="proj-pill">AWS Lambda</span>
+              <span class="proj-pill">Serverless</span>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
   <section data-zone="skills" id="skills" class="zone">
-    <div class="card card--solid card--enter-right skills-card">
-      <div class="section-label">Skills &amp; Technologies</div>
-      <div class="skills-groups">
-        <div class="skills-group">
-          <h3 class="skills-group-title">Languages</h3>
-          <div class="skill-tags" role="list" aria-label="Languages">
-            <span class="skill-tag" role="listitem">JavaScript</span>
-            <span class="skill-tag" role="listitem">TypeScript</span>
-            <span class="skill-tag" role="listitem">Kotlin</span>
-            <span class="skill-tag" role="listitem">Swift</span>
-            <span class="skill-tag" role="listitem">Java</span>
+    <div class="skills-stage">
+      <div class="skills-chrome">
+        <div class="section-label">04 — Skills</div>
+        <h2 class="section-title">What I work<br><em>with</em></h2>
+        <p class="skills-sub">Languages, stacks, and places I&rsquo;ve shipped.</p>
+      </div>
+      <div class="card card--solid card--enter-right skills-card">
+        <div class="section-label">Skills &amp; Technologies</div>
+        <div class="skills-groups">
+          <div class="skills-group">
+            <h3 class="skills-group-title">Languages</h3>
+            <div class="skill-tags" role="list" aria-label="Languages">
+              <span class="skill-tag" role="listitem">JavaScript</span>
+              <span class="skill-tag" role="listitem">TypeScript</span>
+              <span class="skill-tag" role="listitem">Kotlin</span>
+              <span class="skill-tag" role="listitem">Swift</span>
+              <span class="skill-tag" role="listitem">Java</span>
+            </div>
           </div>
-        </div>
-        <div class="skills-group">
-          <h3 class="skills-group-title">Mobile &amp; Web</h3>
-          <div class="skill-tags" role="list" aria-label="Mobile and web">
-            <span class="skill-tag" role="listitem">React Native</span>
-            <span class="skill-tag" role="listitem">Next.js</span>
-            <span class="skill-tag" role="listitem">React</span>
-            <span class="skill-tag" role="listitem">Node.js</span>
-            <span class="skill-tag" role="listitem">Ionic</span>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Mobile &amp; Web</h3>
+            <div class="skill-tags" role="list" aria-label="Mobile and web">
+              <span class="skill-tag" role="listitem">React Native</span>
+              <span class="skill-tag" role="listitem">Next.js</span>
+              <span class="skill-tag" role="listitem">React</span>
+              <span class="skill-tag" role="listitem">Node.js</span>
+              <span class="skill-tag" role="listitem">Ionic</span>
+            </div>
           </div>
-        </div>
-        <div class="skills-group">
-          <h3 class="skills-group-title">Cloud &amp; AI</h3>
-          <div class="skill-tags" role="list" aria-label="Cloud and AI">
-            <span class="skill-tag" role="listitem">AWS Lambda</span>
-            <span class="skill-tag" role="listitem">Google Cloud</span>
-            <span class="skill-tag" role="listitem">Vertex AI</span>
-            <span class="skill-tag" role="listitem">Gemini</span>
-            <span class="skill-tag" role="listitem">Llama</span>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Cloud &amp; AI</h3>
+            <div class="skill-tags" role="list" aria-label="Cloud and AI">
+              <span class="skill-tag" role="listitem">AWS Lambda</span>
+              <span class="skill-tag" role="listitem">Google Cloud</span>
+              <span class="skill-tag" role="listitem">Vertex AI</span>
+              <span class="skill-tag" role="listitem">Gemini</span>
+              <span class="skill-tag" role="listitem">Llama</span>
+            </div>
           </div>
-        </div>
-        <div class="skills-group">
-          <h3 class="skills-group-title">Databases</h3>
-          <div class="skill-tags" role="list" aria-label="Databases">
-            <span class="skill-tag" role="listitem">Supabase</span>
-            <span class="skill-tag" role="listitem">MongoDB</span>
-            <span class="skill-tag" role="listitem">Firebase</span>
-            <span class="skill-tag" role="listitem">MySQL</span>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Databases</h3>
+            <div class="skill-tags" role="list" aria-label="Databases">
+              <span class="skill-tag" role="listitem">Supabase</span>
+              <span class="skill-tag" role="listitem">MongoDB</span>
+              <span class="skill-tag" role="listitem">Firebase</span>
+              <span class="skill-tag" role="listitem">MySQL</span>
+            </div>
           </div>
-        </div>
-        <div class="skills-group">
-          <h3 class="skills-group-title">Clients &amp; Employers</h3>
-          <div class="skill-tags" role="list" aria-label="Clients and employers">
-            <span class="skill-tag" role="listitem">Sri Lanka</span>
-            <span class="skill-tag" role="listitem">Canada</span>
-            <span class="skill-tag" role="listitem">Netherlands</span>
-            <span class="skill-tag" role="listitem">Denmark</span>
-            <span class="skill-tag" role="listitem">United States</span>
-            <span class="skill-tag" role="listitem">United Kingdom</span>
-            <span class="skill-tag" role="listitem">Australia</span>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Clients &amp; Employers</h3>
+            <div class="skill-tags" role="list" aria-label="Clients and employers">
+              <span class="skill-tag" role="listitem">Sri Lanka</span>
+              <span class="skill-tag" role="listitem">Canada</span>
+              <span class="skill-tag" role="listitem">Netherlands</span>
+              <span class="skill-tag" role="listitem">Denmark</span>
+              <span class="skill-tag" role="listitem">United States</span>
+              <span class="skill-tag" role="listitem">United Kingdom</span>
+              <span class="skill-tag" role="listitem">Australia</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
   <section data-zone="contact" id="contact" class="zone">
-    <div class="card card--solid card--enter-bottom contact-card">
-      <div class="section-label">04 — Get In Touch</div>
-      <h2 class="ctx-headline">Let&rsquo;s build<br><em>something</em><br>good.</h2>
-      <p class="ctx-lead">
-        Got a real project or just a rough idea you want to talk through?
-        Email is the quickest way to reach me, and I usually reply within a day.
-      </p>
-      <ul class="ctx-list">
-        <li>
-          <a href="mailto:donkasungallage@gmail.com" class="ctx-row ctx-row--primary">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email</span>
-            <span class="ctx-row-v">donkasungallage<span class="ctx-at">@</span>gmail.com</span>
-            <span class="ctx-row-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer" class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>LinkedIn</span>
-            <span class="ctx-row-v">don-kasun-gallage</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer" class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</span>
-            <span class="ctx-row-v">@donkasun</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener" download class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>Résumé</span>
-            <span class="ctx-row-v">don-kasun-gallage.pdf</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↓</span>
-          </a>
-        </li>
-      </ul>
-      <div class="ctx-sig">
-        <span class="ctx-sig-mark">— DK</span>
-        <span class="ctx-sig-loc">Colombo, SL · GMT+5:30 · Remote-friendly</span>
-      </div>
-      <div class="ctx-bar">
-        <div class="ctx-bar-status">
-          <span class="ctx-bar-dot"></span>
-          <span class="ctx-bar-k">Status</span>
-          <span class="ctx-bar-v">Open to new work</span>
+    <div class="contact-stage">
+      <div class="card card--solid card--enter-bottom contact-card">
+        <div class="section-label">05 — Get In Touch</div>
+        <h2 class="ctx-headline">Let&rsquo;s build<br><em>something</em><br>good.</h2>
+        <p class="ctx-lead">
+          Got a real project or just a rough idea you want to talk through?
+          Email is the quickest way to reach me, and I usually reply within a day.
+        </p>
+        <ul class="ctx-list">
+          <li>
+            <a href="mailto:donkasungallage@gmail.com" class="ctx-row ctx-row--primary">
+              <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email</span>
+              <span class="ctx-row-v">donkasungallage<span class="ctx-at">@</span>gmail.com</span>
+              <span class="ctx-row-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer" class="ctx-row">
+              <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>LinkedIn</span>
+              <span class="ctx-row-v">don-kasun-gallage</span>
+              <span class="ctx-row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer" class="ctx-row">
+              <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</span>
+              <span class="ctx-row-v">@donkasun</span>
+              <span class="ctx-row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener" download class="ctx-row">
+              <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>Résumé</span>
+              <span class="ctx-row-v">don-kasun-gallage.pdf</span>
+              <span class="ctx-row-arrow" aria-hidden="true">↓</span>
+            </a>
+          </li>
+        </ul>
+        <div class="ctx-sig">
+          <span class="ctx-sig-mark">— DK</span>
+          <span class="ctx-sig-loc">Colombo, SL · GMT+5:30 · Remote-friendly</span>
         </div>
-        <div class="ctx-bar-meta">
-          <span>Contract</span>
-          <span class="ctx-bar-sep">/</span>
-          <span>Full-time</span>
-          <span class="ctx-bar-sep">/</span>
-          <span>Remote</span>
+        <div class="ctx-bar">
+          <div class="ctx-bar-status">
+            <span class="ctx-bar-dot"></span>
+            <span class="ctx-bar-k">Status</span>
+            <span class="ctx-bar-v">Open to new work</span>
+          </div>
+          <div class="ctx-bar-meta">
+            <span>Contract</span>
+            <span class="ctx-bar-sep">/</span>
+            <span>Full-time</span>
+            <span class="ctx-bar-sep">/</span>
+            <span>Remote</span>
+          </div>
         </div>
       </div>
+      <footer class="card card--glass outro-foot contact-foot">
+        <div class="foot-left">© 2026 Don Kasun Gallage · <span class="foot-status"><span class="ctx-bar-dot"></span> Open to new work</span></div>
+        <div class="foot-right">
+          <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="mailto:donkasungallage@gmail.com">Email</a>
+        </div>
+      </footer>
     </div>
   </section>
-  <section data-zone="outro" id="outro" class="zone zone--outro">
-    <footer class="card card--glass outro-foot">
-      <div class="foot-left">© 2026 Don Kasun Gallage · <span class="foot-status"><span class="ctx-bar-dot"></span> Open to new work</span></div>
-      <div class="foot-right">
-        <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:donkasungallage@gmail.com">Email</a>
-      </div>
-    </footer>
-  </section>
+  <section data-zone="outro" id="outro" class="zone zone--outro" aria-hidden="true"></section>
 </main>
 
 <script src="main.js?v=20260723b" defer></script>
-<script src="campus.js?v=20260723g" defer></script>
+<script src="campus.js?v=20260723j" defer></script>
 </body>
 </html>
