@@ -1,1 +1,131 @@
-/* Campus scroll controller — Task 4 */
+/**
+ * Campus scroll controller — zones, camera, breathing, crossfade.
+ *
+ * Camera KEYFRAMES (x/y/scale) — tuned 2026-07-23 on 1440×900 desktop against
+ * current campus WebPs (island sits small in frame with void margins, so pans
+ * and scales are larger than the brief’s starting estimates). Re-check once
+ * Task 5 cards define the empty-card framing target.
+ * Final: hero/outro 1@(0,0); about 3.1@(40,5) studio; projects 2.9@(24,34)
+ * showcase; history 4.5@(-45,78) tower; skills 5@(-95,42) lab;
+ * contact 4@(-55,-48) pavilion.
+ */
+(function () {
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile = () => matchMedia('(max-width: 768px)').matches;
+
+  // Fractions match spec vh table over 800vh total.
+  const KEYFRAMES = [
+    { id: 'hero',     scale: 1.0, x: 0,   y: 0,   start: 0,     end: 0.125,  layer: null },
+    { id: 'about',    scale: 3.1, x: 40,  y: 5,   start: 0.125, end: 0.25,   layer: 'studio' },
+    { id: 'projects', scale: 2.9, x: 24,  y: 34,  start: 0.25,  end: 0.5,    layer: 'showcase' },
+    { id: 'history',  scale: 4.5, x: -45, y: 78,  start: 0.5,   end: 0.6875, layer: 'tower' },
+    { id: 'skills',   scale: 5.0, x: -95, y: 42,  start: 0.6875,end: 0.8125, layer: 'lab' },
+    { id: 'contact',  scale: 4.0, x: -55, y: -48, start: 0.8125,end: 0.9375, layer: 'pavilion' },
+    { id: 'outro',    scale: 1.0, x: 0,   y: 0,   start: 0.9375,end: 1,      layer: null },
+  ];
+
+  const stack = document.getElementById('campusStack');
+  const layers = [...document.querySelectorAll('.campus-img[data-layer]')];
+  const zones = [...document.querySelectorAll('[data-zone]')];
+
+  if (!stack || !layers.length || !zones.length) return;
+
+  function progress() {
+    const max = document.body.scrollHeight - innerHeight;
+    return max <= 0 ? 0 : Math.min(1, Math.max(0, scrollY / max));
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function easeInOut(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  /** Two-phase breathing: zoom out mid-transition then into target */
+  function breathLerp(from, to, t) {
+    const midScale = Math.min(from.scale, to.scale) * 0.72;
+    if (t < 0.45) {
+      const u = easeInOut(t / 0.45);
+      return {
+        scale: lerp(from.scale, midScale, u),
+        x: lerp(from.x, lerp(from.x, to.x, 0.5), u),
+        y: lerp(from.y, lerp(from.y, to.y, 0.5), u),
+      };
+    }
+    const u = easeInOut((t - 0.45) / 0.55);
+    return {
+      scale: lerp(midScale, to.scale, u),
+      x: lerp(lerp(from.x, to.x, 0.5), to.x, u),
+      y: lerp(lerp(from.y, to.y, 0.5), to.y, u),
+    };
+  }
+
+  function sampleCamera(p) {
+    let i = 0;
+    for (let k = 0; k < KEYFRAMES.length - 1; k++) {
+      if (p >= KEYFRAMES[k].start && p < KEYFRAMES[k + 1].start) { i = k; break; }
+      if (p >= KEYFRAMES[KEYFRAMES.length - 1].start) i = KEYFRAMES.length - 1;
+    }
+    const a = KEYFRAMES[i];
+    const b = KEYFRAMES[Math.min(i + 1, KEYFRAMES.length - 1)];
+    if (a === b) return { scale: a.scale, x: a.x, y: a.y, zone: a.id, layer: a.layer };
+    const span = b.start - a.start || 1;
+    const local = (p - a.start) / span;
+    const hold = 0.65;
+    if (local <= hold) return { scale: a.scale, x: a.x, y: a.y, zone: a.id, layer: a.layer };
+    const t = (local - hold) / (1 - hold);
+    const cam = breathLerp(a, b, t);
+    return { ...cam, zone: t < 0.5 ? a.id : b.id, layer: t < 0.5 ? a.layer : b.layer };
+  }
+
+  function applyCamera(cam) {
+    stack.style.transform =
+      `translate3d(${cam.x}%, ${cam.y}%, 0) scale(${cam.scale})`;
+  }
+
+  function setLayer(name) {
+    layers.forEach((img) => {
+      if (img.dataset.layer === 'base') return;
+      img.classList.toggle('is-active', name && img.dataset.layer === name);
+    });
+  }
+
+  function setZone(id) {
+    zones.forEach((z) => z.classList.toggle('is-active', z.dataset.zone === id));
+    document.body.dataset.zone = id;
+  }
+
+  let ticking = false;
+  function frame() {
+    ticking = false;
+    const cam = sampleCamera(progress());
+    // Mobile / reduced-motion: lock framing + no highlight; zones still track scroll.
+    if (mobile() || reduceMotion) {
+      applyCamera({ scale: 1, x: 0, y: 0 });
+      setLayer(null);
+      setZone(cam.zone);
+      return;
+    }
+    applyCamera(cam);
+    setLayer(cam.layer);
+    setZone(cam.zone);
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  frame();
+
+  window.campusJumpTo = function (zoneId) {
+    const kf = KEYFRAMES.find((k) => k.id === zoneId);
+    if (!kf) return;
+    const max = document.body.scrollHeight - innerHeight;
+    const mid = (kf.start + kf.end) / 2;
+    scrollTo({ top: mid * max, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+})();
