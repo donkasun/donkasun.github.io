@@ -15,6 +15,9 @@ AGENTS.md
 .superpowers/
 .playwright-mcp/
 screenshots/
+.mcp.json
+prototypes/
+start-server.sh
 
 # local QA screenshot dumps
 tmp-qa-shots/
