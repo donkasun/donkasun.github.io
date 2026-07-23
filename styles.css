@@ -237,10 +237,6 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   border-color:var(--cobalt);
   color:var(--on-accent);
 }
-@media(max-width:768px){
-  .section-dots{display:none}
-}
-
 /* ═══════════════════════════════════════
    CAMPUS STAGE
 ═══════════════════════════════════════ */
@@ -763,6 +759,122 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 }
 @media (prefers-reduced-motion:reduce){
   .statue-glow{ animation:none; }
+}
+
+/* Mobile: static 50vh campus banner + stacked zones (no scroll-driven camera) */
+@media (max-width:768px){
+  #scroll-root{ display:none; height:0; }
+  #campus-stage{ position:relative; height:50vh; }
+  .campus-stack{ transform:none !important; }
+  .campus-img:not([data-layer="base"]){ display:none; }
+  #campus-content{ pointer-events:auto; }
+  .zone{
+    position:relative; inset:auto;
+    opacity:1 !important; visibility:visible !important;
+    display:block; padding:1.25rem;
+    max-height:none;
+  }
+  .card{ max-width:none; }
+  .section-dots{ display:none; }
+  /* Cards must stay visible without .is-active / carousel gating */
+  .zone .card--enter-left,
+  .zone .card--enter-right,
+  .zone .card--enter-bottom,
+  .zone .role-card,
+  .zone .outro-foot,
+  .project-card,
+  .project-card:not(.is-shown),
+  .zone:not(.is-active) .project-card.is-shown{
+    position:relative !important;
+    inset:auto !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:none !important;
+    pointer-events:auto !important;
+    max-height:none;
+  }
+  .projects-stage,
+  .roles-stage,
+  .skills-card,
+  .contact-card,
+  .hero-block,
+  .hero-stats-card{
+    max-width:none;
+    width:100%;
+    align-items:stretch;
+  }
+  .projects-cards{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .roles-stack{ max-height:none; }
+  .projects-chrome,
+  .roles-chrome{ text-align:left; }
+  .projects-chrome .section-label,
+  .roles-chrome .section-label{ justify-content:flex-start; }
+  .zone--hero,
+  .zone[data-zone="about"],
+  .zone[data-zone="projects"],
+  .zone[data-zone="history"],
+  .zone[data-zone="skills"],
+  .zone[data-zone="contact"],
+  .zone--outro{
+    align-items:stretch;
+    justify-content:flex-start;
+    padding:1.25rem;
+  }
+}
+
+/* Reduced motion: same static flow; no camera zoom / card motion */
+@media (prefers-reduced-motion:reduce){
+  #scroll-root{ display:none; height:0; }
+  #campus-stage{ position:relative; height:50vh; }
+  .campus-stack{ transform:none !important; }
+  .campus-img:not([data-layer="base"]){ display:none; }
+  #campus-content{ pointer-events:auto; }
+  .zone{
+    position:relative; inset:auto;
+    opacity:1 !important; visibility:visible !important;
+    display:block; padding:1.25rem;
+    max-height:none;
+  }
+  .card{
+    max-width:none;
+    transition:none !important;
+    transform:none !important;
+  }
+  .section-dots{ display:none; }
+  .zone .card--enter-left,
+  .zone .card--enter-right,
+  .zone .card--enter-bottom,
+  .zone .role-card,
+  .zone .outro-foot,
+  .project-card,
+  .project-card:not(.is-shown),
+  .zone:not(.is-active) .project-card.is-shown{
+    position:relative !important;
+    inset:auto !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:none !important;
+    transition:none !important;
+    pointer-events:auto !important;
+    max-height:none;
+  }
+  .projects-stage,
+  .roles-stage,
+  .skills-card,
+  .contact-card{
+    max-width:none;
+    width:100%;
+  }
+  .projects-cards{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .roles-stack{ max-height:none; }
 }
 
 .card--solid .section-label{

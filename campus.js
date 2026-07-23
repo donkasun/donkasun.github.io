@@ -144,10 +144,31 @@
   frame();
 
   window.campusJumpTo = function (zoneId) {
+    // Stacked mobile / reduced-motion: scroll to the zone element itself.
+    if (mobile() || reduceMotion) {
+      const el = document.querySelector(`.zone[data-zone="${zoneId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+      return;
+    }
     const kf = KEYFRAMES.find((k) => k.id === zoneId);
     if (!kf) return;
     const max = document.body.scrollHeight - innerHeight;
     const mid = (kf.start + kf.end) / 2;
     scrollTo({ top: mid * max, behavior: reduceMotion ? 'auto' : 'smooth' });
   };
+
+  const order = ['hero', 'about', 'projects', 'history', 'skills', 'contact', 'outro'];
+  addEventListener('keydown', (e) => {
+    if (mobile() || reduceMotion) return;
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'PageDown' && e.key !== 'PageUp') return;
+    const cur = document.body.dataset.zone || 'hero';
+    let i = order.indexOf(cur);
+    if (i < 0) i = 0;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') i = Math.min(order.length - 1, i + 1);
+    else i = Math.max(0, i - 1);
+    e.preventDefault();
+    window.campusJumpTo(order[i]);
+  });
 })();
