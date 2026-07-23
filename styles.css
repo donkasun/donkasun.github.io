@@ -53,7 +53,10 @@ html,body{
   background:var(--void);
   color:var(--bone);
 }
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:4.5rem; /* fixed nav clearance for jump/scrollIntoView */
+}
 body{
   font-family:var(--body);
   font-size:16px;
@@ -772,8 +775,11 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
     position:relative; inset:auto;
     opacity:1 !important; visibility:visible !important;
     display:block; padding:1.25rem;
+    padding-top:calc(1.25rem + 4.5rem);
     max-height:none;
+    scroll-margin-top:4.5rem;
   }
+  .project-count{ display:none; }
   .card{ max-width:none; }
   .section-dots{ display:none; }
   /* Cards must stay visible without .is-active / carousel gating */
@@ -822,7 +828,7 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   .zone--outro{
     align-items:stretch;
     justify-content:flex-start;
-    padding:1.25rem;
+    padding:calc(1.25rem + 4.5rem) 1.25rem 1.25rem;
   }
 }
 
@@ -837,8 +843,11 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
     position:relative; inset:auto;
     opacity:1 !important; visibility:visible !important;
     display:block; padding:1.25rem;
+    padding-top:calc(1.25rem + 4.5rem);
     max-height:none;
+    scroll-margin-top:4.5rem;
   }
+  .project-count{ display:none; }
   .card{
     max-width:none;
     transition:none !important;

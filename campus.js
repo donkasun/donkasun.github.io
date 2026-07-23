@@ -12,6 +12,7 @@
 (function () {
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = () => matchMedia('(max-width: 768px)').matches;
+  const stackMode = () => mobile() || reduceMotion;
 
   // Fractions match spec vh table over 800vh total.
   const KEYFRAMES = [
@@ -26,7 +27,7 @@
 
   const stack = document.getElementById('campusStack');
   const layers = [...document.querySelectorAll('.campus-img[data-layer]')];
-  const zones = [...document.querySelectorAll('[data-zone]')];
+  const zones = [...document.querySelectorAll('.zone[data-zone]')];
 
   if (!stack || !layers.length || !zones.length) return;
 
@@ -97,6 +98,12 @@
 
   const projectCards = [...document.querySelectorAll('.project-card')];
   function updateProjects(p) {
+    if (stackMode()) {
+      projectCards.forEach((c) => c.classList.add('is-shown'));
+      const el = document.getElementById('projectCount');
+      if (el) el.textContent = `${projectCards.length} / ${projectCards.length}`;
+      return;
+    }
     const kf = KEYFRAMES.find((k) => k.id === 'projects');
     if (!kf || projectCards.length === 0) return;
     const hold = 0.65; // must match sampleCamera hold
@@ -115,37 +122,73 @@
     if (el) el.textContent = `${idx + 1} / ${projectCards.length}`;
   }
 
+  /* Stack mode: zone from IntersectionObserver, not 800vh KEYFRAMES. */
+  let stackObserver = null;
+  function startStackZoneTracking() {
+    if (stackObserver) return;
+    const ratios = new Map();
+    stackObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          ratios.set(e.target, e.isIntersecting ? e.intersectionRatio : 0);
+        });
+        let best = null;
+        let bestRatio = 0;
+        ratios.forEach((ratio, el) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            best = el;
+          }
+        });
+        if (best && best.dataset.zone) setZone(best.dataset.zone);
+      },
+      { root: null, rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
+    );
+    zones.forEach((z) => stackObserver.observe(z));
+  }
+
+  function stopStackZoneTracking() {
+    if (!stackObserver) return;
+    stackObserver.disconnect();
+    stackObserver = null;
+  }
+
   let ticking = false;
   function frame() {
     ticking = false;
-    const p = progress();
-    const cam = sampleCamera(p);
-    // Mobile / reduced-motion: lock framing + no highlight; zones still track scroll.
-    if (mobile() || reduceMotion) {
+    if (stackMode()) {
       applyCamera({ scale: 1, x: 0, y: 0 });
       setLayer(null);
-      setZone(cam.zone);
-    } else {
-      applyCamera(cam);
-      setLayer(cam.layer);
-      setZone(cam.zone);
+      startStackZoneTracking();
+      updateProjects(0);
+      return;
     }
+    stopStackZoneTracking();
+    const p = progress();
+    const cam = sampleCamera(p);
+    applyCamera(cam);
+    setLayer(cam.layer);
+    setZone(cam.zone);
     updateProjects(p);
   }
 
   function onScroll() {
+    if (stackMode()) return; // zone via IntersectionObserver
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(frame);
   }
 
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll, { passive: true });
+  addEventListener('resize', () => {
+    stopStackZoneTracking();
+    frame();
+  }, { passive: true });
   frame();
 
   window.campusJumpTo = function (zoneId) {
     // Stacked mobile / reduced-motion: scroll to the zone element itself.
-    if (mobile() || reduceMotion) {
+    if (stackMode()) {
       const el = document.querySelector(`.zone[data-zone="${zoneId}"]`);
       if (el) {
         el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
@@ -161,7 +204,7 @@
 
   const order = ['hero', 'about', 'projects', 'history', 'skills', 'contact', 'outro'];
   addEventListener('keydown', (e) => {
-    if (mobile() || reduceMotion) return;
+    if (stackMode()) return;
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'PageDown' && e.key !== 'PageUp') return;
     const cur = document.body.dataset.zone || 'hero';
     let i = order.indexOf(cur);
