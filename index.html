@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=20260723a">
+<link rel="preload" as="image" href="images/campus/full_world.webp" type="image/webp">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -84,511 +85,78 @@
   <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <div class="hero-bg"></div>
+<!-- ═══ SKIP ═══ -->
+<a id="skip-content" href="#about" class="skip-link">Skip to content</a>
 
-  <div class="hero-inner">
-    <div class="hero-eyebrow">
-      AI-Native Full-Stack Engineer · Colombo, SL
-    </div>
-
-    <h1 class="hero-headline">
-      <span class="line"><span>DON KASUN</span></span>
-      <span class="line"><span>GALLAGE</span></span>
-    </h1>
-
-    <p class="hero-desc">
-      I take product ideas and build them. Mobile, web, whatever it takes.
-      Seven years of it, mostly with founders, startups and engineering teams.
-    </p>
-
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View Work ↗</a>
-      <a href="#contact" class="btn-secondary">Contact</a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">7<span>+</span></div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">20<span>+</span></div>
-        <div class="stat-label">Projects Shipped</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">Continents</div>
-      </div>
-    </div>
+<!-- ═══ CAMPUS STAGE ═══ -->
+<div id="campus-stage" aria-hidden="true">
+  <div class="campus-stack" id="campusStack">
+    <picture>
+      <source srcset="images/campus/full_world.webp" type="image/webp">
+      <img data-layer="base" class="campus-img is-active" src="images/campus/full_world.jpg"
+           alt="" width="1800" height="1344" fetchpriority="high" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/gateway.webp" type="image/webp">
+      <img data-layer="gateway" class="campus-img" src="images/campus/gateway.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/studio.webp" type="image/webp">
+      <img data-layer="studio" class="campus-img" src="images/campus/studio.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/showcase_hall.webp" type="image/webp">
+      <img data-layer="showcase" class="campus-img" src="images/campus/showcase_hall.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/tower.webp" type="image/webp">
+      <img data-layer="tower" class="campus-img" src="images/campus/tower.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/lab.webp" type="image/webp">
+      <img data-layer="lab" class="campus-img" src="images/campus/lab.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="images/campus/pavilion.webp" type="image/webp">
+      <img data-layer="pavilion" class="campus-img" src="images/campus/pavilion.jpg"
+           alt="" width="1800" height="1344" fetchpriority="low" decoding="async">
+    </picture>
   </div>
-
-  <div class="scroll-ind">
-    <div class="scroll-wheel"><div class="scroll-dot"></div></div>
-    Scroll
-  </div>
-</section>
-
-<!-- ═══ ABOUT ═══ -->
-<section id="about" class="section" style="position:relative;overflow:hidden">
-  <div class="container">
-    <div class="deco-text">ABOUT</div>
-    <div class="section-label rv">01 — About</div>
-    <h2 class="section-title rv d1">What I do<br><em>and why</em></h2>
-
-    <div class="about-grid">
-      <div class="about-left rv d2">
-        <div class="term-window">
-          <div class="term-chrome">
-            <div class="term-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <span class="term-filename">about_me.sh</span>
-          </div>
-          <div class="term-body">
-            <div class="term-block">
-              <div class="term-cmd"><span class="term-prompt" aria-hidden="true">&gt;</span> whoami</div>
-              <p class="term-out">I'm a Full Stack Engineer with <strong>7 years of experience</strong> building mobile and web products. I work with startups, non-technical founders, and engineering teams: early-stage ideas, existing systems that need improving, and everything in between.</p>
-            </div>
-            <div class="term-block">
-              <div class="term-cmd"><span class="term-prompt" aria-hidden="true">&gt;</span> cat background.txt</div>
-              <p class="term-out">The work varies a lot. Sometimes that means sitting with a founder who has a rough idea and no technical background, and helping shape it into something real. Other times it's jumping into a codebase and making it faster, more maintainable, or ready to scale. I've built products from scratch across more than ten domains, and worked with teams in Canada, the Netherlands, and the UK.</p>
-            </div>
-            <div class="term-block">
-              <div class="term-cmd"><span class="term-prompt" aria-hidden="true">&gt;</span> cat philosophy.txt</div>
-              <blockquote class="term-quote"><p>"What I care about is whether what gets built is something people actually find useful. That's the part that sticks."</p></blockquote>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-grid">
-          <article class="skill-card">
-            <div class="brutal-card-head">
-              <span class="brutal-card-icon" aria-hidden="true"></span>
-              <h3 class="brutal-card-title">Languages</h3>
-            </div>
-            <div class="skill-tags" role="list" aria-label="Languages">
-              <span class="skill-tag" role="listitem">JavaScript</span>
-              <span class="skill-tag" role="listitem">TypeScript</span>
-              <span class="skill-tag" role="listitem">Kotlin</span>
-              <span class="skill-tag" role="listitem">Swift</span>
-              <span class="skill-tag" role="listitem">Java</span>
-            </div>
-          </article>
-          <article class="skill-card">
-            <div class="brutal-card-head">
-              <span class="brutal-card-icon" aria-hidden="true"></span>
-              <h3 class="brutal-card-title">Mobile &amp; Web</h3>
-            </div>
-            <div class="skill-tags" role="list" aria-label="Mobile and web">
-              <span class="skill-tag" role="listitem">React Native</span>
-              <span class="skill-tag" role="listitem">Next.js</span>
-              <span class="skill-tag" role="listitem">React</span>
-              <span class="skill-tag" role="listitem">Node.js</span>
-              <span class="skill-tag" role="listitem">Ionic</span>
-            </div>
-          </article>
-          <article class="skill-card">
-            <div class="brutal-card-head">
-              <span class="brutal-card-icon" aria-hidden="true"></span>
-              <h3 class="brutal-card-title">Cloud &amp; AI</h3>
-            </div>
-            <div class="skill-tags" role="list" aria-label="Cloud and AI">
-              <span class="skill-tag" role="listitem">AWS Lambda</span>
-              <span class="skill-tag" role="listitem">Google Cloud</span>
-              <span class="skill-tag" role="listitem">Vertex AI</span>
-              <span class="skill-tag" role="listitem">Gemini</span>
-              <span class="skill-tag" role="listitem">Llama</span>
-            </div>
-          </article>
-          <article class="skill-card">
-            <div class="brutal-card-head">
-              <span class="brutal-card-icon" aria-hidden="true"></span>
-              <h3 class="brutal-card-title">Databases</h3>
-            </div>
-            <div class="skill-tags" role="list" aria-label="Databases">
-              <span class="skill-tag" role="listitem">Supabase</span>
-              <span class="skill-tag" role="listitem">MongoDB</span>
-              <span class="skill-tag" role="listitem">Firebase</span>
-              <span class="skill-tag" role="listitem">MySQL</span>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div class="about-accent rv d3">
-        <div class="stat-card rv d3">
-          <div class="brutal-card-head">
-            <span class="brutal-card-icon" aria-hidden="true"></span>
-            <h3 class="brutal-card-title">Years of shipping</h3>
-          </div>
-          <div class="sc-num"><span data-count="7">7</span><span>+</span></div>
-        </div>
-        <div class="stat-card rv d4">
-          <div class="brutal-card-head">
-            <span class="brutal-card-icon" aria-hidden="true"></span>
-            <h3 class="brutal-card-title">Apps &amp; sites shipped</h3>
-          </div>
-          <div class="sc-num"><span data-count="20">20</span><span>+</span></div>
-        </div>
-        <div class="stat-card rv d5">
-          <div class="brutal-card-head">
-            <span class="brutal-card-icon" aria-hidden="true"></span>
-            <h3 class="brutal-card-title">Industries shipped in</h3>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">Fintech</span><span class="skill-tag">Health</span><span class="skill-tag">Sports</span>
-            <span class="skill-tag">Real Estate</span><span class="skill-tag">HR-Tech</span><span class="skill-tag">Media</span>
-            <span class="skill-tag">Mobility</span><span class="skill-tag">Telco</span><span class="skill-tag">Research</span>
-            <span class="skill-tag">EdTech</span><span class="skill-tag">Loyalty</span>
-          </div>
-        </div>
-        <div class="stat-card stat-card--clients rv d6">
-          <div class="brutal-card-head">
-            <span class="brutal-card-icon" aria-hidden="true"></span>
-            <h3 class="brutal-card-title">Clients &amp; employers</h3>
-          </div>
-          <div class="stat-card-inner">
-            <div class="skill-tags">
-              <span class="skill-tag">Sri Lanka</span><span class="skill-tag">Canada</span><span class="skill-tag">Netherlands</span>
-              <span class="skill-tag">Denmark</span><span class="skill-tag">United States</span><span class="skill-tag">United Kingdom</span>
-              <span class="skill-tag">Australia</span>
-            </div>
-            <div class="stat-card-map" aria-hidden="true">
-              <img class="stat-map stat-map--light" src="images/map/map-light.svg" alt="" loading="lazy" width="2281" height="1253">
-              <img class="stat-map stat-map--dark" src="images/map/map-dark.svg" alt="" loading="lazy" width="2281" height="1253">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PROJECTS ═══ -->
-<section id="projects" class="section" style="position:relative;overflow:hidden">
-  <div class="container">
-    <div class="deco-text" style="z-index:2">WORK</div>
-    <div class="section-label rv">02 — Selected Work</div>
-    <h2 class="section-title rv d1">Things I've<br><em>shipped</em></h2>
-    <div class="projects-grid">
-
-      <!-- Project 1: Featured (spans 2) -->
-      <div class="proj-card featured rv d1">
-        <div class="proj-visual pv1">
-          <div class="proj-tag">Research Tool · 2025</div>
-          <div class="proj-visual-content">
-            <div class="vis-pdf">
-              <div class="ai-beam"></div>
-              <div class="pdf-doc">
-                <div class="pdf-corner"></div>
-                <div class="pdf-line pdf-line-a"></div>
-                <div class="pdf-line pdf-line-b"></div>
-                <div class="pdf-line pdf-line-c"></div>
-                <div class="pdf-line pdf-line-d"></div>
-                <div class="pdf-line pdf-line-b"></div>
-                <div class="pdf-line pdf-line-c"></div>
-                <div class="pdf-highlight"></div>
-              </div>
-              <div class="ai-node" style="animation:blink 1.2s infinite"></div>
-              <div class="ai-node" style="animation:blink 1.5s .3s infinite"></div>
-              <div class="ai-node" style="animation:blink 1.8s .6s infinite"></div>
-              <div class="data-stream">
-                <div class="stream-bit">0110 1001</div>
-                <div class="stream-bit">1010 0111</div>
-                <div class="stream-bit">0001 1100</div>
-                <div class="stream-bit">1111 0010</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-title">PDF Intelligence POC</div>
-          <div class="proj-desc-wrap">
-            <p class="proj-desc">A research team was pulling structured data out of PDFs by hand. It was slow and easy to get wrong, so the two of us built a proof of concept that <strong>showed the whole process could be automated</strong>. We tested several AI models, kept the two that performed best, and paired them with a separate computer vision service for the harder document layouts. It all fed into a React app where the team could review and use what came out.</p>
-            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
-          </div>
-          <div class="proj-pills">
-            <span class="proj-pill">Python</span><span class="proj-pill">React</span>
-            <span class="proj-pill">Vertex AI</span><span class="proj-pill">AI SDK</span>
-            <span class="proj-pill">PDF Parsing</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 2: Football -->
-      <div class="proj-card rv d2">
-        <div class="proj-visual pv3" style="height:280px">
-          <img class="proj-og" src="images/golazo.webp" alt="Golazo AI — football training app on the App Store" loading="lazy">
-        </div>
-        <div class="proj-body">
-          <div class="proj-title">Golazo AI</div>
-          <div class="proj-desc-wrap">
-            <p class="proj-desc">A football training app for young players. They record their drills, get scored on technique, and can see how they improve over time. I built the mobile side, and it's live on the App Store and Google Play with thousands of real users. When the design called for a text style React Native doesn't support, I <strong>built the component myself and published it as an open-source package on npm</strong>.</p>
-            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
-          </div>
-          <div class="proj-pills">
-            <span class="proj-pill">React Native</span><span class="proj-pill">iOS</span>
-            <span class="proj-pill">Android</span><span class="proj-pill">npm</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://golazo.ai" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="https://golazo.ai/apple-touch-icon.png" alt="" loading="lazy">
-              golazo.ai
-            </a>
-            <a href="https://www.npmjs.com/package/@donkasun/react-native-outlined-text" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="images/npm.svg" alt="" loading="lazy">
-              npm: outlined-text
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 3: BYOB Sri Lanka -->
-      <div class="proj-card rv d3">
-        <div class="proj-visual pv2" style="height:280px">
-          <img class="proj-og" src="images/byobsl.webp" alt="BYOB Sri Lanka — directory of BYOB restaurants in Colombo and across Sri Lanka" loading="lazy">
-        </div>
-        <div class="proj-body">
-          <div class="proj-title">BYOB Sri Lanka</div>
-          <div class="proj-desc-wrap">
-            <p class="proj-desc">A directory of BYOB restaurants across Sri Lanka. People use it to find places that let them bring their own drinks and to check corkage rules before they go. My brother started it and I came in later. I <strong>moved the whole thing off Replit onto a proper Next.js setup</strong>, tightened up the security, and rebuilt the events and admin features. I still keep it running today, and it has a steady base of regulars who keep coming back.</p>
-            <button type="button" class="proj-desc-toggle" hidden aria-expanded="false">See more</button>
-          </div>
-          <div class="proj-pills">
-            <span class="proj-pill">Next.js</span><span class="proj-pill">React</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://byobsl.com" target="_blank" rel="noopener noreferrer" class="proj-link">
-              <img class="proj-favicon" src="https://www.byobsl.com/apple-touch-icon.png" alt="" loading="lazy">
-              byobsl.com
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ EXPERIENCE ═══ -->
-<section id="experience" class="section xt-section">
-  <div class="xt-track" id="xtTrack">
-    <div class="xt-sticky">
-      <div class="deco-text" aria-hidden="true">HISTORY</div>
-      <div class="container xt-head">
-        <div class="section-label rv">03 — Work History</div>
-        <h2 class="section-title xt-title rv d1">Where I've <em>been building</em></h2>
-      </div>
-
-      <!-- Oval timeline: arc path drawn by JS, markers slide along it -->
-      <div class="xt-arc" id="xtArc" aria-hidden="true">
-        <svg class="xt-arc-svg" id="xtArcSvg" preserveAspectRatio="none"><path id="xtArcPath" fill="none"/></svg>
-        <!-- .xt-mark elements injected by JS, one per card -->
-      </div>
-
-      <!-- Invitation-fold cards -->
-      <div class="xt-stage" id="xtStage">
-
-        <article class="xt-card"
-          data-period="Jan 2025 — Present"
-          data-company="Self Employed"
-          data-loc="Colombo, SL · Remote"
-          data-logos="">
-          <div class="xt-panel xt-panel--img"><div class="xt-panel-face" style="--xt-img:url(images/emp/self-employed.webp)"></div></div>
-          <div class="xt-panel xt-panel--body">
-            <ul class="xt-bullets">
-              <li>Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.</li>
-              <li>Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.</li>
-              <li>Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.</li>
-            </ul>
-          </div>
-          <div class="xt-panel xt-panel--meta"><div class="xt-panel-face">
-            <div class="xt-meta-role">Full Stack Engineer</div>
-            <div class="xt-meta-company">Freelance</div>
-            <div class="xt-meta-loc">Colombo, SL · Remote</div>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Python</span><span class="pill accent">AI SDK</span></div>
-          </div></div>
-        </article>
-
-        <article class="xt-card"
-          data-period="Jan 2023 — Dec 2024"
-          data-company="Speer Technologies"
-          data-loc="Toronto, Canada · Remote"
-          data-logos="images/company/speer.webp">
-          <div class="xt-panel xt-panel--img"><div class="xt-panel-face" style="--xt-img:url(images/emp/speer.webp)"></div></div>
-          <div class="xt-panel xt-panel--body">
-            <ul class="xt-bullets">
-              <li>Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.</li>
-              <li>Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.</li>
-              <li>Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.</li>
-            </ul>
-          </div>
-          <div class="xt-panel xt-panel--meta"><div class="xt-panel-face">
-            <div class="xt-meta-logos"><img src="images/company/speer.webp" alt="Speer Technologies" width="64" height="64" loading="lazy"></div>
-            <div class="xt-meta-role">Full Stack Engineer — Mobile &amp; Web</div>
-            <div class="xt-meta-company">Speer Technologies</div>
-            <div class="xt-meta-loc">Toronto, Canada · Remote</div>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">Kotlin</span><span class="pill accent">Swift</span><span class="pill accent">Auth0</span></div>
-          </div></div>
-        </article>
-
-        <article class="xt-card"
-          data-period="Jan 2021 — Aug 2022"
-          data-company="Gapstars · Harver"
-          data-loc="Colombo, SL · In-person &amp; remote"
-          data-logos="images/company/gapstars.webp,images/company/harver.webp">
-          <div class="xt-panel xt-panel--img"><div class="xt-panel-face" style="--xt-img:url(images/emp/gapstars.webp)"></div></div>
-          <div class="xt-panel xt-panel--body">
-            <ul class="xt-bullets">
-              <li>Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.</li>
-              <li>Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client's ATS structure and business requirements.</li>
-              <li>Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.</li>
-            </ul>
-          </div>
-          <div class="xt-panel xt-panel--meta"><div class="xt-panel-face">
-            <div class="xt-meta-logos"><img src="images/company/gapstars.webp" alt="Gapstars" width="64" height="64" loading="lazy"><span class="xt-logo-x">×</span><img src="images/company/harver.webp" alt="Harver" width="64" height="64" loading="lazy"></div>
-            <div class="xt-meta-role">Software Engineer — Node.js</div>
-            <div class="xt-meta-company">Gapstars · Harver</div>
-            <div class="xt-meta-loc">Colombo, SL · Remote (Netherlands)</div>
-            <div class="pill-row"><span class="pill accent">Node.js</span><span class="pill accent">AWS Lambda</span><span class="pill accent">Serverless</span></div>
-          </div></div>
-        </article>
-
-        <article class="xt-card"
-          data-period="Sep 2020 — Jan 2021"
-          data-company="Lanka Solutions"
-          data-loc="Colombo, SL · On-site"
-          data-logos="images/company/lanka-solutions.webp,images/company/adl.webp">
-          <div class="xt-panel xt-panel--img"><div class="xt-panel-face" style="--xt-img:url(images/emp/Lanka%20Solutions.webp)"></div></div>
-          <div class="xt-panel xt-panel--body">
-            <ul class="xt-bullets">
-              <li>Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.</li>
-              <li>Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.</li>
-              <li>Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.</li>
-            </ul>
-          </div>
-          <div class="xt-panel xt-panel--meta"><div class="xt-panel-face">
-            <div class="xt-meta-logos"><img src="images/company/lanka-solutions.webp" alt="Lanka Solutions" width="64" height="64" loading="lazy"><span class="xt-logo-x">×</span><img src="images/company/adl.webp" alt="Axiata Digital Labs" width="64" height="64" loading="lazy"></div>
-            <div class="xt-meta-role">Senior Software Engineer — React Native</div>
-            <div class="xt-meta-company">Lanka Solutions</div>
-            <div class="xt-meta-loc">Colombo, SL · On-site</div>
-            <div class="pill-row"><span class="pill accent">React Native</span></div>
-          </div></div>
-        </article>
-
-        <article class="xt-card"
-          data-period="Sep 2017 — Sep 2020"
-          data-company="Nuclei Technologies"
-          data-loc="Colombo, SL · On-site"
-          data-logos="images/company/nuclei.webp">
-          <div class="xt-panel xt-panel--img"><div class="xt-panel-face" style="--xt-img:url(images/emp/nuclei.webp)"></div></div>
-          <div class="xt-panel xt-panel--body">
-            <ul class="xt-bullets">
-              <li>Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.</li>
-              <li>Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.</li>
-              <li>Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.</li>
-            </ul>
-          </div>
-          <div class="xt-panel xt-panel--meta"><div class="xt-panel-face">
-            <div class="xt-meta-logos"><img src="images/company/nuclei.webp" alt="Nuclei Technologies" width="64" height="64" loading="lazy"></div>
-            <div class="xt-meta-role">Intern → Software Engineer → Senior</div>
-            <div class="xt-meta-company">Nuclei Technologies</div>
-            <div class="xt-meta-loc">Colombo, SL · On-site</div>
-            <div class="pill-row"><span class="pill accent">React Native</span><span class="pill accent">React</span><span class="pill accent">Java</span><span class="pill accent">Android</span></div>
-          </div></div>
-        </article>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CONTACT ═══ -->
-<section id="contact" class="section">
-  <div class="container">
-    <div class="deco-text">CONTACT</div>
-    <div class="ctx">
-      <!-- LEFT — the pitch -->
-      <div class="ctx-pitch">
-        <div class="section-label rv">04 — Get In Touch</div>
-        <h2 class="ctx-headline rv d1">
-          Let&rsquo;s build<br>
-          <em>something</em><br>
-          good.
-        </h2>
-        <p class="ctx-lead rv d2">
-          Got a real project or just a rough idea you want to talk through?
-          Email is the quickest way to reach me, and I usually reply within a day.
-        </p>
-        <div class="ctx-sig rv d3">
-          <span class="ctx-sig-mark">— DK</span>
-          <span class="ctx-sig-loc">Colombo, SL · GMT+5:30 · Remote-friendly</span>
-        </div>
-      </div>
-
-      <!-- RIGHT — channel list -->
-      <ul class="ctx-list rv d2">
-        <li>
-          <a href="mailto:donkasungallage@gmail.com" class="ctx-row ctx-row--primary">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email</span>
-            <span class="ctx-row-v">donkasungallage<span class="ctx-at">@</span>gmail.com</span>
-            <span class="ctx-row-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer" class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>LinkedIn</span>
-            <span class="ctx-row-v">don-kasun-gallage</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer" class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</span>
-            <span class="ctx-row-v">@donkasun</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener" download class="ctx-row">
-            <span class="ctx-row-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>Résumé</span>
-            <span class="ctx-row-v">don-kasun-gallage.pdf</span>
-            <span class="ctx-row-arrow" aria-hidden="true">↓</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Status bar -->
-    <div class="ctx-bar rv d4">
-      <div class="ctx-bar-status">
-        <span class="ctx-bar-dot"></span>
-        <span class="ctx-bar-k">Status</span>
-        <span class="ctx-bar-v">Open to new work</span>
-      </div>
-      <div class="ctx-bar-meta">
-        <span>Contract</span>
-        <span class="ctx-bar-sep">/</span>
-        <span>Full-time</span>
-        <span class="ctx-bar-sep">/</span>
-        <span>Remote</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="container">
-  <footer>
-    <div class="foot-left">© 2026 Don Kasun Gallage · <span class="foot-status"><span class="ctx-bar-dot"></span> Open to new work</span></div>
-    <div class="foot-right">
-      <a href="https://github.com/donkasun" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://linkedin.com/in/don-kasun-gallage" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:donkasungallage@gmail.com">Email</a>
-    </div>
-  </footer>
+  <div class="statue-glow" id="statueGlow" hidden></div>
 </div>
 
+<div id="scroll-root" aria-hidden="true"></div>
+
+<main id="campus-content">
+  <section data-zone="hero" id="hero" class="zone zone--hero is-active">
+    <div class="card"></div>
+  </section>
+  <section data-zone="about" id="about" class="zone">
+    <div class="card"></div>
+  </section>
+  <section data-zone="projects" id="projects" class="zone">
+    <div class="card"></div>
+  </section>
+  <section data-zone="history" id="experience" class="zone">
+    <div class="card"></div>
+  </section>
+  <section data-zone="skills" id="skills" class="zone">
+    <div class="card"></div>
+  </section>
+  <section data-zone="contact" id="contact" class="zone">
+    <div class="card"></div>
+  </section>
+  <section data-zone="outro" id="outro" class="zone zone--outro">
+    <div class="card"></div>
+  </section>
+</main>
+
 <script src="main.js?v=20260723a" defer></script>
+<script src="campus.js?v=20260723a" defer></script>
 </body>
 </html>
