@@ -434,6 +434,124 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 .project-card .proj-link{color:var(--cobalt);border-bottom-color:rgba(var(--cobalt-rgb),.35)}
 .project-card .proj-link:hover{color:var(--ink);border-color:var(--ink)}
 .proj-favicon{width:14px;height:14px;border-radius:2px}
+
+/* ─── History zone (tower role stack) ─── */
+.zone[data-zone="history"]{
+  align-items:flex-start;
+  justify-content:flex-end;
+  padding:clamp(5.5rem,12vh,7rem) clamp(1rem,4vw,3rem) clamp(1rem,4vh,2rem) clamp(1rem,4vw,3rem);
+}
+.roles-stage{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:clamp(12px,1.5vw,20px);
+  max-width:min(500px,40vw);
+  width:100%;
+}
+.roles-chrome{
+  width:100%;
+  text-align:right;
+}
+.roles-chrome .section-label{
+  color:var(--bone);
+  justify-content:flex-end;
+}
+.roles-chrome .section-title{
+  color:var(--bone);
+  font-size:clamp(26px,3.2vw,40px);
+  margin-bottom:0;
+}
+.roles-chrome .section-title em{color:var(--cobalt)}
+.roles-stack{
+  display:flex;
+  flex-direction:column;
+  gap:clamp(12px,1.2vw,16px);
+  max-height:70vh;
+  overflow:auto;
+  width:100%;
+  pointer-events:auto;
+  padding-right:2px;
+}
+.role-card{
+  max-width:100%;
+  width:100%;
+  padding:clamp(1rem,1.8vw,1.4rem);
+}
+.zone:not(.is-active) .role-card{
+  transform:translateY(-32px);
+  opacity:0;
+}
+.zone.is-active .role-card{
+  transform:translateY(0);
+  opacity:1;
+  transition:transform 500ms ease, opacity 500ms ease;
+}
+.zone.is-active .role-card:nth-child(1){transition-delay:0ms}
+.zone.is-active .role-card:nth-child(2){transition-delay:60ms; transform:translateY(4px)}
+.zone.is-active .role-card:nth-child(3){transition-delay:120ms; transform:translateY(8px)}
+.zone.is-active .role-card:nth-child(4){transition-delay:180ms; transform:translateY(12px)}
+.zone.is-active .role-card:nth-child(5){transition-delay:240ms; transform:translateY(16px)}
+.role-period{
+  font-family:var(--mono);
+  font-size:clamp(10px,.2vw + 8.5px,12px);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--cobalt);
+  margin-bottom:clamp(6px,.5vw,8px);
+}
+.role-title{
+  font-family:var(--display);
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:clamp(15px,.6vw + 10px,18px);
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin:0 0 clamp(4px,.4vw,6px);
+  line-height:1.25;
+}
+.role-company{
+  font-size:clamp(13px,.25vw + 11px,14px);
+  font-weight:600;
+  color:var(--cobalt);
+  margin-bottom:2px;
+}
+.role-loc{
+  font-family:var(--mono);
+  font-size:clamp(10px,.2vw + 8.5px,11px);
+  letter-spacing:.06em;
+  color:var(--dim);
+  margin-bottom:clamp(10px,.9vw,14px);
+}
+.role-bullets{
+  list-style:none;
+  margin:0 0 clamp(10px,.9vw,14px);
+  padding:0;
+}
+.role-bullets li{
+  font-size:clamp(12px,.2vw + 10.5px,13.5px);
+  color:var(--ink);
+  line-height:1.6;
+  padding-left:16px;
+  position:relative;
+  margin-bottom:clamp(6px,.5vw,8px);
+}
+.role-bullets li:last-child{margin-bottom:0}
+.role-bullets li::before{
+  content:'▹';
+  position:absolute;
+  left:0;
+  color:var(--cobalt);
+}
+.role-bullets strong{font-weight:600}
+.role-card .proj-pills{margin-top:0;margin-bottom:0}
+.role-card .proj-pill{
+  background:var(--cobalt);
+  color:var(--on-accent);
+  border-color:var(--cobalt);
+  font-weight:700;
+}
 .card--solid .section-label{
   color:var(--ink);
   margin-bottom:clamp(8px,.8vw,12px);
@@ -497,6 +615,7 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   .hero-block{max-width:100%}
   .hero-stats-card{max-width:100%; width:auto}
   .hero-stats-card .hero-stats{flex-wrap:wrap}
+  .projects-stage,.roles-stage{max-width:min(500px, calc(100vw - 2rem))}
   .zone--hero{
     flex-direction:column;
     align-items:flex-start;
@@ -994,14 +1113,9 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 .xt-bullets strong{color:var(--text);font-weight:500}
 
 /* ── Enhanced sticky mode ── */
-/* #experience's own overflow:hidden (used to clip the HISTORY watermark in
-   the mobile/fallback layout) makes it the nearest scroll-container ancestor
-   for .xt-sticky. Since #experience never scrolls itself (its height is
-   auto, sized to match .xt-track), position:sticky resolves against that
-   non-scrolling box and never engages — the "sticky" viewport just scrolls
-   away with the rest of the track. Once enhanced, .xt-sticky clips its own
-   content (overflow:hidden below), so #experience no longer needs to. */
-.xt-on#experience{overflow:visible}
+/* Legacy .xt-on arc mode removed from campus; do not set overflow on
+   #experience — .zone (position:fixed) owns layout. */
+.xt-on#experience{ /* overflow neutralized — .zone owns layout */ }
 .xt-on .xt-track{height:560vh;padding:0}
 .xt-on .xt-sticky{
   position:sticky;top:0;height:100vh;overflow:hidden;
