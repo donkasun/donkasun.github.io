@@ -99,7 +99,13 @@
   function updateProjects(p) {
     const kf = KEYFRAMES.find((k) => k.id === 'projects');
     if (!kf || projectCards.length === 0) return;
-    const local = (p - kf.start) / (kf.end - kf.start);
+    const hold = 0.65; // must match sampleCamera hold
+    const span = kf.end - kf.start;
+    const holdEnd = kf.start + span * hold;
+    let local;
+    if (p <= kf.start) local = 0;
+    else if (p >= holdEnd) local = 0.999; // last card through breath
+    else local = (p - kf.start) / (holdEnd - kf.start);
     const idx = Math.min(
       projectCards.length - 1,
       Math.max(0, Math.floor(local * projectCards.length))
