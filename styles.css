@@ -433,14 +433,9 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
 }
 .section-title em{color:var(--teal);-webkit-text-stroke:0}
 
-/* ─── ABOUT ─── */
-#about{background:var(--bg2);position:relative;overflow:hidden}
-#about .deco-text{top:-20px;bottom:auto}
-#about::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--teal),transparent);
-  opacity:.3;
-}
+/* ─── ABOUT (legacy chrome; layout owned by .zone) ─── */
+#about{ /* position/background/overflow deferred — .zone owns layout */ }
+/* #about .deco-text / ::before section chrome deferred (would paint on campus zones) */
 
 /* minmax(0,1fr) so tracks share space evenly — plain 1fr keeps min-content
    and lets the terminal column steal width from the stats column at mid widths */
@@ -644,25 +639,13 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
    articles. Enhanced (.xt-on, set by main.js on wide screens): the section
    becomes a tall scroll track with a sticky viewport; markers slide along an
    oval arc and the active card fold-opens like an invitation. */
-#experience{position:relative;overflow:hidden}
+/* EXPERIENCE layout owned by .zone; legacy section chrome deferred */
+#experience{ /* position/overflow deferred — .zone owns layout */ }
 .xt-section{padding:0}
 .xt-track{position:relative;padding:clamp(80px,12vh,140px) 0}
 .xt-sticky{position:relative}
 .xt-head{position:relative;z-index:1}
-/* HISTORY watermark: top-right of sticky viewport, same as ABOUT/PROJECTS.
-   Unlike the other deco-texts (nested in .container, so their -40px bleed
-   is measured from the centered 1440px column's edge), this one is a
-   direct child of the full-bleed .xt-sticky — replicate the same
-   effective right edge so it lines up with CONTACT/ABOUT/WORK instead of
-   bleeding off the raw viewport edge on wide screens. */
-#experience .deco-text{
-  right:calc(max(0px, (100% - 1440px) / 2) - 40px);
-  /* Unlike ABOUT/PROJECTS, this sits in a position:sticky viewport that's
-     permanently overlapped by the fixed nav — offset below it instead of
-     the plain -20px the other sections use. */
-  top:calc(64px + 20px);
-  bottom:auto;
-}
+/* #experience .deco-text HISTORY watermark deferred (would paint on campus zones) */
 .xt-title em{font-style:italic}
 
 /* Arc hidden unless enhanced */
@@ -834,13 +817,9 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   .xt-on .xt-arc{height:calc(96px + 6vh)}
 }
 
-/* ─── PROJECTS ─── */
-#projects{background:var(--bg2);position:relative;overflow:hidden}
-#projects .deco-text{top:-20px;bottom:auto}
-#projects::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.3;
-}
+/* ─── PROJECTS (legacy chrome; layout owned by .zone) ─── */
+#projects{ /* position/background/overflow deferred — .zone owns layout */ }
+/* #projects .deco-text / ::before section chrome deferred (would paint on campus zones) */
 
 .projects-grid{
   --projects-gap:clamp(16px,1.5vw,24px);
@@ -1060,12 +1039,9 @@ body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
   width:14px;height:14px;border-radius:3px;flex-shrink:0;object-fit:cover;
 }
 
-/* ─── CONTACT ─── */
-#contact{background:var(--bg2);position:relative;overflow:hidden;padding-bottom:clamp(20px,3vh,36px)}
-#contact::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.3;
-}
+/* ─── CONTACT (legacy chrome; layout owned by .zone) ─── */
+#contact{ /* position/background/overflow/padding deferred — .zone owns layout */ }
+/* #contact::before section chrome deferred (would paint on campus zones) */
 
 .ctx{
   display:grid;
