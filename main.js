@@ -38,11 +38,23 @@ if(prog){
 // ─── MOBILE MENU ───
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
+function setMenu(open){
+  if(!navToggle) return;
+  document.body.classList.toggle('menu-open', open);
+  navToggle.setAttribute('aria-expanded', open);
+}
 if(navToggle && mobileMenu){
-  function setMenu(open){
-    document.body.classList.toggle('menu-open', open);
-    navToggle.setAttribute('aria-expanded', open);
-  }
   navToggle.addEventListener('click', ()=>setMenu(!document.body.classList.contains('menu-open')));
   mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>setMenu(false)));
 }
+
+// ─── CAMPUS ZONE JUMPS ───
+document.querySelectorAll('[data-jump]').forEach((el) => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(typeof window.campusJumpTo === 'function'){
+      window.campusJumpTo(el.dataset.jump);
+    }
+    setMenu(false);
+  });
+});

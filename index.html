@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260723f">
+<link rel="stylesheet" href="styles.css?v=20260723g">
 <link rel="preload" as="image" href="images/campus/full_world.webp" type="image/webp">
 <script type="application/ld+json">
 {
@@ -58,10 +58,10 @@
   <div class="nav-inner">
     <div class="nav-logo">DKG <span>// full-stack</span></div>
     <div class="nav-links">
-      <a href="#about">01 About</a>
-      <a href="#projects">02 Projects</a>
-      <a href="#experience">03 Experience</a>
-      <a href="#contact">04 Contact</a>
+      <a href="#about" data-jump="about">01 About</a>
+      <a href="#projects" data-jump="projects">02 Projects</a>
+      <a href="#experience" data-jump="history">03 Experience</a>
+      <a href="#contact" data-jump="contact">04 Contact</a>
       <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
     </div>
     <div class="nav-end">
@@ -70,23 +70,31 @@
           <span></span><span></span><span></span>
         </button>
       </div>
-      <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
+      <a href="#contact" class="nav-resume" data-jump="contact">Get In Touch</a>
     </div>
   </div>
 </nav>
 
 <!-- ═══ MOBILE MENU ═══ -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about">01 About</a>
-  <a href="#projects">02 Projects</a>
-  <a href="#experience">03 Experience</a>
-  <a href="#contact">04 Contact</a>
+  <a href="#about" data-jump="about">01 About</a>
+  <a href="#projects" data-jump="projects">02 Projects</a>
+  <a href="#experience" data-jump="history">03 Experience</a>
+  <a href="#contact" data-jump="contact">04 Contact</a>
   <a href="docs/Don-Kasun-Gallage-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-  <a href="mailto:donkasungallage@gmail.com" class="nav-resume">Get In Touch</a>
+  <a href="#contact" class="nav-resume" data-jump="contact">Get In Touch</a>
 </div>
 
+<nav id="sectionDots" class="section-dots" aria-label="Sections">
+  <button type="button" data-jump="about" aria-label="About">01</button>
+  <button type="button" data-jump="projects" aria-label="Projects">02</button>
+  <button type="button" data-jump="history" aria-label="Experience">03</button>
+  <button type="button" data-jump="skills" aria-label="Skills">04</button>
+  <button type="button" data-jump="contact" aria-label="Contact">05</button>
+</nav>
+
 <!-- ═══ SKIP ═══ -->
-<a id="skip-content" href="#about" class="skip-link">Skip to content</a>
+<a id="skip-content" href="#about" class="skip-link" data-jump="about">Skip to content</a>
 
 <!-- ═══ CAMPUS STAGE ═══ -->
 <div id="campus-stage" aria-hidden="true">
@@ -145,8 +153,8 @@
         Seven years of it, mostly with founders, startups and engineering teams.
       </p>
       <div class="hero-btns">
-        <a href="#projects" class="btn-primary">View Work ↗</a>
-        <a href="#contact" class="btn-secondary">Contact</a>
+        <a href="#projects" class="btn-primary" data-jump="projects">View Work ↗</a>
+        <a href="#contact" class="btn-secondary" data-jump="contact">Contact</a>
       </div>
     </div>
     <div class="card card--glass hero-stats-card">
@@ -471,7 +479,7 @@
   </section>
 </main>
 
-<script src="main.js?v=20260723a" defer></script>
+<script src="main.js?v=20260723b" defer></script>
 <script src="campus.js?v=20260723d" defer></script>
 </body>
 </html>
