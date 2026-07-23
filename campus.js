@@ -1,26 +1,26 @@
 /**
- * Campus scroll controller — zones, camera, breathing, crossfade.
+ * Campus scroll controller — zones, camera pans, crossfade.
  *
- * Camera KEYFRAMES — subtle pans/zooms so 1600px WebPs stay sharp
- * (earlier 3–5× scales upscaled too hard and looked soft).
- * With object-fit:contain, scales stay modest so tower tops / rock
- * edge remain in frame. hero/outro 1@(0,0); about/studio; projects/
- * showcase; history/tower; skills/lab; contact/pavilion.
+ * Camera KEYFRAMES — subtle pans at a stable scale so section changes
+ * keep the campus framing calm while the highlighted layer crossfades.
+ * hero @(0,0) base only; outro @(0,0); about/studio; projects/showcase;
+ * history/tower; skills/lab; contact/pavilion.
  */
 (function () {
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = () => matchMedia('(max-width: 768px)').matches;
   const stackMode = () => mobile() || reduceMotion;
+  const CAMERA_SCALE = 1;
 
   // Fractions match spec vh table over 800vh total.
   const KEYFRAMES = [
-    { id: 'hero',     scale: 1.0,  x: 0,   y: 0,   start: 0,     end: 0.125,  layer: null },
-    { id: 'about',    scale: 1.18, x: 10,  y: 2,   start: 0.125, end: 0.25,   layer: 'studio' },
-    { id: 'projects', scale: 1.14, x: 6,   y: 5,   start: 0.25,  end: 0.4375, layer: 'showcase' },
-    { id: 'history',  scale: 1.2,  x: -8,  y: 12,  start: 0.4375,end: 0.625,  layer: 'tower' },
-    { id: 'skills',   scale: 1.16, x: -16, y: 7,   start: 0.625, end: 0.75,   layer: 'lab' },
-    { id: 'contact',  scale: 1.14, x: -10, y: -8,  start: 0.75,  end: 0.875,  layer: 'pavilion' },
-    { id: 'outro',    scale: 1.0,  x: 0,   y: 0,   start: 0.875, end: 1,      layer: null },
+    { id: 'hero',     x: 0,   y: 0,   start: 0,     end: 0.125,  layer: null },
+    { id: 'about',    x: 10,  y: 2,   start: 0.125, end: 0.25,   layer: 'studio' },
+    { id: 'projects', x: 6,   y: 5,   start: 0.25,  end: 0.4375, layer: 'showcase' },
+    { id: 'history',  x: -8,  y: 12,  start: 0.4375,end: 0.625,  layer: 'tower' },
+    { id: 'skills',   x: -16, y: 7,   start: 0.625, end: 0.75,   layer: 'lab' },
+    { id: 'contact',  x: -4, y: -8,  start: 0.75,  end: 0.875,  layer: 'pavilion' },
+    { id: 'outro',    x: 0,   y: 0,   start: 0.875, end: 1,      layer: null },
   ];
 
   const stack = document.getElementById('campusStack');
@@ -40,22 +40,12 @@
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   }
 
-  /** Two-phase breathing: zoom out mid-transition then into target */
-  function breathLerp(from, to, t) {
-    const midScale = Math.min(from.scale, to.scale) * 0.78;
-    if (t < 0.45) {
-      const u = easeInOut(t / 0.45);
-      return {
-        scale: lerp(from.scale, midScale, u),
-        x: lerp(from.x, lerp(from.x, to.x, 0.5), u),
-        y: lerp(from.y, lerp(from.y, to.y, 0.5), u),
-      };
-    }
-    const u = easeInOut((t - 0.45) / 0.55);
+  function cameraLerp(from, to, t) {
+    const u = easeInOut(t);
     return {
-      scale: lerp(midScale, to.scale, u),
-      x: lerp(lerp(from.x, to.x, 0.5), to.x, u),
-      y: lerp(lerp(from.y, to.y, 0.5), to.y, u),
+      scale: CAMERA_SCALE,
+      x: lerp(from.x, to.x, u),
+      y: lerp(from.y, to.y, u),
     };
   }
 
@@ -67,13 +57,13 @@
     }
     const a = KEYFRAMES[i];
     const b = KEYFRAMES[Math.min(i + 1, KEYFRAMES.length - 1)];
-    if (a === b) return { scale: a.scale, x: a.x, y: a.y, zone: a.id, layer: a.layer };
+    if (a === b) return { scale: CAMERA_SCALE, x: a.x, y: a.y, zone: a.id, layer: a.layer };
     const span = b.start - a.start || 1;
     const local = (p - a.start) / span;
     const hold = 0.65;
-    if (local <= hold) return { scale: a.scale, x: a.x, y: a.y, zone: a.id, layer: a.layer };
+    if (local <= hold) return { scale: CAMERA_SCALE, x: a.x, y: a.y, zone: a.id, layer: a.layer };
     const t = (local - hold) / (1 - hold);
-    const cam = breathLerp(a, b, t);
+    const cam = cameraLerp(a, b, t);
     return { ...cam, zone: t < 0.5 ? a.id : b.id, layer: t < 0.5 ? a.layer : b.layer };
   }
 

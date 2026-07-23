@@ -15,9 +15,9 @@
   --color-accent:var(--cobalt);
   --teal:var(--cobalt);
   --teal-rgb:36,64,224;
-  --display:'Inter Tight',ui-sans-serif,system-ui,sans-serif;
-  --body:'Inter',ui-sans-serif,system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --display:'Sora',ui-sans-serif,system-ui,sans-serif;
+  --body:'Sora',ui-sans-serif,system-ui,sans-serif;
+  --mono:'Sora',ui-sans-serif,system-ui,sans-serif;
   --card-pad:clamp(1.5rem,3vw,2.5rem);
   --radius:2px;
   /* Shared content width — keep cards/chrome from spanning ultrawide viewports */
@@ -27,6 +27,13 @@
   --content-gutter:clamp(1rem,4vw,2.5rem);
   /* Room for fixed .section-dots on the right */
   --dots-safe:calc(34px + clamp(14px,1.8vw,28px) + 1.75rem);
+  /* Work history compact cards + middle-bottom detail */
+  --role-card-width:clamp(15rem,22vw + 6rem,24rem);
+  /* Vertical gap between compact role cards — grows with viewport height so tall screens breathe */
+  --role-card-gap:clamp(10px, 0.5vw + 2.8vh, 48px);
+  --role-detail-width:clamp(320px,48vw,560px);
+  --role-detail-max-height:min(58vh,480px);
+  --role-detail-bottom:18px;
   /* legacy aliases — dark-safe until Task 3 layout rewrite */
   --bg2:#0a0a0a;
   --bg3:#111111;
@@ -733,7 +740,7 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   }
 }
 
-/* ─── History zone (two-column role board) ─── */
+/* ─── History zone (compact role board + middle-bottom detail) ─── */
 .zone[data-zone="history"]{
   align-items:flex-start;
   justify-content:stretch;
@@ -745,15 +752,16 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   align-items:stretch;
   max-width:none;
   width:100%;
-  max-height:calc(100dvh - 6.5rem);
-  overflow:hidden;
+  min-height:calc(100svh - 6.5rem);
+  max-height:none;
+  overflow:visible;
   pointer-events:auto;
 }
 .roles-chrome{
   width:100%;
   text-align:right;
   flex-shrink:0;
-  margin-bottom:clamp(2px,.4vw,6px);
+  margin-bottom:clamp(4px,.5vw,8px);
 }
 .roles-chrome .section-label{
   color:var(--bone);
@@ -768,17 +776,16 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .roles-chrome .section-title em{color:var(--cobalt)}
 .roles-board{
   display:grid;
-  grid-template-columns:minmax(0,var(--content-max)) minmax(0,var(--content-max));
+  grid-template-columns:var(--role-card-width) var(--role-card-width);
   justify-content:space-between;
   column-gap:clamp(16px,3vw,40px);
-  row-gap:clamp(12px,1.4vw,20px);
-  align-items:start;
+  align-items:stretch;
   width:100%;
-  min-height:0;
+  min-width:0;
+  /* Fill usable viewport below header so each column can center its cluster */
+  min-height:calc(100svh - 6.5rem);
   flex:1;
-  overflow:auto;
-  padding-right:2px;
-  scrollbar-width:none;
+  overflow:visible;
 }
 .roles-board::-webkit-scrollbar,
 .zone[data-zone="about"] .card--solid::-webkit-scrollbar,
@@ -787,10 +794,11 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .roles-col{
   display:flex;
   flex-direction:column;
-  gap:clamp(12px,1.2vw,16px);
+  justify-content:center;
+  gap:var(--role-card-gap);
   min-width:0;
-  width:100%;
-  max-width:var(--content-max);
+  width:var(--role-card-width);
+  max-width:100%;
 }
 .roles-col--older{
   justify-self:start;
@@ -798,16 +806,40 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .roles-col--recent{
   justify-self:end;
 }
-.roles-stack{
-  display:flex;
-  flex-direction:column;
-  gap:clamp(12px,1.2vw,16px);
-  width:100%;
-}
 .role-card{
-  max-width:100%;
+  appearance:none;
+  -webkit-appearance:none;
+  display:block;
   width:100%;
-  padding:clamp(.85rem,1.5vw,1.2rem);
+  min-width:0;
+  margin:0;
+  padding:12px 13px 13px;
+  border:1px solid rgba(242,240,234,0.28);
+  border-radius:var(--radius);
+  background:rgba(0,0,0,0.88);
+  color:var(--bone);
+  text-align:left;
+  cursor:pointer;
+  font:inherit;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 500ms ease,
+    opacity 500ms ease;
+}
+.role-card:hover,
+.role-card:focus-visible{
+  border-color:var(--bone);
+  background:rgba(10,10,10,0.94);
+}
+.role-card:focus-visible{
+  outline:2px solid var(--bone);
+  outline-offset:3px;
+}
+.role-card[aria-expanded="true"]{
+  border-color:var(--bone);
+  background:rgba(20,20,15,0.96);
+  box-shadow:0 0 0 1px rgba(36,64,224,0.45);
 }
 .zone:not(.is-active) .role-card{
   transform:translateY(24px);
@@ -816,7 +848,6 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .zone.is-active .role-card{
   transform:translateY(0);
   opacity:1;
-  transition:transform 500ms ease, opacity 500ms ease;
 }
 .zone.is-active .role-card[data-stagger="1"]{transition-delay:40ms}
 .zone.is-active .role-card[data-stagger="2"]{transition-delay:100ms}
@@ -825,73 +856,267 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .zone.is-active .role-card[data-stagger="5"]{transition-delay:200ms}
 .role-period{
   font-family:var(--mono);
-  font-size:clamp(10px,.2vw + 8.5px,12px);
+  font-size:clamp(10px,.2vw + 9px,12px);
   font-weight:700;
   letter-spacing:.08em;
   text-transform:uppercase;
-  color:var(--cobalt);
-  margin-bottom:clamp(6px,.5vw,8px);
+  color:rgba(242,240,234,0.55);
+  margin:0 0 7px;
 }
 .role-title{
   font-family:var(--display);
   font-weight:800;
   text-transform:uppercase;
-  font-size:clamp(15px,.6vw + 10px,18px);
-  letter-spacing:-.01em;
-  color:var(--ink);
-  margin:0 0 clamp(4px,.4vw,6px);
-  line-height:1.25;
+  font-size:clamp(13px,.45vw + 11px,16px);
+  letter-spacing:-.02em;
+  color:var(--bone);
+  margin:0 0 6px;
+  line-height:1.2;
 }
 .role-company{
-  font-size:clamp(13px,.25vw + 11px,14px);
-  font-weight:600;
-  color:var(--cobalt);
-  margin-bottom:2px;
   display:flex;
   align-items:center;
-  gap:6px;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:0 0 5px;
+  font-size:clamp(12px,.3vw + 11px,15px);
+  font-weight:700;
+  color:rgba(242,240,234,0.94);
+}
+.role-logos{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  flex-shrink:0;
 }
 .role-logo{
-  width:20px;
-  height:20px;
-  border-radius:4px;
+  width:clamp(16px,.35vw + 15px,20px);
+  height:clamp(16px,.35vw + 15px,20px);
+  border-radius:2px;
   object-fit:contain;
   flex-shrink:0;
+  background:rgba(242,240,234,0.08);
 }
 .role-loc{
   font-family:var(--mono);
-  font-size:clamp(10px,.2vw + 8.5px,11px);
+  font-size:clamp(9px,.15vw + 8px,11px);
   letter-spacing:.06em;
-  color:var(--dim);
-  margin-bottom:clamp(10px,.9vw,14px);
+  text-transform:uppercase;
+  color:rgba(242,240,234,0.42);
+  margin:0;
 }
-.role-bullets{
+.role-hint{
+  margin:8px 0 0;
+  font-family:var(--mono);
+  font-size:8px;
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(242,240,234,0.28);
+}
+.role-card[aria-expanded="true"] .role-hint{
+  color:rgba(242,240,234,0.55);
+}
+
+/* Role detail: middle-bottom, no blocking scrim */
+.role-detail-overlay{
+  position:fixed;
+  z-index:10000;
+  inset:0;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  isolation:isolate;
+  pointer-events:none;
+}
+.role-detail-panel{
+  position:absolute;
+  z-index:2;
+  left:50%;
+  bottom:var(--role-detail-bottom);
+  width:min(var(--role-detail-width), calc(100vw - (2 * var(--content-gutter))));
+  max-height:var(--role-detail-max-height);
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  background:var(--bone);
+  color:var(--ink);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%, calc(100% + 24px));
+  transition:
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms ease-out,
+    visibility 0s linear 480ms;
+  will-change:transform;
+}
+.role-detail-panel.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translate(-50%, 0);
+  transition:
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms ease-out;
+}
+.role-detail-card{
+  position:relative;
+  min-height:100%;
+  padding:14px 16px 16px;
+  border:1px solid var(--ink);
+  outline:1px solid rgba(20,20,15,0.28);
+  background:var(--bone);
+}
+.role-detail-close{
+  position:absolute;
+  z-index:2;
+  top:10px;
+  right:10px;
+  width:28px;
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--ink);
+  border-radius:0;
+  background:var(--bone);
+  color:var(--ink);
+  font:700 16px/1 var(--body);
+  cursor:pointer;
+}
+.role-detail-close:hover{
+  background:var(--ink);
+  color:var(--bone);
+}
+.role-detail-close:focus-visible{
+  outline:2px solid var(--cobalt);
+  outline-offset:2px;
+}
+.role-detail-period{
+  margin:0 0 6px;
+  padding-right:36px;
+  font-family:var(--mono);
+  font-size:clamp(9px,.15vw + 8px,11px);
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--cobalt);
+}
+.role-detail-header{
+  display:flex;
+  align-items:stretch;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 8px;
+  padding-right:36px;
+}
+.role-detail-identity{
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+}
+.role-detail-title{
+  margin:0;
+  max-width:28ch;
+  font-family:var(--display);
+  font-size:clamp(16px,2.2vw,22px);
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.role-detail-company{
+  margin:0;
+  min-width:0;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.25;
+  color:var(--ink);
+}
+.role-detail-logos{
+  display:flex;
+  align-items:center;
+  flex:0 0 auto;
+  gap:6px;
+}
+.role-detail-logos:empty{
+  display:none;
+}
+/* Size from --logo-h (synced to identity block height in main.js).
+   Img is absolutely positioned so intrinsic asset size cannot blow the layout. */
+.role-detail-logo-slot{
+  position:relative;
+  box-sizing:border-box;
+  flex:0 0 auto;
+  width:var(--logo-h, 2.75rem);
+  height:var(--logo-h, 2.75rem);
+  overflow:hidden;
+  border-radius:4px;
+  border:1px solid rgba(20,20,15,0.2);
+  background:rgba(20,20,15,0.04);
+}
+.role-detail-logo-slot .role-logo{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.role-detail-loc{
+  margin:0 0 12px;
+  font-family:var(--mono);
+  font-size:clamp(9px,.15vw + 8px,11px);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.role-detail-bullets{
   list-style:none;
-  margin:0 0 clamp(10px,.9vw,14px);
+  margin:0 0 12px;
   padding:0;
 }
-.role-bullets li{
-  font-size:clamp(12px,.2vw + 10.5px,13.5px);
-  color:var(--ink);
-  line-height:1.6;
-  padding-left:16px;
+.role-detail-bullets li{
   position:relative;
-  margin-bottom:clamp(6px,.5vw,8px);
+  margin:0 0 7px;
+  padding-left:14px;
+  color:var(--ink);
+  font-size:clamp(12px,.2vw + 10.5px,13.5px);
+  line-height:1.45;
 }
-.role-bullets li:last-child{margin-bottom:0}
-.role-bullets li::before{
+.role-detail-bullets li:last-child{margin-bottom:0}
+.role-detail-bullets li::before{
   content:'▹';
   position:absolute;
   left:0;
+  top:0;
   color:var(--cobalt);
 }
-.role-bullets strong{font-weight:600}
-.role-card .proj-pills{margin-top:0;margin-bottom:0}
-.role-card .proj-pill{
+.role-detail-bullets strong{font-weight:600}
+.role-detail-panel .proj-pills{
+  margin-top:0;
+  margin-bottom:0;
+}
+.role-detail-panel .proj-pill{
   background:var(--cobalt);
   color:var(--on-accent);
   border-color:var(--cobalt);
   font-weight:700;
+}
+@media (prefers-reduced-motion:reduce){
+  .role-detail-panel,
+  .role-detail-panel.is-open,
+  .role-card{
+    transition:none;
+  }
 }
 
 /* ─── Skills zone (lab) ─── */
@@ -1032,7 +1257,7 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   background:linear-gradient(90deg,rgba(var(--cobalt-rgb),.08),transparent 70%);
 }
 .contact-card .ctx-row::after{background:var(--cobalt)}
-.contact-card .ctx-row-k{color:var(--dim);min-width:clamp(64px,7vw,88px)}
+.contact-card .ctx-row-k{color:var(--dim);width:clamp(80px,8vw,100px);flex-shrink:0}
 .contact-card .ctx-row-v{color:var(--ink)}
 .contact-card .ctx-row-arrow,
 .contact-card .ctx-at{color:var(--cobalt)}
@@ -1208,14 +1433,26 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
     display:flex;
     flex-direction:column;
     gap:1rem;
+    min-height:0;
   }
 /* Mobile chronological order: recent first, then older */
-.roles-board{
-    display:flex;
-    flex-direction:column;
+.roles-col{
+    width:100%;
+    justify-content:flex-start;
   }
 .roles-col--recent{ order:1; }
 .roles-col--older{ order:2; }
+.zone[data-zone="history"]{
+    --role-card-width:100%;
+  }
+:root{
+    --role-detail-width:calc(100vw - 2.5rem);
+    --role-detail-max-height:min(58vh,460px);
+    --role-detail-bottom:12px;
+  }
+body.is-role-detail-open .zone[data-zone="history"]{
+    padding-bottom:calc(var(--role-detail-max-height) + 28px);
+  }
 .projects-chrome,
   .roles-chrome,
   .skills-chrome{ text-align:left; }
@@ -1309,9 +1546,22 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
     display:flex;
     flex-direction:column;
     gap:1rem;
+    min-height:0;
+  }
+.roles-col{
+    width:100%;
+    justify-content:flex-start;
   }
 .roles-col--recent{ order:1; }
 .roles-col--older{ order:2; }
+.zone[data-zone="history"]{
+    --role-card-width:100%;
+  }
+:root{
+    --role-detail-width:calc(100vw - 2.5rem);
+    --role-detail-max-height:min(58vh,460px);
+    --role-detail-bottom:12px;
+  }
 .zone--outro{ display:none; }
 }
 
@@ -1383,9 +1633,38 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
 .hero-block{max-width:min(var(--content-max-wide), calc(100vw - 2rem))}
 .hero-stats-card{max-width:min(var(--content-max-wide), calc(100vw - 2rem)); width:auto}
 .hero-stats-card .hero-stats{flex-wrap:wrap}
-.projects-stage,.roles-stage,.skills-stage,.skills-card,.contact-card,.contact-stage{max-width:min(var(--content-max), calc(100vw - 2rem))}
+.projects-stage,.skills-stage,.skills-card,.contact-card,.contact-stage{max-width:min(var(--content-max), calc(100vw - 2rem))}
+.roles-stage{
+    max-width:none;
+    width:100%;
+    min-height:0;
+  }
 .projects-cluster{width:100%; max-width:min(var(--content-max), calc(100vw - 2rem))}
-.roles-board{grid-template-columns:1fr}
+.zone[data-zone="history"]{
+    --role-card-width:100%;
+  }
+:root{
+    --role-detail-width:calc(100vw - (2 * var(--content-gutter)));
+    --role-detail-max-height:min(58vh,460px);
+    --role-detail-bottom:12px;
+  }
+.roles-board{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    min-height:0;
+  }
+.roles-col{
+    width:100%;
+    justify-content:flex-start;
+  }
+.roles-col--recent{ order:1; }
+.roles-col--older{ order:2; }
+.roles-chrome{ text-align:left; }
+.roles-chrome .section-label{ justify-content:flex-start; }
+body.is-role-detail-open .zone[data-zone="history"]{
+    padding-bottom:calc(var(--role-detail-max-height) + 28px);
+  }
 .zone--hero{
     flex-direction:column;
     align-items:flex-start;
@@ -1554,9 +1833,6 @@ body[data-zone="contact"] .section-dots button[data-jump="contact"]{
   background:rgba(var(--teal-rgb),.08);color:var(--teal);
   border-radius:2px;border:1px solid var(--border2);
   transition:background .3s,color .3s,border-color .3s;
-}
-.role-card:hover .proj-pill{
-  background:var(--teal);color:var(--on-accent);border-color:var(--teal);font-weight:700;
 }
 @media(max-width:768px){
 .proj-pill{

@@ -429,4 +429,325 @@ document.querySelectorAll('[data-jump]').forEach((el) => {
   document.addEventListener('keydown', (event) => {
     if(event.key === 'Escape') dismissProject();
   });
+
+  // Close when campus leaves the projects zone (nav, dots, or scroll).
+  new MutationObserver(() => {
+    if(document.body.dataset.zone === 'projects') return;
+    dismissProject({ restoreFocus: false });
+  }).observe(document.body, { attributes: true, attributeFilter: ['data-zone'] });
+})();
+
+// ─── WORK HISTORY DETAIL (middle-bottom panel) ───
+(() => {
+  const roles = {
+    gapstars: {
+      period: 'Jan 2021 — Aug 2022',
+      title: 'Software Engineer — Node.js',
+      companyLabel: 'Gapstars · Harver',
+      companies: [
+        { name: 'Gapstars', image: 'images/company/gapstars.webp' },
+        { name: 'Harver', image: 'images/company/harver.webp' }
+      ],
+      loc: 'Colombo, SL · Remote (Netherlands)',
+      bullets: [
+        'Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.',
+        'Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client\'s ATS structure and business requirements.',
+        'Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.'
+      ],
+      tags: ['Node.js', 'AWS Lambda', 'Serverless']
+    },
+    lanka: {
+      period: 'Sep 2020 — Jan 2021',
+      title: 'Senior Software Engineer — React Native',
+      companyLabel: 'Lanka Solutions',
+      companies: [
+        { name: 'Lanka Solutions', image: 'images/company/lanka-solutions.webp' }
+      ],
+      loc: 'Colombo, SL · On-site',
+      bullets: [
+        'Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.',
+        'Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.',
+        'Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.'
+      ],
+      tags: ['React Native']
+    },
+    nuclei: {
+      period: 'Sep 2017 — Sep 2020',
+      title: 'Intern → Software Engineer → Senior',
+      companyLabel: 'Nuclei Technologies',
+      companies: [
+        { name: 'Nuclei Technologies', image: 'images/company/nuclei.webp' }
+      ],
+      loc: 'Colombo, SL · On-site',
+      bullets: [
+        'Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.',
+        'Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.',
+        'Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.'
+      ],
+      tags: ['React Native', 'React', 'Java', 'Android']
+    },
+    freelance: {
+      period: 'Jan 2025 — Present',
+      title: 'Full Stack Engineer',
+      companyLabel: 'Freelance',
+      companies: [
+        { name: 'Freelance', image: 'images/emp/self-employed.webp' }
+      ],
+      loc: 'Colombo, SL · Remote',
+      bullets: [
+        'Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.',
+        'Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.',
+        'Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.'
+      ],
+      tags: ['React Native', 'React', 'Python', 'AI SDK']
+    },
+    speer: {
+      period: 'Jan 2023 — Dec 2024',
+      title: 'Full Stack Engineer — Mobile & Web',
+      companyLabel: 'Speer Technologies',
+      companies: [
+        { name: 'Speer Technologies', image: 'images/company/speer.webp' }
+      ],
+      loc: 'Toronto, Canada · Remote',
+      bullets: [
+        'Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.',
+        'Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.',
+        'Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.'
+      ],
+      tags: ['React Native', 'Kotlin', 'Swift', 'Auth0']
+    }
+  };
+
+  const cards = [...document.querySelectorAll('.role-card[data-role]')];
+  const panel = document.querySelector('.role-detail-panel');
+  const closeButton = document.querySelector('.role-detail-close');
+  const detailPeriod = document.querySelector('#role-detail-period');
+  const detailTitle = document.querySelector('#role-detail-title');
+  const detailCompany = document.querySelector('#role-detail-company');
+  const detailIdentity = document.querySelector('.role-detail-identity');
+  const detailLogos = document.querySelector('#role-detail-logos');
+  const detailLoc = document.querySelector('#role-detail-loc');
+  const detailBullets = document.querySelector('#role-detail-bullets');
+  const detailTags = document.querySelector('#role-detail-tags');
+
+  if(
+    !cards.length ||
+    !panel ||
+    !closeButton ||
+    !detailPeriod ||
+    !detailTitle ||
+    !detailCompany ||
+    !detailIdentity ||
+    !detailLogos ||
+    !detailLoc ||
+    !detailBullets ||
+    !detailTags
+  ){
+    return;
+  }
+
+  let activeCard = null;
+  let pendingCard = null;
+  let panelState = 'closed';
+  let cancelTransitionWait = () => {};
+  let restoreFocusOnClose = false;
+
+  function setExpandedCard(card){
+    cards.forEach((item) => item.setAttribute('aria-expanded', String(item === card)));
+  }
+
+  function syncDetailLogoSize(){
+    const height = detailIdentity.getBoundingClientRect().height;
+    if(height > 0){
+      detailLogos.style.setProperty('--logo-h', `${Math.round(height * 100) / 100}px`);
+    }
+  }
+
+  if(typeof ResizeObserver === 'function'){
+    const logoSizeObserver = new ResizeObserver(() => syncDetailLogoSize());
+    logoSizeObserver.observe(detailIdentity);
+  }
+
+  function createLogo(company){
+    const slot = document.createElement('span');
+    slot.className = 'role-detail-logo-slot';
+
+    const img = document.createElement('img');
+    img.className = 'role-logo';
+    img.src = company.image;
+    img.alt = '';
+    img.loading = 'lazy';
+    if(company.name) img.title = company.name;
+
+    slot.appendChild(img);
+    return slot;
+  }
+
+  function renderRole(card){
+    const role = roles[card.dataset.role];
+    if(!role) return;
+
+    detailPeriod.textContent = role.period;
+    detailTitle.textContent = role.title;
+    detailCompany.textContent = role.companyLabel;
+    detailLoc.textContent = role.loc;
+
+    detailLogos.replaceChildren(
+      ...role.companies.slice(0, 2).map((company) => createLogo(company))
+    );
+
+    detailBullets.replaceChildren(
+      ...role.bullets.map((html) => {
+        const item = document.createElement('li');
+        item.innerHTML = html;
+        return item;
+      })
+    );
+
+    detailTags.replaceChildren(
+      ...role.tags.map((tag) => {
+        const item = document.createElement('span');
+        item.className = 'proj-pill';
+        item.textContent = tag;
+        return item;
+      })
+    );
+
+    syncDetailLogoSize();
+    requestAnimationFrame(syncDetailLogoSize);
+  }
+
+  function waitForPanelTransition(callback){
+    cancelTransitionWait();
+
+    let finished = false;
+    const styles = getComputedStyle(panel);
+    const toMilliseconds = (value) =>
+      value.trim().endsWith('ms') ? parseFloat(value) : parseFloat(value) * 1000;
+    const durations = styles.transitionDuration.split(',').map(toMilliseconds);
+    const delays = styles.transitionDelay.split(',').map(toMilliseconds);
+    const fallbackDelay = Math.max(
+      0,
+      ...durations.map((duration, index) => duration + (delays[index] ?? delays[0] ?? 0))
+    ) + 50;
+
+    function finish(){
+      if(finished) return;
+      finished = true;
+      panel.removeEventListener('transitionend', onTransitionEnd);
+      clearTimeout(timer);
+      cancelTransitionWait = () => {};
+      callback();
+    }
+
+    function onTransitionEnd(event){
+      if(event.target === panel && event.propertyName === 'transform') finish();
+    }
+
+    const timer = setTimeout(finish, fallbackDelay);
+    panel.addEventListener('transitionend', onTransitionEnd);
+    cancelTransitionWait = () => {
+      finished = true;
+      panel.removeEventListener('transitionend', onTransitionEnd);
+      clearTimeout(timer);
+    };
+  }
+
+  function showRole(card){
+    renderRole(card);
+    activeCard = card;
+    setExpandedCard(card);
+    panelState = 'opening';
+    document.body.classList.add('is-role-detail-open');
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    closeButton.focus({ preventScroll: true });
+    waitForPanelTransition(() => {
+      if(panelState === 'opening') panelState = 'open';
+    });
+  }
+
+  function hideRole({ restoreFocus = false } = {}){
+    if(panelState === 'closed' || panelState === 'closing') return;
+    const focusTarget = activeCard;
+    restoreFocusOnClose = restoreFocus;
+    panelState = 'closing';
+
+    if(document.activeElement && panel.contains(document.activeElement)){
+      if(restoreFocus && focusTarget){
+        focusTarget.focus({ preventScroll: true });
+        restoreFocusOnClose = false;
+      } else {
+        document.activeElement.blur();
+      }
+    }
+
+    panel.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-role-detail-open');
+    setExpandedCard(null);
+
+    waitForPanelTransition(() => {
+      panelState = 'closed';
+      activeCard = null;
+
+      if(pendingCard){
+        const nextCard = pendingCard;
+        pendingCard = null;
+        showRole(nextCard);
+      } else if(restoreFocusOnClose && focusTarget){
+        focusTarget.focus({ preventScroll: true });
+        restoreFocusOnClose = false;
+      } else {
+        restoreFocusOnClose = false;
+      }
+    });
+  }
+
+  function selectRole(card){
+    if(card === activeCard && (panelState === 'open' || panelState === 'opening')) return;
+
+    if(panelState === 'closed'){
+      showRole(card);
+      return;
+    }
+
+    pendingCard = card;
+    if(panelState !== 'closing') hideRole();
+  }
+
+  function dismissRole({ restoreFocus = true } = {}){
+    pendingCard = null;
+    if(panelState === 'closing' || panelState === 'closed') return;
+    hideRole({ restoreFocus });
+  }
+
+  function isOutsideDismissTarget(target){
+    if(!(target instanceof Element)) return false;
+    if(panel.contains(target)) return false;
+    if(target.closest('.role-card')) return false;
+    return true;
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => selectRole(card));
+  });
+
+  closeButton.addEventListener('click', () => dismissRole());
+
+  document.addEventListener('click', (event) => {
+    if(panelState === 'closed' || panelState === 'closing') return;
+    if(!isOutsideDismissTarget(event.target)) return;
+    dismissRole({ restoreFocus: false });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if(event.key === 'Escape') dismissRole();
+  });
+
+  // Close when campus leaves the history zone (nav, dots, or scroll).
+  new MutationObserver(() => {
+    if(document.body.dataset.zone === 'history') return;
+    dismissRole({ restoreFocus: false });
+  }).observe(document.body, { attributes: true, attributeFilter: ['data-zone'] });
 })();

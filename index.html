@@ -21,8 +21,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314140f'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='15' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EDK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260723af">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260723aq">
 <link rel="preload" as="image" href="images/campus/full_world.avif" type="image/avif">
 <script type="application/ld+json">
 {
@@ -286,86 +286,108 @@
     <div class="roles-stage">
       <div class="roles-board">
         <div class="roles-col roles-col--older" aria-label="Earlier roles">
-          <article class="card card--solid role-card" data-stagger="3">
-            <div class="role-period">Jan 2021 — Aug 2022</div>
+          <button
+            class="role-card"
+            type="button"
+            data-role="gapstars"
+            data-stagger="3"
+            aria-controls="role-detail"
+            aria-expanded="false"
+          >
+            <p class="role-period">Jan 2021 — Aug 2022</p>
             <h3 class="role-title">Software Engineer — Node.js</h3>
-            <div class="role-company"><img src="images/company/gapstars.webp" alt="Gapstars" class="role-logo" width="20" height="20" loading="lazy"><img src="images/company/harver.webp" alt="Harver" class="role-logo" width="20" height="20" loading="lazy">Gapstars · Harver</div>
-            <div class="role-loc">Colombo, SL · Remote (Netherlands)</div>
-            <ul class="role-bullets">
-              <li>Worked on the integration team connecting <strong>ATS platforms to Harver through AWS Lambda</strong>, supporting the data flows behind candidate onboarding and assessment workflows.</li>
-              <li>Extended existing integrations and built new ones for newly onboarded clients, matching each implementation to the client's ATS structure and business requirements.</li>
-              <li>Monitored production integrations, fixed bugs, and paired with teammates while working closely with the business team in the Netherlands.</li>
-            </ul>
-            <div class="proj-pills">
-              <span class="proj-pill">Node.js</span><span class="proj-pill">AWS Lambda</span>
-              <span class="proj-pill">Serverless</span>
+            <div class="role-company">
+              <span class="role-logos" aria-hidden="true">
+                <img src="images/company/gapstars.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+                <img src="images/company/harver.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+              </span>
+              Gapstars · Harver
             </div>
-          </article>
-          <article class="card card--solid role-card" data-stagger="4">
-            <div class="role-period">Sep 2020 — Jan 2021</div>
+            <p class="role-loc">Colombo, SL · Remote (Netherlands)</p>
+            <p class="role-hint">Tap for details</p>
+          </button>
+          <button
+            class="role-card"
+            type="button"
+            data-role="lanka"
+            data-stagger="4"
+            aria-controls="role-detail"
+            aria-expanded="false"
+          >
+            <p class="role-period">Sep 2020 — Jan 2021</p>
             <h3 class="role-title">Senior Software Engineer — React Native</h3>
-            <div class="role-company"><img src="images/company/lanka-solutions.webp" alt="Lanka Solutions" class="role-logo" width="20" height="20" loading="lazy">Lanka Solutions</div>
-            <div class="role-loc">Colombo, SL · On-site</div>
-            <ul class="role-bullets">
-              <li>Outsourced to <strong>Axiata Digital Labs</strong> to build an internal React Native app for sales representatives at a telecom provider in Nepal within the Axiata group.</li>
-              <li>Built features used by field teams, including <strong>OCR capture and GPS-based workflows</strong>, plus supporting screens for day-to-day sales operations.</li>
-              <li>Worked closely with backend and QA teams to deliver updates and keep the app stable for internal users.</li>
-            </ul>
-            <div class="proj-pills">
-              <span class="proj-pill">React Native</span>
+            <div class="role-company">
+              <span class="role-logos" aria-hidden="true">
+                <img src="images/company/lanka-solutions.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+              </span>
+              Lanka Solutions
             </div>
-          </article>
-          <article class="card card--solid role-card" data-stagger="5">
-            <div class="role-period">Sep 2017 — Sep 2020</div>
+            <p class="role-loc">Colombo, SL · On-site</p>
+            <p class="role-hint">Tap for details</p>
+          </button>
+          <button
+            class="role-card"
+            type="button"
+            data-role="nuclei"
+            data-stagger="5"
+            aria-controls="role-detail"
+            aria-expanded="false"
+          >
+            <p class="role-period">Sep 2017 — Sep 2020</p>
             <h3 class="role-title">Intern → Software Engineer → Senior</h3>
-            <div class="role-company"><img src="images/company/nuclei.webp" alt="Nuclei Technologies" class="role-logo" width="20" height="20" loading="lazy">Nuclei Technologies</div>
-            <div class="role-loc">Colombo, SL · On-site</div>
-            <ul class="role-bullets">
-              <li>Led delivery across multiple React and React Native products — a localised dating app, banking and loyalty workflows — while <strong>managing a team of 6–8 developers</strong> and mentoring two interns.</li>
-              <li>Built and maintained a <strong>Java OCR application</strong> used to scan documents and grade SAT test papers, then improved Android POS functionality with Bluetooth printer connectivity.</li>
-              <li>Started on React Native apps for a restaurant product and a sports-stat application, then expanded into production feature work across mobile and web.</li>
-            </ul>
-            <div class="proj-pills">
-              <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
-              <span class="proj-pill">Java</span><span class="proj-pill">Android</span>
+            <div class="role-company">
+              <span class="role-logos" aria-hidden="true">
+                <img src="images/company/nuclei.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+              </span>
+              Nuclei Technologies
             </div>
-          </article>
+            <p class="role-loc">Colombo, SL · On-site</p>
+            <p class="role-hint">Tap for details</p>
+          </button>
         </div>
         <div class="roles-col roles-col--recent" aria-label="Recent roles">
           <div class="roles-chrome">
             <div class="section-label">03 — Work History</div>
             <h2 class="section-title">Where I've<br><em>been building</em></h2>
           </div>
-          <article class="card card--solid role-card" data-stagger="1">
-            <div class="role-period">Jan 2025 — Present</div>
+          <button
+            class="role-card"
+            type="button"
+            data-role="freelance"
+            data-stagger="1"
+            aria-controls="role-detail"
+            aria-expanded="false"
+          >
+            <p class="role-period">Jan 2025 — Present</p>
             <h3 class="role-title">Full Stack Engineer</h3>
-            <div class="role-company"><img src="images/emp/self-employed.webp" alt="Freelance" class="role-logo" width="20" height="20" loading="lazy">Freelance</div>
-            <div class="role-loc">Colombo, SL · Remote</div>
-            <ul class="role-bullets">
-              <li>Collaborated with UK university researchers to build a <strong>PDF data-extraction POC</strong> using Python and AI SDKs, integrated into an existing React web application.</li>
-              <li>Refactored AI-generated React Native prototypes for startup clients, restructuring codebase architecture to improve long-term maintainability and code quality.</li>
-              <li>Built a <strong>gamified football training app</strong> for youth athletes in React Native, including an interactive drill-tracking feature from scratch.</li>
-            </ul>
-            <div class="proj-pills">
-              <span class="proj-pill">React Native</span><span class="proj-pill">React</span>
-              <span class="proj-pill">Python</span><span class="proj-pill">AI SDK</span>
+            <div class="role-company">
+              <span class="role-logos" aria-hidden="true">
+                <img src="images/emp/self-employed.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+              </span>
+              Freelance
             </div>
-          </article>
-          <article class="card card--solid role-card" data-stagger="2">
-            <div class="role-period">Jan 2023 — Dec 2024</div>
+            <p class="role-loc">Colombo, SL · Remote</p>
+            <p class="role-hint">Tap for details</p>
+          </button>
+          <button
+            class="role-card"
+            type="button"
+            data-role="speer"
+            data-stagger="2"
+            aria-controls="role-detail"
+            aria-expanded="false"
+          >
+            <p class="role-period">Jan 2023 — Dec 2024</p>
             <h3 class="role-title">Full Stack Engineer — Mobile &amp; Web</h3>
-            <div class="role-company"><img src="images/company/speer.webp" alt="Speer Technologies" class="role-logo" width="20" height="20" loading="lazy">Speer Technologies</div>
-            <div class="role-loc">Toronto, Canada · Remote</div>
-            <ul class="role-bullets">
-              <li>Built and shipped cross-platform mobile apps in React Native, adding <strong>native modules in Kotlin and Swift</strong> where the product needed platform-specific behavior.</li>
-              <li>Worked on a <strong>mental health app</strong> — tablet support, knowledge base pages, video player sections, journal improvements and onboarding updates.</li>
-              <li>Helped build a rental property management app with smart-lock access and repair requests, which evolved into a fully native <strong>resort management app</strong> with amenity booking and payments. Also: Auth0 work, a fleet management app, a ride-hailing app and podcast app fixes.</li>
-            </ul>
-            <div class="proj-pills">
-              <span class="proj-pill">React Native</span><span class="proj-pill">Kotlin</span>
-              <span class="proj-pill">Swift</span><span class="proj-pill">Auth0</span>
+            <div class="role-company">
+              <span class="role-logos" aria-hidden="true">
+                <img src="images/company/speer.webp" alt="" class="role-logo" width="18" height="18" loading="lazy">
+              </span>
+              Speer Technologies
             </div>
-          </article>
+            <p class="role-loc">Toronto, Canada · Remote</p>
+            <p class="role-hint">Tap for details</p>
+          </button>
         </div>
       </div>
     </div>
@@ -505,7 +527,33 @@
   </section>
 </div>
 
-<script src="main.js?v=20260723e" defer></script>
-<script src="campus.js?v=20260723k" defer></script>
+<div class="role-detail-overlay">
+  <div
+    class="role-detail-panel"
+    id="role-detail"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="role-detail-title"
+    aria-hidden="true"
+  >
+    <article class="role-detail-card">
+      <button class="role-detail-close" type="button" aria-label="Close role details">×</button>
+      <p class="role-detail-period" id="role-detail-period"></p>
+      <div class="role-detail-header">
+        <div class="role-detail-identity">
+          <h3 class="role-detail-title" id="role-detail-title" tabindex="-1"></h3>
+          <div class="role-detail-company" id="role-detail-company"></div>
+        </div>
+        <div class="role-detail-logos" id="role-detail-logos" aria-hidden="true"></div>
+      </div>
+      <p class="role-detail-loc" id="role-detail-loc"></p>
+      <ul class="role-detail-bullets" id="role-detail-bullets"></ul>
+      <div class="proj-pills" id="role-detail-tags" aria-label="Technologies"></div>
+    </article>
+  </div>
+</div>
+
+<script src="main.js?v=20260723k" defer></script>
+<script src="campus.js?v=20260723m" defer></script>
 </body>
 </html>
